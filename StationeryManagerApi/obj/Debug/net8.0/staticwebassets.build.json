@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "oT06rcX1YKGX47TrNlzuN8fynxz8rn0YDJ5l+Zr/jXI=",
+  "Source": "StationeryManagerApi",
+  "BasePath": "_content/StationeryManagerApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

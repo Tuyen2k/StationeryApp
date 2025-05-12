@@ -1,0 +1,6 @@
+@StationeryManagerApi_HostAddress = http://localhost:5234
+
+GET {{StationeryManagerApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
