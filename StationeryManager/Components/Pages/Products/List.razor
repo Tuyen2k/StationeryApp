@@ -1,0 +1,119 @@
+﻿@page "/products/"
+@using StationeryManager.Services
+@using StationeryManager.Shared
+@using StationeryManager.Util
+@using StationeryManagerLib.Entities
+@using StationeryManagerLib.RequestModel
+
+<MudGrid>
+
+    <MudPaper Class="w-100 d-flex align-content-center justify-content-between mt-2">
+        <MudTextField @bind-Value="_searchString" Placeholder="Tìm kiếm sản phẩm" Adornment="Adornment.Start" Icon="@Icons.Material.Filled.Search" />
+        <MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="OnSearch" />
+        <MudButton Color="Color.Primary" OnClick="@(() => CreateOrUpdateProduct(null))" StartIcon="@Icons.Material.Filled.Add">Thêm sản phẩm</MudButton>
+    </MudPaper>
+
+    <MudPaper Class="w-100 mt-2">
+        <MudTable Class="width" ServerData="ServerReload" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info" @ref="_table">
+            <HeaderContent>
+                <MudTh>Tên sản phẩm</MudTh>
+                <MudTh>Ngày tạo</MudTh>
+                <MudTh>Mô tả</MudTh>
+                <MudTh>Ctrl</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Tên danh mục">@context.Name</MudTd>
+                <MudTd DataLabel="Ngày tạo">@context.CreatedAt.ToString("HH:mm dd/MM/yyyy")</MudTd>
+                <MudTd DataLabel="Mô tả">
+                    <div class="line-clamp-2" title="@context.Description">@context.Description</div>
+                </MudTd>
+                <MudTd DataLabel="Ctrl">
+                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" OnClick="@(() => CreateOrUpdateProduct(context))" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="@(() => DeleteProduct(context))" />
+                </MudTd>
+            </RowTemplate>
+            <NoRecordsContent>
+                <MudText>Không có sản phẩm nào</MudText>
+            </NoRecordsContent>
+            <LoadingContent>
+                <MudText>Loading...</MudText>
+            </LoadingContent>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
+    </MudPaper>
+
+</MudGrid>
+
+@inject IProductServices ProductServices
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+@inject AppStateService AppState
+@code {
+
+    private MudTable<ProductModel> _table = null!;
+    private bool _loading = false;
+    private string _searchString = string.Empty;
+
+    protected override void OnInitialized() {
+        AppState.SetTitle("Danh sách sản phẩm");
+    }
+
+    private async Task<TableData<ProductModel>> ServerReload(TableState state, CancellationToken token) {
+        try {
+            var filter = new FilterModel() {
+                    Limit = state.PageSize,
+                    Page = state.Page,
+                    Name = _searchString
+                };
+            var list = await ProductServices.GetAllAsync(filter);
+            var total = await ProductServices.CountAllAsync(filter);
+            return new TableData<ProductModel>() {
+                    TotalItems = total,
+                    Items = list
+                };
+        } catch (Exception e) {
+            return new TableData<ProductModel>() {
+                    TotalItems = 0,
+                    Items = []
+                };
+        }
+
+    }
+
+    private async Task DeleteProduct(ProductModel product) {
+        var result = await DialogService.ShowMessageBox(
+            "Xoá sản phẩm",
+            $"Bạn có chắc muốn xóa sản phẩm {product.Name} không?",
+            yesText: "Xác nhận", noText: "Hủy");
+
+        if (result == true) {
+            var res = await ProductServices.DeleteAsync(product.Id.ToString());
+            Snackbar.Add($"Đã xóa sản phẩm {product.Name} thành công", Severity.Success);
+            await _table.ReloadServerData();
+        } else {
+            Snackbar.Add($"Xóa sản phẩm {product.Name} thất bại", Severity.Error);
+        }
+    }
+
+
+    private async Task CreateOrUpdateProduct(ProductModel? product) {
+        var parameters = new DialogParameters<DialogCreateOrUpdateProduct>();
+        parameters.Add("Product", product);
+        var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Large, FullWidth = true };
+        var dialog = await DialogService.ShowAsync<DialogCreateOrUpdateProduct>(
+            $"{(product != null ? "Cập nhật" : "Tạo")} sản phẩm", parameters, options);
+        var result = await dialog.Result;
+        if (result != null && !result.Canceled) {
+            await _table.ReloadServerData();
+        } else {
+            Snackbar.Add("Đã hủy thao tác!", Severity.Warning);
+        }
+
+    }
+
+    private async Task OnSearch() {
+        await _table.ReloadServerData();
+    }
+}

@@ -165,10 +165,7 @@
       "System.IO.Pipelines/8.0.0": {},
       "StationeryManagerLib/1.0.0": {
         "runtime": {
-          "StationeryManagerLib.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "StationeryManagerLib.dll": {}
         }
       }
     }

@@ -13,6 +13,10 @@ namespace StationeryManagerApi.Service.Impl
             _repositories = repositories;
         }
 
+        public async Task<int> CountAll(SubCategoryFilterModel filter) {
+            return await _repositories.CountAll(filter);
+        }
+
         public async Task<SubCategoryModel> Create(SubCategoryRequest request)
         {
             var subCategoryCreate = new SubCategoryModel()
@@ -34,7 +38,7 @@ namespace StationeryManagerApi.Service.Impl
             return await _repositories.Delete(subCategory);
         }
 
-        public async Task<List<SubCategoryModel>> GetAlls(FilterModel filter)
+        public async Task<List<SubCategoryModel>> GetAlls(SubCategoryFilterModel filter)
         {
             var list = await _repositories.GetAlls(filter);
             return list;

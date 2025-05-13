@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "9zG7o0yt3upW3lBATHPZavCiCQa0tXP23eJgjQtFruM=",
+  "Hash": "/owN/M08DC7PWvc4Br0YC9HNZdD9X8xvQf4SdHUrR2U=",
   "Source": "StationeryManager",
   "BasePath": "_content/StationeryManager",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "StationeryManager\\wwwroot",
       "Source": "StationeryManager",
-      "ContentRoot": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Tuyen\\Desktop\\StationeryApp\\StationeryManager\\wwwroot\\",
       "BasePath": "_content/StationeryManager",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\test\\.nuget\\packages\\mudblazor\\8.6.0\\staticwebassets\\MudBlazor.min.css",
+      "Identity": "C:\\Users\\Tuyen\\.nuget\\packages\\mudblazor\\8.6.0\\staticwebassets\\MudBlazor.min.css",
       "SourceId": "MudBlazor",
       "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\test\\.nuget\\packages\\mudblazor\\8.6.0\\staticwebassets\\",
+      "ContentRoot": "C:\\Users\\Tuyen\\.nuget\\packages\\mudblazor\\8.6.0\\staticwebassets\\",
       "BasePath": "_content/MudBlazor",
       "RelativePath": "MudBlazor.min.css",
       "AssetKind": "All",
@@ -31,17 +31,15 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "qmvjbof2tn",
-      "Integrity": "Hh7BRmiYuRD1Lq8ZF9jVWOOJuN3tWPS5M2lLZzuayjw=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\test\\.nuget\\packages\\mudblazor\\8.6.0\\staticwebassets\\MudBlazor.min.css"
+      "OriginalItemSpec": "C:\\Users\\Tuyen\\.nuget\\packages\\mudblazor\\8.6.0\\staticwebassets\\MudBlazor.min.css"
     },
     {
-      "Identity": "C:\\Users\\test\\.nuget\\packages\\mudblazor\\8.6.0\\staticwebassets\\MudBlazor.min.js",
+      "Identity": "C:\\Users\\Tuyen\\.nuget\\packages\\mudblazor\\8.6.0\\staticwebassets\\MudBlazor.min.js",
       "SourceId": "MudBlazor",
       "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\test\\.nuget\\packages\\mudblazor\\8.6.0\\staticwebassets\\",
+      "ContentRoot": "C:\\Users\\Tuyen\\.nuget\\packages\\mudblazor\\8.6.0\\staticwebassets\\",
       "BasePath": "_content/MudBlazor",
       "RelativePath": "MudBlazor.min.js",
       "AssetKind": "All",
@@ -52,19 +50,17 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "jrqzp895hu",
-      "Integrity": "weSY1+xC2IWsc4ncUHtQhWp3H5eek/LVHZEDlWdgryY=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\test\\.nuget\\packages\\mudblazor\\8.6.0\\staticwebassets\\MudBlazor.min.js"
+      "OriginalItemSpec": "C:\\Users\\Tuyen\\.nuget\\packages\\mudblazor\\8.6.0\\staticwebassets\\MudBlazor.min.js"
     },
     {
-      "Identity": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\obj\\Debug\\net8.0\\scopedcss\\bundle\\StationeryManager.styles.css",
+      "Identity": "C:\\Users\\Tuyen\\Desktop\\StationeryApp\\StationeryManager\\obj\\Debug\\net8.0\\scopedcss\\bundle\\StationeryManager.styles.css",
       "SourceId": "StationeryManager",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\Tuyen\\Desktop\\StationeryApp\\StationeryManager\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/StationeryManager",
-      "RelativePath": "StationeryManager#[.{fingerprint}]?.styles.css",
+      "RelativePath": "StationeryManager.styles.css",
       "AssetKind": "All",
       "AssetMode": "CurrentProject",
       "AssetRole": "Primary",
@@ -73,19 +69,17 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ApplicationBundle",
-      "Fingerprint": "898utoop4p",
-      "Integrity": "TOIxzxfTzpkqAoXW8J+PXS4skexkCs6/AXxCWrnWg4I=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\obj\\Debug\\net8.0\\scopedcss\\bundle\\StationeryManager.styles.css"
+      "OriginalItemSpec": "C:\\Users\\Tuyen\\Desktop\\StationeryApp\\StationeryManager\\obj\\Debug\\net8.0\\scopedcss\\bundle\\StationeryManager.styles.css"
     },
     {
-      "Identity": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StationeryManager.bundle.scp.css",
+      "Identity": "C:\\Users\\Tuyen\\Desktop\\StationeryApp\\StationeryManager\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StationeryManager.bundle.scp.css",
       "SourceId": "StationeryManager",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\Tuyen\\Desktop\\StationeryApp\\StationeryManager\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/StationeryManager",
-      "RelativePath": "StationeryManager#[.{fingerprint}]!.bundle.scp.css",
+      "RelativePath": "StationeryManager.bundle.scp.css",
       "AssetKind": "All",
       "AssetMode": "Reference",
       "AssetRole": "Primary",
@@ -94,753 +88,85 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ProjectBundle",
-      "Fingerprint": "898utoop4p",
-      "Integrity": "TOIxzxfTzpkqAoXW8J+PXS4skexkCs6/AXxCWrnWg4I=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StationeryManager.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\Tuyen\\Desktop\\StationeryApp\\StationeryManager\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StationeryManager.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\app.css",
+      "Identity": "C:\\Users\\Tuyen\\Desktop\\StationeryApp\\StationeryManager\\wwwroot\\app.css",
       "SourceId": "StationeryManager",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Tuyen\\Desktop\\StationeryApp\\StationeryManager\\wwwroot\\",
       "BasePath": "_content/StationeryManager",
-      "RelativePath": "app#[.{fingerprint}]?.css",
+      "RelativePath": "app.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
+      "AssetMergeBehavior": "PreferTarget",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "q23ip02iwl",
-      "Integrity": "EjkQ2jeJQ0Jw6ffT2Aw8NLOuibPH8pSQK+DdeO/cdaU=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\app.css"
     },
     {
-      "Identity": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\Users\\Tuyen\\Desktop\\StationeryApp\\StationeryManager\\wwwroot\\bootstrap\\bootstrap.min.css",
       "SourceId": "StationeryManager",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Tuyen\\Desktop\\StationeryApp\\StationeryManager\\wwwroot\\",
       "BasePath": "_content/StationeryManager",
-      "RelativePath": "bootstrap/bootstrap.min#[.{fingerprint}]?.css",
+      "RelativePath": "bootstrap/bootstrap.min.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
+      "AssetMergeBehavior": "PreferTarget",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "bpk8xqwxhs",
-      "Integrity": "z8OR40MowJ8GgK6P89Y+hiJK5+cclzFHzLhFQLL92bg=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\Users\\Tuyen\\Desktop\\StationeryApp\\StationeryManager\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "StationeryManager",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Tuyen\\Desktop\\StationeryApp\\StationeryManager\\wwwroot\\",
       "BasePath": "_content/StationeryManager",
-      "RelativePath": "bootstrap/bootstrap.min.css#[.{fingerprint}]?.map",
+      "RelativePath": "bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
+      "AssetMergeBehavior": "PreferTarget",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "8inm30yfxf",
-      "Integrity": "gBwg2tmA0Ci2u54gMF1jNCVku6vznarkLS6D76htNNQ=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\favicon.png",
+      "Identity": "C:\\Users\\Tuyen\\Desktop\\StationeryApp\\StationeryManager\\wwwroot\\favicon.png",
       "SourceId": "StationeryManager",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Tuyen\\Desktop\\StationeryApp\\StationeryManager\\wwwroot\\",
       "BasePath": "_content/StationeryManager",
-      "RelativePath": "favicon#[.{fingerprint}]?.png",
+      "RelativePath": "favicon.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
+      "AssetMergeBehavior": "PreferTarget",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "ifv42okdf2",
-      "Integrity": "4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.png"
-    }
-  ],
-  "Endpoints": [
-    {
-      "Route": "_content/MudBlazor/MudBlazor.min.css",
-      "AssetFile": "C:\\Users\\test\\.nuget\\packages\\mudblazor\\8.6.0\\staticwebassets\\MudBlazor.min.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "599316"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Hh7BRmiYuRD1Lq8ZF9jVWOOJuN3tWPS5M2lLZzuayjw=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 29 Apr 2025 15:51:24 GMT"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-Hh7BRmiYuRD1Lq8ZF9jVWOOJuN3tWPS5M2lLZzuayjw="
-        }
-      ]
-    },
-    {
-      "Route": "_content/MudBlazor/MudBlazor.min.jrqzp895hu.js",
-      "AssetFile": "C:\\Users\\test\\.nuget\\packages\\mudblazor\\8.6.0\\staticwebassets\\MudBlazor.min.js",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "67660"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"weSY1+xC2IWsc4ncUHtQhWp3H5eek/LVHZEDlWdgryY=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 29 Apr 2025 15:51:24 GMT"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "jrqzp895hu"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-weSY1+xC2IWsc4ncUHtQhWp3H5eek/LVHZEDlWdgryY="
-        },
-        {
-          "Name": "label",
-          "Value": "_content/MudBlazor/MudBlazor.min.js"
-        }
-      ]
-    },
-    {
-      "Route": "_content/MudBlazor/MudBlazor.min.js",
-      "AssetFile": "C:\\Users\\test\\.nuget\\packages\\mudblazor\\8.6.0\\staticwebassets\\MudBlazor.min.js",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "67660"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"weSY1+xC2IWsc4ncUHtQhWp3H5eek/LVHZEDlWdgryY=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 29 Apr 2025 15:51:24 GMT"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-weSY1+xC2IWsc4ncUHtQhWp3H5eek/LVHZEDlWdgryY="
-        }
-      ]
-    },
-    {
-      "Route": "_content/MudBlazor/MudBlazor.min.qmvjbof2tn.css",
-      "AssetFile": "C:\\Users\\test\\.nuget\\packages\\mudblazor\\8.6.0\\staticwebassets\\MudBlazor.min.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "599316"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Hh7BRmiYuRD1Lq8ZF9jVWOOJuN3tWPS5M2lLZzuayjw=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 29 Apr 2025 15:51:24 GMT"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "qmvjbof2tn"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-Hh7BRmiYuRD1Lq8ZF9jVWOOJuN3tWPS5M2lLZzuayjw="
-        },
-        {
-          "Name": "label",
-          "Value": "_content/MudBlazor/MudBlazor.min.css"
-        }
-      ]
-    },
-    {
-      "Route": "app.css",
-      "AssetFile": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\app.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2798"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"EjkQ2jeJQ0Jw6ffT2Aw8NLOuibPH8pSQK+DdeO/cdaU=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 13 May 2025 10:01:41 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-EjkQ2jeJQ0Jw6ffT2Aw8NLOuibPH8pSQK+DdeO/cdaU="
-        }
-      ]
-    },
-    {
-      "Route": "app.q23ip02iwl.css",
-      "AssetFile": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\app.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2798"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"EjkQ2jeJQ0Jw6ffT2Aw8NLOuibPH8pSQK+DdeO/cdaU=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 13 May 2025 10:01:41 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "q23ip02iwl"
-        },
-        {
-          "Name": "label",
-          "Value": "app.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-EjkQ2jeJQ0Jw6ffT2Aw8NLOuibPH8pSQK+DdeO/cdaU="
-        }
-      ]
-    },
-    {
-      "Route": "bootstrap/bootstrap.min.bpk8xqwxhs.css",
-      "AssetFile": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\bootstrap\\bootstrap.min.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "162720"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"z8OR40MowJ8GgK6P89Y+hiJK5+cclzFHzLhFQLL92bg=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 12 May 2025 03:29:19 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "bpk8xqwxhs"
-        },
-        {
-          "Name": "label",
-          "Value": "bootstrap/bootstrap.min.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-z8OR40MowJ8GgK6P89Y+hiJK5+cclzFHzLhFQLL92bg="
-        }
-      ]
-    },
-    {
-      "Route": "bootstrap/bootstrap.min.css",
-      "AssetFile": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\bootstrap\\bootstrap.min.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "162720"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"z8OR40MowJ8GgK6P89Y+hiJK5+cclzFHzLhFQLL92bg=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 12 May 2025 03:29:19 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-z8OR40MowJ8GgK6P89Y+hiJK5+cclzFHzLhFQLL92bg="
-        }
-      ]
-    },
-    {
-      "Route": "bootstrap/bootstrap.min.css.8inm30yfxf.map",
-      "AssetFile": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\bootstrap\\bootstrap.min.css.map",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "449111"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/plain"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"gBwg2tmA0Ci2u54gMF1jNCVku6vznarkLS6D76htNNQ=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 12 May 2025 03:29:19 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "8inm30yfxf"
-        },
-        {
-          "Name": "label",
-          "Value": "bootstrap/bootstrap.min.css.map"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-gBwg2tmA0Ci2u54gMF1jNCVku6vznarkLS6D76htNNQ="
-        }
-      ]
-    },
-    {
-      "Route": "bootstrap/bootstrap.min.css.map",
-      "AssetFile": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\bootstrap\\bootstrap.min.css.map",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "449111"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/plain"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"gBwg2tmA0Ci2u54gMF1jNCVku6vznarkLS6D76htNNQ=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 12 May 2025 03:29:19 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-gBwg2tmA0Ci2u54gMF1jNCVku6vznarkLS6D76htNNQ="
-        }
-      ]
-    },
-    {
-      "Route": "favicon.ifv42okdf2.png",
-      "AssetFile": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\favicon.png",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1148"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/png"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 12 May 2025 03:29:18 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "ifv42okdf2"
-        },
-        {
-          "Name": "label",
-          "Value": "favicon.png"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg="
-        }
-      ]
-    },
-    {
-      "Route": "favicon.png",
-      "AssetFile": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\favicon.png",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1148"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/png"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 12 May 2025 03:29:18 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg="
-        }
-      ]
-    },
-    {
-      "Route": "StationeryManager.898utoop4p.bundle.scp.css",
-      "AssetFile": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StationeryManager.bundle.scp.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "5917"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"TOIxzxfTzpkqAoXW8J+PXS4skexkCs6/AXxCWrnWg4I=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 13 May 2025 07:17:46 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "898utoop4p"
-        },
-        {
-          "Name": "label",
-          "Value": "StationeryManager.bundle.scp.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-TOIxzxfTzpkqAoXW8J+PXS4skexkCs6/AXxCWrnWg4I="
-        }
-      ]
-    },
-    {
-      "Route": "StationeryManager.898utoop4p.styles.css",
-      "AssetFile": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\obj\\Debug\\net8.0\\scopedcss\\bundle\\StationeryManager.styles.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "5917"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"TOIxzxfTzpkqAoXW8J+PXS4skexkCs6/AXxCWrnWg4I=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 13 May 2025 07:17:46 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "898utoop4p"
-        },
-        {
-          "Name": "label",
-          "Value": "StationeryManager.styles.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-TOIxzxfTzpkqAoXW8J+PXS4skexkCs6/AXxCWrnWg4I="
-        }
-      ]
-    },
-    {
-      "Route": "StationeryManager.bundle.scp.css",
-      "AssetFile": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StationeryManager.bundle.scp.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "5917"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"TOIxzxfTzpkqAoXW8J+PXS4skexkCs6/AXxCWrnWg4I=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 13 May 2025 07:17:46 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-TOIxzxfTzpkqAoXW8J+PXS4skexkCs6/AXxCWrnWg4I="
-        }
-      ]
-    },
-    {
-      "Route": "StationeryManager.styles.css",
-      "AssetFile": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\obj\\Debug\\net8.0\\scopedcss\\bundle\\StationeryManager.styles.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "5917"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"TOIxzxfTzpkqAoXW8J+PXS4skexkCs6/AXxCWrnWg4I=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 13 May 2025 07:17:46 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-TOIxzxfTzpkqAoXW8J+PXS4skexkCs6/AXxCWrnWg4I="
-        }
-      ]
     }
   ]
 }

@@ -52,6 +52,14 @@
             </MudGrid>
         </DialogContent>
         <DialogActions>
+            <!-- Close Button -->
+            <MudButton Color="Color.Default"
+                       Variant="Variant.Outlined"
+                       OnClick="CloseDialog"
+                       StartIcon="@Icons.Material.Filled.Close"
+                       Size="Size.Medium">
+                Đóng
+            </MudButton>
             <!-- Save Button -->
             <MudButton Color="Color.Primary"
                        Variant="Variant.Filled"
@@ -106,6 +114,8 @@
     {
         _showPassword = !_showPassword;
     }
+
+    private void CloseDialog() => MudDialog.Cancel();
 
     private async Task OnSave()
     {

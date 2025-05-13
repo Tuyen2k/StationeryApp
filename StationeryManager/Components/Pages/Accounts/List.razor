@@ -33,7 +33,7 @@
 				</MudTd>
 			</RowTemplate>
 			<NoRecordsContent>
-				<MudText>No matching records found</MudText>
+				<MudText>Không có tài khoản nào</MudText>
 			</NoRecordsContent>
 			<LoadingContent>
 				<MudText>Loading...</MudText>
@@ -63,19 +63,25 @@
 
 	private async Task<TableData<AccountModel>> ServerReload(TableState state, CancellationToken token)
 	{
-		var filter = new FilterModel()
-			{
-				Limit = state.PageSize,
-				Page = state.Page,
-				Name = _searchString
-			};
-		var accounts = await AccountServices.GetAllAccounts(filter);
-		var total = await AccountServices.CountAll(filter);
-		return new TableData<AccountModel>()
-			{
-				TotalItems = total,
-				Items = accounts
-			};
+		try {
+			var filter = new FilterModel() {
+					Limit = state.PageSize,
+					Page = state.Page,
+					Name = _searchString
+				};
+			var accounts = await AccountServices.GetAllAccounts(filter);
+			var total = await AccountServices.CountAll(filter);
+			return new TableData<AccountModel>() {
+					TotalItems = total,
+					Items = accounts
+				};
+		}catch(Exception e) {
+			return new TableData<AccountModel>()
+				{
+					TotalItems = 0,
+					Items = []
+				};
+		}
 	}
 
 	private async Task DeleteAccount(AccountModel account)

@@ -1,0 +1,134 @@
+﻿@page "/subcategories/"
+@using StationeryManager.Services
+@using StationeryManager.Shared
+@using StationeryManager.Util
+@using StationeryManagerLib.Entities
+@using StationeryManagerLib.RequestModel
+
+<MudGrid>
+
+    <MudPaper Class="w-100 d-flex align-content-center justify-content-between mt-2">
+        <MudTextField @bind-Value="_searchString" Placeholder="Tìm kiếm danh mục sản phẩm" Adornment="Adornment.Start" Icon="@Icons.Material.Filled.Search" />
+        <MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="OnSearch" />
+        <MudButton Color="Color.Primary" OnClick="@(() => CreateOrUpdateSubCategory(null))" StartIcon="@Icons.Material.Filled.Add">Thêm danh mục sản phẩm</MudButton>
+    </MudPaper>
+
+    <MudPaper Class="w-100 mt-2">
+        <MudTable Class="width" ServerData="ServerReload" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info" @ref="_table">
+            <HeaderContent>
+                <MudTh>Tên danh mục</MudTh>
+                <MudTh>Ngày tạo</MudTh>
+                <MudTh>Mô tả</MudTh>
+                <MudTh>Danh mục phân loại</MudTh>
+                <MudTh>Ctrl</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Tên danh mục">@context.Name</MudTd>
+                <MudTd DataLabel="Ngày tạo">@context.CreatedAt.ToString("HH:mm dd/MM/yyyy")</MudTd>
+                <MudTd DataLabel="Mô tả">
+                    <div class="line-clamp-2" title="@context.Description">@context.Description</div>
+                </MudTd>
+                <MudTd DataLabel="Danh mục phân loại">
+                    @DisplayCategory(context.CategoryId)
+                </MudTd>
+                <MudTd DataLabel="Ctrl">
+                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" OnClick="@(() => CreateOrUpdateSubCategory(context))" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="@(() => DeleteSubCategory(context))" />
+                </MudTd>
+            </RowTemplate>
+            <NoRecordsContent>
+                <MudText>Không có danh mục sản phẩm nào</MudText>
+            </NoRecordsContent>
+            <LoadingContent>
+                <MudText>Loading...</MudText>
+            </LoadingContent>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
+    </MudPaper>
+
+</MudGrid>
+
+@inject ICategoryServices CategoryServices
+@inject ISubCategoryServices SubCategoryServices
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+@inject AppStateService AppState
+@code {
+
+    private MudTable<SubCategoryModel> _table = null!;
+    private bool _loading = false;
+    private string _searchString = string.Empty;
+    private List<CategoryModel> Categories = [];
+
+    protected async override void OnInitialized() {
+        AppState.SetTitle("Danh sách danh mục sản phẩm");
+        Categories = await CategoryServices.GetAllAsync(null);
+    }
+
+    private string DisplayCategory(string categoryId) {
+        if(!Guid.TryParse(categoryId, out Guid id)) {
+            var category = Categories.FirstOrDefault(e => e.Id == id);
+            return category != null ? category.Name : "Không xác định";
+        }
+        return "Không xác định";
+    }
+
+    private async Task<TableData<SubCategoryModel>> ServerReload(TableState state, CancellationToken token) {
+        try {
+            var filter = new SubCategoryFilterModel() {
+                    Limit = state.PageSize,
+                    Page = state.Page,
+                    Name = _searchString
+                };
+            var list = await SubCategoryServices.GetAllAsync(filter);
+            var total = await SubCategoryServices.CountAllAsync(filter);
+            return new TableData<SubCategoryModel>() {
+                    TotalItems = total,
+                    Items = list
+                };
+        } catch (Exception e) {
+            return new TableData<SubCategoryModel>() {
+                    TotalItems = 0,
+                    Items = []
+                };
+        }
+
+    }
+
+    private async Task DeleteSubCategory(SubCategoryModel account) {
+        var result = await DialogService.ShowMessageBox(
+            "Xoá danh mục sản phẩm",
+            $"Bạn có chắc muốn xóa danh mục sản phẩm {account.Name} không?",
+            yesText: "Xác nhận", noText: "Hủy");
+
+        if (result == true) {
+            var res = await SubCategoryServices.DeleteAsync(account.Id.ToString());
+            Snackbar.Add($"Đã xóa danh mục sản phẩm {account.Name} thành công", Severity.Success);
+            await _table.ReloadServerData();
+        } else {
+            Snackbar.Add($"Xóa danh mục sản phẩm {account.Name} thất bại", Severity.Error);
+        }
+    }
+
+
+    private async Task CreateOrUpdateSubCategory(SubCategoryModel? subCategory) {
+        var parameters = new DialogParameters<DialogCreateOrUpdateSubCategory>();
+        parameters.Add("SubCategory", subCategory);
+        var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Large, FullWidth = true };
+        var dialog = await DialogService.ShowAsync<DialogCreateOrUpdateSubCategory>(
+            $"{(subCategory != null ? "Cập nhật" : "Tạo")} danh mục sản phẩm", parameters, options);
+        var result = await dialog.Result;
+        if (result != null && !result.Canceled) {
+            await _table.ReloadServerData();
+        } else {
+            Snackbar.Add("Đã hủy thao tác!", Severity.Warning);
+        }
+
+    }
+
+    private async Task OnSearch() {
+        await _table.ReloadServerData();
+    }
+}

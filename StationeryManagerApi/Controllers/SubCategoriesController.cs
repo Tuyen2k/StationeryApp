@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StationeryManagerApi.Service.Impl;
 using StationeryManagerApi.Services;
 using StationeryManagerLib.RequestModel;
 
 namespace StationeryManagerApi.Controllers
 {
-    [Route("api/subCategories")]
+    [Route("api/subcategories")]
     [ApiController]
     public class SubCategoriesController : ControllerBase
     {
@@ -18,10 +19,16 @@ namespace StationeryManagerApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAlls([FromQuery] FilterModel filter)
+        public async Task<IActionResult> GetAlls([FromQuery] SubCategoryFilterModel filter)
         {
             var list = await _subCategoryServices.GetAlls(filter);
             return Ok(list);
+        }
+
+        [HttpGet("count")]
+        public async Task<IActionResult> CountAll([FromQuery] SubCategoryFilterModel filter) {
+            var count = await _subCategoryServices.CountAll(filter);
+            return Ok(count);
         }
 
         [HttpPost]

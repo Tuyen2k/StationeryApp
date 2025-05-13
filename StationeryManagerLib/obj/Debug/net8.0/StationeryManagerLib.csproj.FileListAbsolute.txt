@@ -10,3 +10,15 @@ C:\Users\test\Desktop\StationeryManager\StationeryManagerLib\obj\Debug\net8.0\re
 C:\Users\test\Desktop\StationeryManager\StationeryManagerLib\obj\Debug\net8.0\StationeryManagerLib.pdb
 C:\Users\test\Desktop\StationeryManager\StationeryManagerLib\obj\Debug\net8.0\ref\StationeryManagerLib.dll
 C:\Users\test\Desktop\StationeryManager\StationeryManagerLib\obj\Debug\net8.0\StationeryManagerLib.sourcelink.json
+C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerLib\bin\Debug\net8.0\StationeryManagerLib.deps.json
+C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerLib\bin\Debug\net8.0\StationeryManagerLib.dll
+C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerLib\bin\Debug\net8.0\StationeryManagerLib.pdb
+C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerLib\obj\Debug\net8.0\StationeryManagerLib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerLib\obj\Debug\net8.0\StationeryManagerLib.AssemblyInfoInputs.cache
+C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerLib\obj\Debug\net8.0\StationeryManagerLib.AssemblyInfo.cs
+C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerLib\obj\Debug\net8.0\StationeryManagerLib.csproj.CoreCompileInputs.cache
+C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerLib\obj\Debug\net8.0\StationeryManagerLib.sourcelink.json
+C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerLib\obj\Debug\net8.0\StationeryManagerLib.dll
+C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerLib\obj\Debug\net8.0\refint\StationeryManagerLib.dll
+C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerLib\obj\Debug\net8.0\StationeryManagerLib.pdb
+C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerLib\obj\Debug\net8.0\ref\StationeryManagerLib.dll

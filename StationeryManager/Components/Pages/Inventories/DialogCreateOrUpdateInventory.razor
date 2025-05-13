@@ -1,0 +1,128 @@
+﻿@using StationeryManager.Services
+@using StationeryManagerLib.Entities
+@using StationeryManagerLib.RequestModel
+
+<EditForm Model="Request" OnValidSubmit="OnSave">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <MudDialog>
+        <DialogContent>
+            @if (_loading) {
+                <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7" />
+            }
+
+            <MudGrid Spacing="2">
+                <MudItem xs="12" lg="12">
+                    <!-- Name Field -->
+                    <MudTextField Placeholder="" @bind-Value="Request.Name"
+                                  Label="Tên danh mục"
+                                  For="@(() => Request.Name)"
+                                  Required="true" />
+                    @if (Categories.Any()) {
+                        <MudSelect @bind-Value="Request.CategoryId" For="@(() => Request.CategoryId)" T="string">
+                            <MudSelectItem Value="string.Empty">Chọn Danh mục phân loại</MudSelectItem>
+                            @foreach (var item in Categories) {
+                                <MudSelectItem Value="item.Id.ToString()">@item.Name</MudSelectItem>
+                            }
+                        </MudSelect>
+                    } else {
+                        <div class="nav-item">
+                            <NavLink class="nav-link" href="/categories/">
+                                <MudIcon Icon="@Icons.Material.Filled.Add" Color="Color.Primary" /> Tạo danh mục phân loại trước
+                            </NavLink>
+                        </div>
+                    }
+
+                    <!-- Email Field -->
+                    <MudTextField @bind-Value="Request.Description"
+                                  Label="Ghi chú"
+                                  Lines="4"
+                                  For="@(() => Request.Description)" />
+                </MudItem>
+            </MudGrid>
+        </DialogContent>
+        <DialogActions>
+            <!-- Close Button -->
+            <MudButton Color="Color.Default"
+                       Variant="Variant.Outlined"
+                       OnClick="CloseDialog"
+                       StartIcon="@Icons.Material.Filled.Close"
+                       Size="Size.Medium">
+                Đóng
+            </MudButton>
+            <!-- Save Button -->
+            <MudButton Color="Color.Primary"
+                       Variant="Variant.Filled"
+                       ButtonType="ButtonType.Submit"
+                       StartIcon="@Icons.Material.Filled.PlaylistAddCheck"
+                       Size="Size.Medium">
+                @if (SubCategory != null) {
+                    <span>Cập nhật</span>
+                } else {
+                    <span>Thêm mới</span>
+                }
+            </MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+
+@inject ISnackbar Snackbar
+@inject ISubCategoryServices SubCategoryServices
+@inject ICategoryServices CategoryServices
+
+@code {
+    [CascadingParameter]
+    public IMudDialogInstance MudDialog { get; set; } = null!;
+    [Parameter]
+    public SubCategoryModel? SubCategory { get; set; } = new();
+
+    private bool _loading = false;
+
+    private SubCategoryRequest Request { get; set; } = new();
+    private bool _showPassword = false;
+    private List<CategoryModel> Categories { get; set; } = [];
+
+    protected override async Task OnInitializedAsync() {
+        if (SubCategory != null) {
+            Request = new SubCategoryRequest() {
+                    Name = SubCategory.Name,
+                    Description = SubCategory.Description,
+                    CategoryId = SubCategory.CategoryId
+                };
+        }
+
+        Categories = await CategoryServices.GetAllAsync(null);
+
+        await base.OnInitializedAsync();
+    }
+
+    private void CloseDialog() => MudDialog.Cancel();
+
+    private async Task OnSave() {
+        _loading = true;
+        if (SubCategory == null) {
+            var result = await SubCategoryServices.CreateAsync(Request);
+            if (result) {
+                Snackbar.Add("Thêm danh mục sản phẩm thành công", Severity.Success);
+            } else {
+                Snackbar.Add("Thêm danh mục sản phẩm thất bại", Severity.Error);
+                _loading = false;
+                return;
+            }
+
+        } else {
+            var result = await SubCategoryServices.UpdateAsync(SubCategory.Id.ToString(), Request);
+            if (result) {
+                Snackbar.Add("Cập nhật danh mục sản phẩm thành công", Severity.Success);
+            } else {
+                Snackbar.Add("Cập nhật danh mục sản phẩm thất bại", Severity.Error);
+                _loading = false;
+                return;
+            }
+        }
+        _loading = false;
+        MudDialog.Close(DialogResult.Ok(true));
+    }
+}
