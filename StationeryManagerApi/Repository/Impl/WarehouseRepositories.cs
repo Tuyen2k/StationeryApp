@@ -39,6 +39,8 @@ namespace StationeryManagerApi.Repository.Impl
                 query = query.Where(e => e.Name.Contains(filter.Name));
             }
 
+            query = query.OrderByDescending(e => e.CreatedAt);
+
             query = query.Skip(skip).Take(limit);
             var result = await query.ToListAsync();
             return result;

@@ -10,5 +10,6 @@ namespace StationeryManagerApi.Services
         Task<CategoryModel> Create(CategoryRequest category);
         Task<int> Update(CategoryModel category, CategoryRequest request);
         Task<int> Delete(CategoryModel category);
+        Task<int> CountAll(FilterModel filter);
     }
 }

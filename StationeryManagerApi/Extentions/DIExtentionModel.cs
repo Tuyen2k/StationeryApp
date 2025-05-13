@@ -31,6 +31,7 @@ namespace StationeryManagerApi.Extentions
             services.AddScoped<IProductRepositories, ProductRepositories>();
             services.AddScoped<ISubCategoryRepositories, SubCategoryRepositories>();
             services.AddScoped<IWarehouseRepositories, WarehouseRepositories>();
+            services.AddScoped<IInventoryItemRepositories, InventoryItemRepositories>();
 
             // add service
             services.AddScoped<IAccountServices, AccountServices>();
@@ -40,6 +41,7 @@ namespace StationeryManagerApi.Extentions
             services.AddScoped<ISubCategoryServices, SubCategoryServices>();
             services.AddScoped<IWarehouseServices, WarehouseServices>();
             services.AddScoped<IPasswordServices, PasswordServices>();
+            services.AddScoped<IInventoryItemServices, InventoryItemServices>();
 
             return services;
         }

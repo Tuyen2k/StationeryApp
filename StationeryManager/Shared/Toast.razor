@@ -1,0 +1,25 @@
+﻿@using Microsoft.JSInterop
+
+<div id="toast-container" class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div class="toast" id="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">@Title</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            @Message
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Message { get; set; }
+
+    [Inject] private IJSRuntime JS { get; set; }
+
+    public async Task ShowToast()
+    {
+        await JS.InvokeVoidAsync("showToast");
+    }
+}

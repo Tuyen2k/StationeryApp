@@ -68,5 +68,12 @@ namespace StationeryManagerApi.Controllers
             }
             return Ok("Delete success");
         }
+
+        [HttpGet("count")]
+        public async Task<IActionResult> CountAll([FromQuery] FilterModel filter)
+        {
+            var count = await _categoryServices.CountAll(filter);
+            return Ok(count);
+        }
     }
 }

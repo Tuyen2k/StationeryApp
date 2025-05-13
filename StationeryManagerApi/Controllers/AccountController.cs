@@ -26,6 +26,13 @@ namespace StationeryManagerApi.Controllers
             return Ok(list);
         }
 
+        [HttpGet("count")]
+        public async Task<IActionResult> CountAll([FromQuery] FilterModel filter)
+        {
+            var count = await _accountServices.CountAll(filter);
+            return Ok(count);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {

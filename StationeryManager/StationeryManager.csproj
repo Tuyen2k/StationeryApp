@@ -10,4 +10,14 @@
     <ProjectReference Include="..\StationeryManagerLib\StationeryManagerLib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Components\Pages\Inventories\" />
+    <Folder Include="Components\Pages\Products\" />
+    <Folder Include="Components\Pages\SubCategories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MudBlazor" Version="8.6.0" />
+  </ItemGroup>
+
 </Project>

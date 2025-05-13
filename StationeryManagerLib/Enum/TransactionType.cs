@@ -9,6 +9,7 @@ namespace StationeryManagerLib.Enum
     public enum TransactionTypeEnum
     {
         Import,
-        Export
+        Export,
+
     }
 }

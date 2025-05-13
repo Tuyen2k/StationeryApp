@@ -7,6 +7,7 @@ namespace StationeryManagerApi.Services
     {
         Task<AccountModel?> GetAccountById(string id);
         Task<List<AccountModel>> GetAllAccounts(FilterModel filter);
+        Task<int> CountAll(FilterModel filter);
         Task<AccountModel> CreateAccount(CreateAccountRequest account);
         Task<int> UpdateAccount(AccountModel account, UpdateAccountRequest update);
         Task<int> DeleteAccount(AccountModel account);

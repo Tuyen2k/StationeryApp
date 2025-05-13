@@ -1,10 +1,24 @@
+﻿using MudBlazor;
+using MudBlazor.Services;
 using StationeryManager.Components;
+using StationeryManager.Util;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddConfigurationDIService(builder.Configuration);
+
+builder.Services.AddMudServices(config =>
+{
+    config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomRight;
+    config.SnackbarConfiguration.HideTransitionDuration = 100;
+    config.SnackbarConfiguration.ShowTransitionDuration = 100;
+    config.SnackbarConfiguration.VisibleStateDuration = 2000;
+    config.SnackbarConfiguration.RequireInteraction = false; 
+});
 
 var app = builder.Build();
 

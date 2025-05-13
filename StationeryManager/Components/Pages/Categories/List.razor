@@ -1,0 +1,124 @@
+﻿@page "/categories/"
+@using StationeryManager.Services
+@using StationeryManager.Shared
+@using StationeryManager.Util
+@using StationeryManagerLib.Entities
+@using StationeryManagerLib.RequestModel
+
+<MudGrid>
+
+	<MudPaper Class="w-100 d-flex align-content-center justify-content-between mt-2">
+		<MudTextField @bind-Value="_searchString" Placeholder="Tìm kiếm danh mục phân loại" Adornment="Adornment.Start" Icon="@Icons.Material.Filled.Search" />
+		<MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="OnSearch" />
+		<MudButton Color="Color.Primary" OnClick="@(() => CreateOrUpdateCategory(null))" StartIcon="@Icons.Material.Filled.Add">Thêm danh mục phân loại</MudButton>
+	</MudPaper>
+
+	<MudPaper Class="w-100 mt-2">
+		<MudTable Class="width" ServerData="ServerReload" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info" @ref="_table">
+			<HeaderContent>
+				<MudTh>Tên danh mục</MudTh>
+				<MudTh>Ngày tạo</MudTh>
+				<MudTh>Mô tả</MudTh>
+				<MudTh>Ctrl</MudTh>
+			</HeaderContent>
+			<RowTemplate>
+				<MudTd DataLabel="Tên danh mục">@context.Name</MudTd>
+				<MudTd DataLabel="Ngày tạo">@context.CreatedAt.ToString("HH:mm dd/MM/yyyy")</MudTd>
+				<MudTd DataLabel="Mô tả">
+					<div class="line-clamp-2" title="@context.Description">@context.Description</div>
+				</MudTd>
+				<MudTd DataLabel="Ctrl">
+					<MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" OnClick="@(() => CreateOrUpdateCategory(context))" />
+					<MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="@(() => DeleteCategory(context))" />
+				</MudTd>
+			</RowTemplate>
+			<NoRecordsContent>
+				<MudText>No matching records found</MudText>
+			</NoRecordsContent>
+			<LoadingContent>
+				<MudText>Loading...</MudText>
+			</LoadingContent>
+			<PagerContent>
+				<MudTablePager />
+			</PagerContent>
+		</MudTable>
+	</MudPaper>
+
+</MudGrid>
+
+@inject ICategoryServices CategoryServices
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+@inject AppStateService AppState
+@code {
+
+	private MudTable<CategoryModel> _table = null!;
+	private bool _loading = false;
+	private string _searchString = string.Empty;
+
+	protected override void OnInitialized()
+	{
+		AppState.SetTitle("Danh sách danh mục phân loại");
+	}
+
+	private async Task<TableData<CategoryModel>> ServerReload(TableState state, CancellationToken token)
+	{
+		var filter = new FilterModel()
+			{
+				Limit = state.PageSize,
+				Page = state.Page,
+				Name = _searchString
+			};
+		var accounts = await CategoryServices.GetAllAsync(filter);
+		var total = await CategoryServices.CountAllAsync(filter);
+		return new TableData<CategoryModel>()
+			{
+				TotalItems = total,
+				Items = accounts
+			};
+	}
+
+	private async Task DeleteCategory(CategoryModel account)
+	{
+		var result = await DialogService.ShowMessageBox(
+			"Xoá tài khoản",
+			$"Bạn có chắc muốn xóa tài khoản {account.Name} không?",
+			yesText: "Xác nhận", noText: "Hủy");
+
+		if (result == true)
+		{
+			var res = await CategoryServices.DeleteAsync(account.Id.ToString());
+			Snackbar.Add($"Đã xóa tài khoản {account.Name} thành công", Severity.Success);
+			await _table.ReloadServerData();
+		}
+		else
+		{
+			Snackbar.Add($"Xóa tài khoản {account.Name} thất bại", Severity.Error);
+		}
+	}
+
+
+	private async Task CreateOrUpdateCategory(CategoryModel? category)
+	{
+		var parameters = new DialogParameters<DialogCreateOrUpdateCategory>();
+		parameters.Add("Category", category);
+		var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Large, FullWidth = true };
+		var dialog = await DialogService.ShowAsync<DialogCreateOrUpdateCategory>(
+			$"{(category != null ? "Cập nhật" : "Tạo")} danh mục phân loại", parameters, options);
+		var result = await dialog.Result;
+		if (result != null && !result.Canceled)
+		{
+			await _table.ReloadServerData();
+		}
+		else
+		{
+			Snackbar.Add("Đã hủy thao tác!", Severity.Warning);
+		}
+
+	}
+
+	private async Task OnSearch()
+	{
+		await _table.ReloadServerData();
+	}
+}

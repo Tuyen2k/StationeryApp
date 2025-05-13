@@ -13,6 +13,21 @@ namespace StationeryManagerApi.Repository.Impl
             _context = context;
         }
 
+        public async Task<int> CountAll(FilterModel filter)
+        {
+            var query = _context.Categories.AsQueryable();
+
+            query = query.Where(e => e.IsDeleted != true);
+
+            if (!string.IsNullOrEmpty(filter.Name))
+            {
+                query = query.Where(e => e.Name.Contains(filter.Name));
+            }
+
+            var result = await query.CountAsync();
+            return result;
+        }
+
         public async Task<CategoryModel> Create(CategoryModel category)
         {
             var result = await _context.Categories.AddAsync(category);
@@ -39,6 +54,8 @@ namespace StationeryManagerApi.Repository.Impl
             {
                 query = query.Where(e => e.Name.Contains(filter.Name));
             }
+
+            query = query.OrderByDescending(e => e.CreatedAt);
 
             query = query.Skip(skip).Take(limit);
             var result = await query.ToListAsync();

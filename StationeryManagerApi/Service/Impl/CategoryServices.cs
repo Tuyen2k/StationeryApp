@@ -13,6 +13,11 @@ namespace StationeryManagerApi.Service.Impl
             _repositories = repositories;
         }
 
+        public async Task<int> CountAll(FilterModel filter)
+        {
+            return await _repositories.CountAll(filter);
+        }
+
         public async Task<CategoryModel> Create(CategoryRequest category)
         {
             var categoryCreate = new CategoryModel()

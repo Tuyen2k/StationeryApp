@@ -13,6 +13,7 @@ namespace StationeryManagerApi
         public DbSet<ProductModel> Products { get; set; }
         public DbSet<WarehouseModel> Warehouses { get; set; }
         public DbSet<InventoryTransactionModel> InventoryTransactions { get; set; } 
+        public DbSet<InventoryItemModel> InventoryItems { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +23,7 @@ namespace StationeryManagerApi
             modelBuilder.Entity<ProductModel>().ToTable("Products");
             modelBuilder.Entity<WarehouseModel>().ToTable("Warehouses");
             modelBuilder.Entity<InventoryTransactionModel>().ToTable("InventoryTransactions");
+            modelBuilder.Entity<InventoryItemModel>().ToTable("InventoryItems");
             base.OnModelCreating(modelBuilder);
         }
 

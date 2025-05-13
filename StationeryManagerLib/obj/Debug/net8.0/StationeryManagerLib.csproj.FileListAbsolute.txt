@@ -9,3 +9,4 @@ C:\Users\test\Desktop\StationeryManager\StationeryManagerLib\obj\Debug\net8.0\St
 C:\Users\test\Desktop\StationeryManager\StationeryManagerLib\obj\Debug\net8.0\refint\StationeryManagerLib.dll
 C:\Users\test\Desktop\StationeryManager\StationeryManagerLib\obj\Debug\net8.0\StationeryManagerLib.pdb
 C:\Users\test\Desktop\StationeryManager\StationeryManagerLib\obj\Debug\net8.0\ref\StationeryManagerLib.dll
+C:\Users\test\Desktop\StationeryManager\StationeryManagerLib\obj\Debug\net8.0\StationeryManagerLib.sourcelink.json

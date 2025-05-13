@@ -14,6 +14,12 @@ namespace StationeryManagerApi.Service.Impl
             _repositories = repositories;
             _passwordServices = passwordServices;
         }
+
+        public async Task<int> CountAll(FilterModel filter)
+        {
+            return await _repositories.CountAll(filter);
+        }
+
         public async Task<AccountModel> CreateAccount(CreateAccountRequest account)
         {
             var paswordHash = _passwordServices.HashPassword(account.Password);
@@ -24,7 +30,7 @@ namespace StationeryManagerApi.Service.Impl
                 IsActive = true,
                 IsDeleted = false,
                 Name = account.Name,
-                Phone = account.Phone,
+                Phone = account.Phone  ?? "",
                 PaswordHash = paswordHash
             };
             var result = await _repositories.CreateAccount(accountCreate);

@@ -5,10 +5,10 @@ namespace StationeryManagerApi.Services
 {
     public interface IInventoryTransactionServices
     {
-        Task<InventoryTransactionModel?> GetById(Guid id);
-        Task<List<InventoryTransactionModel>> GetAlls(FilterModel filter);
-        Task<InventoryTransactionModel> Create(InventoryTransactionModel account);
-        Task<int> Update(InventoryTransactionModel account);
-        Task<int> Delete(InventoryTransactionModel account);
+        Task<InventoryTransactionModel?> GetById(string id);
+        Task<List<InventoryTransactionModel>> GetAlls(InventoryTransactionFilterModel filter);
+        Task<InventoryTransactionModel> Create(InventoryTransactionRequest request);
+        Task<int> Update(InventoryTransactionModel inventory, InventoryTransactionRequest request);
+        Task<int> Delete(InventoryTransactionModel inventory);
     }
 }

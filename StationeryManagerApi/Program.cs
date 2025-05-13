@@ -7,6 +7,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+var allowCORS = "AllowCORSPolicy";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: allowCORS,
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -22,6 +35,9 @@ using (var scope = app.Services.CreateScope())
     var dbContext = scope.ServiceProvider.GetRequiredService<StationeryDBContext>();
     dbContext.Database.Migrate(); // Áp dụng các migration và tạo DB nếu chưa có
 }
+
+// Bật CORS middleware
+app.UseCors(allowCORS);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

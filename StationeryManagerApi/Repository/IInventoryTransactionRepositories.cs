@@ -6,9 +6,10 @@ namespace StationeryManagerApi.Repository
     public interface IInventoryTransactionRepositories
     {
         Task<InventoryTransactionModel?> GetById(Guid id);
-        Task<List<InventoryTransactionModel>> GetAlls(FilterModel filter);
-        Task<InventoryTransactionModel> Create(InventoryTransactionModel subCategory);
-        Task<int> Update(InventoryTransactionModel subCategory);
-        Task<int> Delete(InventoryTransactionModel subCategory);
+        Task<List<InventoryTransactionModel>> GetAlls(InventoryTransactionFilterModel filter);
+        Task<InventoryTransactionModel> Create(InventoryTransactionModel inventory);
+        Task<int> Update(InventoryTransactionModel inventory);
+        Task<int> Delete(InventoryTransactionModel inventory);
+        Task<int> Count(InventoryTransactionFilterModel filter);
     }
 }
