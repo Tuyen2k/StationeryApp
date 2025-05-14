@@ -1,0 +1,59 @@
+﻿@using MudBlazor
+@using StationeryManager.Services
+@using StationeryManagerLib.Entities
+@using StationeryManagerLib.RequestModel
+
+﻿<!--
+    Sử dụng: bind WarehouseModel vào biến warehouse:
+    Sự kiện ValueSelected -> OnSearch(WarehouseModel result)
+    <WarehouseFieldAutoComplete @@bind-Value="warehouse" Class="flex-grow-1" ValueSelected="OnSearch" />
+-->
+@inherits MudAutocomplete<WarehouseModel>
+<MudAutocomplete T="WarehouseModel" Label="@CustomLablel" SearchFunc="@Search" Se Margin="Margin.Dense" Variant="Variant.Outlined"
+ShowProgressIndicator="true" ProgressIndicatorColor="Color.Success" ResetValueOnEmptyText="true" Clearable="true" 
+ValueChanged="OnValueChanged"
+Placeholder="@CustomPlaceholder"
+ToStringFunc="@ToString" Value="Default">
+    <ItemTemplate Context="e">
+        <div>
+            @e.Name
+            <br/>
+            @e.Location
+        </div>
+    </ItemTemplate>
+</MudAutocomplete>
+
+@inject IWarehouseServices WarehouseServices
+@code {
+    [Parameter] public EventCallback<WarehouseModel> ValueSelected { get; set; }
+    [Parameter] public WarehouseModel? Default { get; set; }
+    [Parameter] public string CustomPlaceholder { get; set; } = "Nhập tên kho";
+    [Parameter] public string CustomLablel { get; set; } = "Kho hàng";
+
+    private async Task<IEnumerable<WarehouseModel>> Search(string value, CancellationToken token)
+    {
+        var result = await WarehouseServices.GetAllAsync(new FilterModel
+			{
+				Limit = 10,
+				Name = value,
+				Page = 0,
+			}) ?? [];
+		return result;
+    }
+
+    private async Task OnValueChanged(WarehouseModel? selected)
+    {
+        Default = selected;
+        await ValueChanged.InvokeAsync(selected);
+        await ValueSelected.InvokeAsync(selected);
+	}
+
+    private string ToString(WarehouseModel? model)
+    {
+        return model == null ? string.Empty : $"{model.Name} {(!string.IsNullOrEmpty(model.Location) ? $"- ({model.Location})" : "")} ";
+    }
+}
+
+@code {
+
+}

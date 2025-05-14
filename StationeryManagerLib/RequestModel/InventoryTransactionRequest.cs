@@ -16,7 +16,7 @@ namespace StationeryManagerLib.RequestModel
         public string? Note { get; set; }
         
         [Required]
-        public string TransactionType { get; set; }
+        public TransactionTypeEnum TransactionType { get; set; }
 
         [Required]
         public List<InventoryItemRequest> Items { get; set; }

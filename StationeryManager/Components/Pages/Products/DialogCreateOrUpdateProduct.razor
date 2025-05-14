@@ -1,70 +1,82 @@
 ﻿@using StationeryManager.Services
+@using StationeryManager.Shared.FieldAutoComplete
 @using StationeryManagerLib.Entities
 @using StationeryManagerLib.RequestModel
 
 <EditForm Model="Request" OnValidSubmit="OnSave">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+	<DataAnnotationsValidator />
+	<ValidationSummary />
 
-    <MudDialog>
-        <DialogContent>
-            @if (_loading) {
-                <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7" />
-            }
+	<MudDialog>
+		<DialogContent>
+			@if (_loading)
+			{
+				<MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7" />
+			}
 
-            <MudGrid Spacing="2">
-                <MudItem xs="12" lg="12">
-                    <!-- Name Field -->
-                    <MudTextField Placeholder="" @bind-Value="Request.Name"
-                                  Label="Tên sản phẩm"
-                                  For="@(() => Request.Name)"
-                                  Required="true" />
-                    @if (SubCategories.Any()) {
-                        <MudSelect @bind-Value="Request.SubCategoryId" For="@(() => Request.SubCategoryId)" T="string">
-                            <MudSelectItem Value="string.Empty">Chọn Danh mục sản phẩm</MudSelectItem>
-                            @foreach (var item in SubCategories) {
-                                <MudSelectItem Value="item.Id.ToString()">@item.Name</MudSelectItem>
-                            }
-                        </MudSelect>
-                    } else {
-                        <div class="nav-item">
-                            <NavLink class="nav-link" href="/subcategories/">
-                                <MudIcon Icon="@Icons.Material.Filled.Add" Color="Color.Primary" /> Tạo danh mục sản phẩm trước
-                            </NavLink>
-                        </div>
-                    }
+			<MudGrid Spacing="2">
+				<MudItem xs="12" lg="12">
 
-                    <!-- Email Field -->
-                    <MudTextField @bind-Value="Request.Description"
-                                  Label="Ghi chú"
-                                  Lines="4"
-                                  For="@(() => Request.Description)" />
-                </MudItem>
-            </MudGrid>
-        </DialogContent>
-        <DialogActions>
-            <!-- Close Button -->
-            <MudButton Color="Color.Default"
-                       Variant="Variant.Outlined"
-                       OnClick="CloseDialog"
-                       StartIcon="@Icons.Material.Filled.Close"
-                       Size="Size.Medium">
-                Đóng
-            </MudButton>
-            <!-- Save Button -->
-            <MudButton Color="Color.Primary"
-                       Variant="Variant.Filled"
-                       ButtonType="ButtonType.Submit"
-                       StartIcon="@Icons.Material.Filled.PlaylistAddCheck"
-                       Size="Size.Medium">
-                @if (Product != null) {
-                    <span>Cập nhật</span>
-                } else {
-                    <span>Thêm mới</span>
-                }
-            </MudButton>
-        </DialogActions>
-    </MudDialog>
+					<MudTextField Placeholder="" @bind-Value="Request.Name"
+								  Label="Tên sản phẩm"
+								  For="@(() => Request.Name)"
+								  Required="true" />
+					@* @if (SubCategories.Any())
+					{
+						<MudSelect Label="Danh mục sản phẩm" @bind-Value="Request.SubCategoryId" For="@(() => Request.SubCategoryId)" T="string">
+							@* <MudSelectItem Value="string.Empty">Chọn Danh mục sản phẩm</MudSelectItem> *@
+							@*@foreach (var item in SubCategories)
+							{
+								<MudSelectItem Value="item.Id.ToString()">@item.Name</MudSelectItem>
+							}
+						</MudSelect>
+					}
+					else
+					{
+						<div class="nav-item">
+							<NavLink class="nav-link" href="/subcategories/">
+								<MudIcon Icon="@Icons.Material.Filled.Add" Color="Color.Primary" /> Tạo danh mục sản phẩm trước
+							</NavLink>
+						</div>
+					} *@
+
+					<SubCategoryFieldAutoComplete Default="subcategorySelected" ValueChanged="OnSelectedSubCategory" />
+
+					<MudNumericField @bind-Value="Request.Price" Label="Giá" For="@(() => Request.Price)" Required="true" />
+
+					<MudTextField @bind-Value="Request.Description"
+								  Label="Ghi chú"
+								  Lines="4"
+								  For="@(() => Request.Description)" />
+				</MudItem>
+			</MudGrid>
+		</DialogContent>
+		<DialogActions>
+			<!-- Close Button -->
+			<MudButton Color="Color.Default"
+					   Variant="Variant.Outlined"
+					   OnClick="CloseDialog"
+					   StartIcon="@Icons.Material.Filled.Close"
+					   Size="Size.Medium">
+				Đóng
+			</MudButton>
+			<!-- Save Button -->
+			<MudButton Color="Color.Primary"
+					   Variant="Variant.Filled"
+					   ButtonType="ButtonType.Submit"
+					   StartIcon="@Icons.Material.Filled.PlaylistAddCheck"
+					   Size="Size.Medium">
+				@if (Product != null)
+				{
+					<span>Cập nhật</span>
+				}
+				else
+				{
+					<span>Thêm mới</span>
+				}
+			</MudButton>
+		</DialogActions>
+	</MudDialog>
 </EditForm>
 
 
@@ -73,56 +85,89 @@
 @inject IProductServices ProductServices
 
 @code {
-    [CascadingParameter]
-    public IMudDialogInstance MudDialog { get; set; } = null!;
-    [Parameter]
-    public ProductModel? Product { get; set; } = new();
+	[CascadingParameter]
+	public IMudDialogInstance MudDialog { get; set; } = null!;
+	[Parameter]
+	public ProductModel? Product { get; set; } = new();
 
-    private bool _loading = false;
+	private bool _loading = false;
 
-    private ProductRequest Request { get; set; } = new();
-    private bool _showPassword = false;
-    private List<SubCategoryModel> SubCategories { get; set; } = [];
+	private ProductRequest Request { get; set; } = new();
+	private bool _showPassword = false;
+	private List<SubCategoryModel> SubCategories { get; set; } = [];
+	private SubCategoryModel? subcategorySelected;
 
-    protected override async Task OnInitializedAsync() {
-        if (Product != null) {
-            Request = new ProductRequest() {
-                    Name = Product.Name,
-                    Description = Product.Description,
-                    SubCategoryId = Product.SubCategoryId
-                };
-        }
+	protected override async Task OnInitializedAsync()
+	{
+		if (Product != null)
+		{
+			Request = new ProductRequest()
+				{
+					Name = Product.Name,
+					Description = Product.Description,
+					SubCategoryId = Product.SubCategoryId
+				};
 
-        SubCategories = await SubCategoryServices.GetAllAsync(null);
+			subcategorySelected = await SubCategoryServices.GetByIdAsync(Product.SubCategoryId);
+		}
 
-        await base.OnInitializedAsync();
-    }
+		// SubCategories = await SubCategoryServices.GetAllAsync(null);
 
-    private void CloseDialog() => MudDialog.Cancel();
+		await base.OnInitializedAsync();
+	}
 
-    private async Task OnSave() {
-        _loading = true;
-        if (Product == null) {
-            var result = await ProductServices.CreateAsync(Request);
-            if (result) {
-                Snackbar.Add("Thêm danh mục sản phẩm thành công", Severity.Success);
-            } else {
-                Snackbar.Add("Thêm danh mục sản phẩm thất bại", Severity.Error);
-                _loading = false;
-                return;
-            }
+	private void CloseDialog() => MudDialog.Cancel();
 
-        } else {
-            var result = await ProductServices.UpdateAsync(Product.Id.ToString(), Request);
-            if (result) {
-                Snackbar.Add("Cập nhật danh mục sản phẩm thành công", Severity.Success);
-            } else {
-                Snackbar.Add("Cập nhật danh mục sản phẩm thất bại", Severity.Error);
-                _loading = false;
-                return;
-            }
-        }
-        _loading = false;
-        MudDialog.Close(DialogResult.Ok(true));
-    }
+	private async Task OnSave()
+	{
+		try
+		{
+			_loading = true;
+			if (Product == null)
+			{
+				var result = await ProductServices.CreateAsync(Request);
+				if (result)
+				{
+					Snackbar.Add("Thêm danh mục sản phẩm thành công", Severity.Success);
+				}
+				else
+				{
+					Snackbar.Add("Thêm danh mục sản phẩm thất bại", Severity.Error);
+					_loading = false;
+					return;
+				}
+
+			}
+			else
+			{
+				var result = await ProductServices.UpdateAsync(Product.Id.ToString(), Request);
+				if (result)
+				{
+					Snackbar.Add("Cập nhật danh mục sản phẩm thành công", Severity.Success);
+				}
+				else
+				{
+					Snackbar.Add("Cập nhật danh mục sản phẩm thất bại", Severity.Error);
+					_loading = false;
+					return;
+				}
+			}
+			_loading = false;
+			MudDialog.Close(DialogResult.Ok(true));
+		}
+		catch (Exception ex)
+		{
+			Snackbar.Add($"Có lỗi xảy ra {ex.Message}", Severity.Error);
+			_loading = false;
+			return;
+		}
+
+	}
+
+	private void OnSelectedSubCategory(SubCategoryModel subcategory)
+	{
+		subcategorySelected = subcategory;
+		Request.SubCategoryId = subcategory != null ? subcategory.Id.ToString() : string.Empty;
+	}
+
 }

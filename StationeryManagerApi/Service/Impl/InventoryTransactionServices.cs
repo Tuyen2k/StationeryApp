@@ -10,17 +10,17 @@ namespace StationeryManagerApi.Service.Impl
     public class InventoryTransactionServices : IInventoryTransactionServices
     {
         private readonly IInventoryTransactionRepositories _repositories;
-        private readonly IInventoryItemRepositories _inventoryItemRepositories;
+        private readonly IInventoryItemServices _inventoryItemServices;
 
-        public InventoryTransactionServices(IInventoryTransactionRepositories repositories, IInventoryItemRepositories inventoryItemRepositories)
+        public InventoryTransactionServices(IInventoryTransactionRepositories repositories, IInventoryItemServices inventoryItemServices)
         {
             _repositories = repositories;
-            _inventoryItemRepositories = inventoryItemRepositories;
+            _inventoryItemServices = inventoryItemServices;
         }
 
-        public async Task<InventoryTransactionModel> Create(InventoryTransactionRequest request)
+        public async Task<InventoryTransactionModel> Create(InventoryTransactionRequest request, List<ProductModel> products)
         {
-            var type = Enum.Parse<TransactionTypeEnum>(request.TransactionType, true);
+            var type = request.TransactionType;
             var code = await GenerateInventoryCode(type);
             
             var inventory = new InventoryTransactionModel
@@ -34,7 +34,24 @@ namespace StationeryManagerApi.Service.Impl
                 Note = request.Note,
             };
 
-            return await _repositories.Create(inventory);
+            var result = await _repositories.Create(inventory);
+
+            var items = request.Items.Select(e => new InventoryItemModel
+            {
+                ProductId = e.ProductId,
+                Quantity = type == TransactionTypeEnum.Import ? e.Quantity : e.Quantity * (-1),
+                Price = e.Price,
+                ProductName = products.FirstOrDefault(p => p.Id.ToString() == e.ProductId)?.Name ?? string.Empty,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                IsDeleted = false,
+                InventoryTransactionId = result.Id.ToString(),
+                InventoryType = type,
+            }).ToList();
+
+            await _inventoryItemServices.CreateListItemAsync(items);
+
+            return result;
         }
 
         public async Task<int> Delete(InventoryTransactionModel inventory)
@@ -60,7 +77,7 @@ namespace StationeryManagerApi.Service.Impl
 
         public async Task<int> Update(InventoryTransactionModel inventory, InventoryTransactionRequest request)
         {
-            var type = Enum.Parse<TransactionTypeEnum>(request.TransactionType, true);
+            var type = request.TransactionType;
             inventory.WarehouseId = request.WarehouseId;
             inventory.TransactionType = type;
             inventory.UpdatedAt = DateTime.UtcNow;

@@ -383,6 +383,57 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "StationeryManagerApi.Controllers.InventoryTransactionsController",
+    "Method": "GetAllTransactions",
+    "RelativePath": "api/inventories/transaction",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "TransactionType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FromDate",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ToDate",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProductId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Limit",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Page",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "StationeryManagerApi.Controllers.ProductsController",
     "Method": "GetAll",
     "RelativePath": "api/products",
@@ -390,6 +441,11 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [
+      {
+        "Name": "SubCategoryId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
       {
         "Name": "Name",
         "Type": "System.String",
@@ -478,13 +534,49 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "StationeryManagerApi.Controllers.SubCategoriesController",
-    "Method": "GetAlls",
-    "RelativePath": "api/subCategories",
+    "ContainingType": "StationeryManagerApi.Controllers.ProductsController",
+    "Method": "CountAll",
+    "RelativePath": "api/products/count",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
+      {
+        "Name": "SubCategoryId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Limit",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Page",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StationeryManagerApi.Controllers.SubCategoriesController",
+    "Method": "GetAlls",
+    "RelativePath": "api/subcategories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CategoryId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
       {
         "Name": "Name",
         "Type": "System.String",
@@ -506,7 +598,7 @@
   {
     "ContainingType": "StationeryManagerApi.Controllers.SubCategoriesController",
     "Method": "Create",
-    "RelativePath": "api/subCategories",
+    "RelativePath": "api/subcategories",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -522,7 +614,7 @@
   {
     "ContainingType": "StationeryManagerApi.Controllers.SubCategoriesController",
     "Method": "GetByIds",
-    "RelativePath": "api/subCategories/{id}",
+    "RelativePath": "api/subcategories/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -538,7 +630,7 @@
   {
     "ContainingType": "StationeryManagerApi.Controllers.SubCategoriesController",
     "Method": "UpdateById",
-    "RelativePath": "api/subCategories/{id}",
+    "RelativePath": "api/subcategories/{id}",
     "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
@@ -559,7 +651,7 @@
   {
     "ContainingType": "StationeryManagerApi.Controllers.SubCategoriesController",
     "Method": "DeleteById",
-    "RelativePath": "api/subCategories/{id}",
+    "RelativePath": "api/subcategories/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -568,6 +660,37 @@
         "Name": "id",
         "Type": "System.String",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StationeryManagerApi.Controllers.SubCategoriesController",
+    "Method": "CountAll",
+    "RelativePath": "api/subcategories/count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CategoryId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Limit",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Page",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

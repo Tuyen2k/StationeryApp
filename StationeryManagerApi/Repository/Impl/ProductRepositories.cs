@@ -12,6 +12,25 @@ namespace StationeryManagerApi.Repository.Impl
             _context = context;
         }
 
+        public async Task<int> CountAll(ProductFilterModel filter)
+        {
+            var query = _context.Products.AsQueryable();
+
+            query = query.Where(e => e.IsDeleted != true);
+
+            if (!string.IsNullOrEmpty(filter.Name))
+            {
+                query = query.Where(e => e.Name.Contains(filter.Name));
+            }
+            if (!string.IsNullOrEmpty(filter.SubCategoryId))
+            {
+                query = query.Where(e => e.SubCategoryId == filter.SubCategoryId);
+            }
+
+            var result = await query.CountAsync();
+            return result;
+        }
+
         public async Task<ProductModel> Create(ProductModel product)
         {
             var result = await _context.Products.AddAsync(product);
@@ -26,7 +45,21 @@ namespace StationeryManagerApi.Repository.Impl
             return result;
         }
 
-        public async Task<List<ProductModel>> GetAlls(FilterModel filter)
+        public async Task<List<ProductModel>> GetAllByIds(List<string> ids)
+        {
+            var query = _context.Products.AsQueryable();
+
+            query = query.Where(e => e.IsDeleted != true);
+
+            query = query.Where(e => ids.Contains(e.Id.ToString()));
+
+            query = query.OrderByDescending(e => e.CreatedAt);
+
+            var result = await query.ToListAsync();
+            return result;
+        }
+
+        public async Task<List<ProductModel>> GetAlls(ProductFilterModel filter)
         {
             var query = _context.Products.AsQueryable();
             int limit = filter.Limit ?? 10;
@@ -37,6 +70,10 @@ namespace StationeryManagerApi.Repository.Impl
             if (!string.IsNullOrEmpty(filter.Name))
             {
                 query = query.Where(e => e.Name.Contains(filter.Name));
+            }
+            if(!string.IsNullOrEmpty(filter.SubCategoryId))
+            {
+                query = query.Where(e => e.SubCategoryId == filter.SubCategoryId);
             }
 
             query = query.OrderByDescending(e => e.CreatedAt);

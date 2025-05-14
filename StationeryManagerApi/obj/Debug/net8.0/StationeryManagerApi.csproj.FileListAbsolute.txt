@@ -179,7 +179,6 @@ C:\Users\test\Desktop\StationeryManager\StationeryManagerApi\bin\Debug\net8.0\Sy
 C:\Users\test\Desktop\StationeryManager\StationeryManagerApi\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
 C:\Users\test\Desktop\StationeryManager\StationeryManagerApi\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\test\Desktop\StationeryManager\StationeryManagerApi\obj\Debug\net8.0\StationeryManagerApi.sourcelink.json
-C:\Users\test\Desktop\StationeryManager\StationeryManagerApi\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerApi\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerApi\bin\Debug\net8.0\appsettings.json
 C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerApi\bin\Debug\net8.0\StationeryManagerApi.exe
@@ -358,3 +357,4 @@ C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerApi\obj\Debug\net8.0\refin
 C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerApi\obj\Debug\net8.0\StationeryManagerApi.pdb
 C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerApi\obj\Debug\net8.0\StationeryManagerApi.genruntimeconfig.cache
 C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerApi\obj\Debug\net8.0\ref\StationeryManagerApi.dll
+C:\Users\test\Desktop\StationeryManager\StationeryManagerApi\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

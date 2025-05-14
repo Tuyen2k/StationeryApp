@@ -1,0 +1,58 @@
+﻿@using MudBlazor
+@using StationeryManager.Services
+@using StationeryManagerLib.Entities
+@using StationeryManagerLib.RequestModel
+
+﻿<!--
+    Sử dụng: bind SubCategoryModel vào biến subcategory:
+    Sự kiện ValueSelected -> OnSearch(SubCategoryModel result)
+    <SubCategoryFieldAutoComplete @@bind-Value="subcategory" Class="flex-grow-1" ValueSelected="OnSearch" />
+-->
+@inherits MudAutocomplete<SubCategoryModel>
+<MudAutocomplete T="SubCategoryModel" Label="@CustomLablel" SearchFunc="@Search" Se Margin="Margin.Dense" Variant="Variant.Outlined"
+ShowProgressIndicator="true" ProgressIndicatorColor="Color.Success" ResetValueOnEmptyText="true" Clearable="true" 
+ValueChanged="OnValueChanged"
+Placeholder="@CustomPlaceholder"
+ToStringFunc="@ToString" Value="Default">
+    <ItemTemplate Context="e">
+        <div>
+            @e.Name
+        </div>
+    </ItemTemplate>
+</MudAutocomplete>
+
+@inject ISubCategoryServices SubCategoryServices
+@code {
+    [Parameter] public EventCallback<SubCategoryModel> ValueSelected { get; set; }
+    [Parameter] public SubCategoryModel? Default { get; set; }
+    [Parameter] public string CustomPlaceholder { get; set; } = "Nhập tên danh mục sản phẩm";
+    [Parameter] public string CustomLablel { get; set; } = "Danh mục sản phẩm";
+
+    private async Task<IEnumerable<SubCategoryModel>> Search(string value, CancellationToken token)
+    {
+        var result = await SubCategoryServices.GetAllAsync(new SubCategoryFilterModel
+			{
+				Limit = 10,
+				Name = value,
+				Page = 0,
+
+			}) ?? [];
+		return result;
+    }
+
+    private async Task OnValueChanged(SubCategoryModel? selected)
+    {
+        Default = selected;
+        await ValueChanged.InvokeAsync(selected);
+        await ValueSelected.InvokeAsync(selected);
+	}
+
+    private string ToString(SubCategoryModel? model)
+    {
+        return model == null ? string.Empty : $"{model.Name}";
+    }
+}
+
+@code {
+
+}

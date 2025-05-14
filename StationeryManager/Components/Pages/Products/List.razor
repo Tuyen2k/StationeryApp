@@ -62,7 +62,7 @@
 
     private async Task<TableData<ProductModel>> ServerReload(TableState state, CancellationToken token) {
         try {
-            var filter = new FilterModel() {
+            var filter = new ProductFilterModel() {
                     Limit = state.PageSize,
                     Page = state.Page,
                     Name = _searchString

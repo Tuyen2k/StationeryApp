@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using StationeryManagerLib.Dtos;
 using StationeryManagerLib.Entities;
 
 namespace StationeryManagerApi
@@ -13,7 +15,8 @@ namespace StationeryManagerApi
         public DbSet<ProductModel> Products { get; set; }
         public DbSet<WarehouseModel> Warehouses { get; set; }
         public DbSet<InventoryTransactionModel> InventoryTransactions { get; set; } 
-        public DbSet<InventoryItemModel> InventoryItems { get; set; } 
+        public DbSet<InventoryItemModel> InventoryItems { get; set; }
+        public DbSet<ProductInventoryView> ProductInventories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,6 +27,12 @@ namespace StationeryManagerApi
             modelBuilder.Entity<WarehouseModel>().ToTable("Warehouses");
             modelBuilder.Entity<InventoryTransactionModel>().ToTable("InventoryTransactions");
             modelBuilder.Entity<InventoryItemModel>().ToTable("InventoryItems");
+
+            // configure view
+            var productInventoryView = modelBuilder.Entity<ProductInventoryView>();
+            productInventoryView.HasKey(p => p.ProductId);         
+            productInventoryView.ToView("vw_ProductInventory");    
+
             base.OnModelCreating(modelBuilder);
         }
 

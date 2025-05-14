@@ -12,41 +12,41 @@
             {
                 <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7" />
             }
-            
+
             <MudGrid Spacing="2">
                 <MudItem xs="12" lg="12">
                     <!-- Name Field -->
                     <MudTextField @bind-Value="Request.Name"
-                                  Label="Tên tài khoản"
-                                  For="@(() => Request.Name)"
-                                  Required="true"
-                                  RequiredError="Tên tài khoản không được để trống" />
+                    Label="Tên tài khoản"
+                    For="@(() => Request.Name)"
+                    Required="true"
+                    RequiredError="Tên tài khoản không được để trống" />
 
                     <!-- Email Field -->
                     <MudTextField @bind-Value="Request.Email"
-                                  Label="Email"
-                                  Required="true"
-                                  RequiredError="Email không được để trống"
-                                  For="@(() => Request.Email)" />
+                    Label="Email"
+                    Required="true"
+                    RequiredError="Email không được để trống"
+                    For="@(() => Request.Email)" />
 
                     <!-- Phone Field -->
                     <MudTextField @bind-Value="Request.Phone"
-                                  Label="Số điện thoại"
-                                  For="@(() => Request.Phone)" />
+                    Label="Số điện thoại"
+                    For="@(() => Request.Phone)" />
 
                     <!-- Password Field -->
                     @if (Account == null)
                     {
                         <MudTextField T="string"
-                                      @bind-Value="Request.Password"
-                                      Label="Mật khẩu"
-                                      Required="true"
-                                      RequiredError="Mật khẩu không được để trống"
-                                      InputType="@(_showPassword ? InputType.Text : InputType.Password)"
-                                      Adornment="Adornment.End"
-                                      AdornmentIcon="@(_showPassword ? Icons.Material.Filled.VisibilityOff : Icons.Material.Filled.Visibility)"
-                                      OnAdornmentClick="@TogglePasswordVisibility"
-                                      For="@(() => Request.Password)" />
+                        @bind-Value="Request.Password"
+                        Label="Mật khẩu"
+                        Required="true"
+                        RequiredError="Mật khẩu không được để trống"
+                        InputType="@(_showPassword ? InputType.Text : InputType.Password)"
+                        Adornment="Adornment.End"
+                        AdornmentIcon="@(_showPassword ? Icons.Material.Filled.VisibilityOff : Icons.Material.Filled.Visibility)"
+                        OnAdornmentClick="@TogglePasswordVisibility"
+                        For="@(() => Request.Password)" />
                     }
                 </MudItem>
             </MudGrid>
@@ -54,18 +54,18 @@
         <DialogActions>
             <!-- Close Button -->
             <MudButton Color="Color.Default"
-                       Variant="Variant.Outlined"
-                       OnClick="CloseDialog"
-                       StartIcon="@Icons.Material.Filled.Close"
-                       Size="Size.Medium">
+            Variant="Variant.Outlined"
+            OnClick="CloseDialog"
+            StartIcon="@Icons.Material.Filled.Close"
+            Size="Size.Medium">
                 Đóng
             </MudButton>
             <!-- Save Button -->
             <MudButton Color="Color.Primary"
-                       Variant="Variant.Filled"
-                       ButtonType="ButtonType.Submit"
-                       StartIcon="@Icons.Material.Filled.PlaylistAddCheck"
-                       Size="Size.Medium">
+            Variant="Variant.Filled"
+            ButtonType="ButtonType.Submit"
+            StartIcon="@Icons.Material.Filled.PlaylistAddCheck"
+            Size="Size.Medium">
                 @if (Account != null)
                 {
                     <span>Cập nhật</span>
@@ -91,7 +91,7 @@
 
     private bool _loading = false;
 
-	private CreateAccountRequest Request { get; set; } = new();
+    private CreateAccountRequest Request { get; set; } = new();
     private bool _showPassword = false;
 
     protected override async Task OnInitializedAsync()
@@ -107,7 +107,7 @@
 				};
         }
 
-		await base.OnInitializedAsync();
+        await base.OnInitializedAsync();
     }
 
     private void TogglePasswordVisibility()
@@ -119,37 +119,47 @@
 
     private async Task OnSave()
     {
-		_loading = true;
-        if(Account == null)
+        try
         {
-            var result = await AccountServices.CreateAccount(Request);
-            if (result)
+            _loading = true;
+            if (Account == null)
             {
-                Snackbar.Add("Thêm tài khoản thành công", Severity.Success);
-            }
-            else
-            {
-                Snackbar.Add("Thêm tài khoản thất bại", Severity.Error);
-                _loading = false;
-				return;
-            }
+                var result = await AccountServices.CreateAccount(Request);
+                if (result)
+                {
+                    Snackbar.Add("Thêm tài khoản thành công", Severity.Success);
+                }
+                else
+                {
+                    Snackbar.Add("Thêm tài khoản thất bại", Severity.Error);
+                    _loading = false;
+                    return;
+                }
 
-        }
-        else
-        {
-            var result = await AccountServices.UpdateAccount(Account.Id.ToString(), Request);
-            if (result)
-            {
-                Snackbar.Add("Cập nhật tài khoản thành công", Severity.Success);
             }
             else
             {
-				Snackbar.Add("Cập nhật tài khoản thất bại", Severity.Error);
-                _loading = false;
-                return;
+                var result = await AccountServices.UpdateAccount(Account.Id.ToString(), Request);
+                if (result)
+                {
+                    Snackbar.Add("Cập nhật tài khoản thành công", Severity.Success);
+                }
+                else
+                {
+                    Snackbar.Add("Cập nhật tài khoản thất bại", Severity.Error);
+                    _loading = false;
+                    return;
+                }
             }
-        }
-		_loading = false;
-		MudDialog.Close(DialogResult.Ok(true));
+            _loading = false;
+            MudDialog.Close(DialogResult.Ok(true));
+		}
+		catch (Exception ex)
+		{
+			Snackbar.Add("Có lỗi xảy ra: " + ex.Message, Severity.Error);
+			_loading = false;
+			return;
+		}
+   
     }
 }

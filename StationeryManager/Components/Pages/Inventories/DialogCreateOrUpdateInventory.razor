@@ -1,128 +1,244 @@
 ﻿@using StationeryManager.Services
 @using StationeryManagerLib.Entities
+@using StationeryManagerLib.Enum
 @using StationeryManagerLib.RequestModel
+@using StationeryManager.Shared.FieldAutoComplete
 
 <EditForm Model="Request" OnValidSubmit="OnSave">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+	<DataAnnotationsValidator />
+	<ValidationSummary />
 
-    <MudDialog>
-        <DialogContent>
-            @if (_loading) {
-                <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7" />
-            }
+	<MudDialog>
+		<DialogContent>
+			@if (_loading)
+			{
+				<MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7" />
+			}
 
-            <MudGrid Spacing="2">
-                <MudItem xs="12" lg="12">
-                    <!-- Name Field -->
-                    <MudTextField Placeholder="" @bind-Value="Request.Name"
-                                  Label="Tên danh mục"
-                                  For="@(() => Request.Name)"
-                                  Required="true" />
-                    @if (Categories.Any()) {
-                        <MudSelect @bind-Value="Request.CategoryId" For="@(() => Request.CategoryId)" T="string">
-                            <MudSelectItem Value="string.Empty">Chọn Danh mục phân loại</MudSelectItem>
-                            @foreach (var item in Categories) {
-                                <MudSelectItem Value="item.Id.ToString()">@item.Name</MudSelectItem>
-                            }
-                        </MudSelect>
-                    } else {
-                        <div class="nav-item">
-                            <NavLink class="nav-link" href="/categories/">
-                                <MudIcon Icon="@Icons.Material.Filled.Add" Color="Color.Primary" /> Tạo danh mục phân loại trước
-                            </NavLink>
-                        </div>
-                    }
+			<MudGrid Spacing="2">
+				<MudItem xs="12" lg="12">
+					<MudSelect @bind-Value="Request.TransactionType" Label="Loại phiếu" For="@(() => Request.TransactionType)" T="TransactionTypeEnum">
+						<MudSelectItem Value="TransactionTypeEnum.Import">Nhập kho</MudSelectItem>
+						<MudSelectItem Value="TransactionTypeEnum.Export">Xuất kho</MudSelectItem>
+					</MudSelect>
 
-                    <!-- Email Field -->
-                    <MudTextField @bind-Value="Request.Description"
-                                  Label="Ghi chú"
-                                  Lines="4"
-                                  For="@(() => Request.Description)" />
-                </MudItem>
-            </MudGrid>
-        </DialogContent>
-        <DialogActions>
-            <!-- Close Button -->
-            <MudButton Color="Color.Default"
-                       Variant="Variant.Outlined"
-                       OnClick="CloseDialog"
-                       StartIcon="@Icons.Material.Filled.Close"
-                       Size="Size.Medium">
-                Đóng
-            </MudButton>
-            <!-- Save Button -->
-            <MudButton Color="Color.Primary"
-                       Variant="Variant.Filled"
-                       ButtonType="ButtonType.Submit"
-                       StartIcon="@Icons.Material.Filled.PlaylistAddCheck"
-                       Size="Size.Medium">
-                @if (SubCategory != null) {
-                    <span>Cập nhật</span>
-                } else {
-                    <span>Thêm mới</span>
-                }
-            </MudButton>
-        </DialogActions>
-    </MudDialog>
+					<ProductFieldAutoComplete ValueSelected="OnValueSelected"
+											  CustomPlaceholder="Nhập tên sản phẩm"
+											  CustomLablel="Sản phẩm" />
+
+					<WarehouseFieldAutoComplete Default="warehouseSelected"
+												ValueChanged="OnSelectedWarehouse" />
+
+					<MudTextField @bind-Value="Request.Note"
+								  Label="Ghi chú"
+								  Lines="4"
+								  For="@(() => Request.Note)" />
+				</MudItem>
+			</MudGrid>
+			@if (items.Count == 0)
+			{
+				<MudText>Chưa có sản phẩm nào</MudText>
+			}
+			else
+			{
+				<MudGrid Spacing="2">
+					<MudItem xs="12" lg="12">
+						<MudTable Items="@Request.Items" Striped="true" Hover="true" Breakpoint="Breakpoint.Sm">
+							<HeaderContent>
+								<MudTh>Tên sản phẩm</MudTh>
+								<MudTh>Giá</MudTh>
+								<MudTh>Số lượng</MudTh>
+								<MudTh>Ctrl</MudTh>
+							</HeaderContent>
+							<RowTemplate Context="item">
+								<MudTd DataLabel="Tên sản phẩm">@item.ProductName</MudTd>
+								<MudTd DataLabel="Giá">
+									@if (editItem == item)
+									{
+										<MudTextField @bind-Value="item.Price" For="@(() => item.Price)" />
+									}
+									else
+									{
+										<span>@item.Price.ToString("N0")</span>
+									}
+								</MudTd>
+								<MudTd DataLabel="Số lượng">
+									@if (editItem == item)
+									{
+										<MudTextField @bind-Value="item.Quantity" For="@(() => item.Quantity)" />
+									}
+									else
+									{
+										<span>@item.Quantity</span>
+									}
+								</MudTd>
+								<MudTd DataLabel="Ctrl">
+									@if (editItem == item)
+									{
+										<MudIconButton Icon="@Icons.Material.Filled.Check" Color="Color.Success" OnClick="@(() => {editItem = null;})" />
+									}
+									else
+									{
+										<MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" OnClick="@(() => {editItem = item;})" />
+									}
+									<MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="@(() => items.Remove(item))" />
+								</MudTd>
+							</RowTemplate>
+						</MudTable>
+					</MudItem>
+				</MudGrid>
+			}
+
+		</DialogContent>
+		<DialogActions>
+			<!-- Close Button -->
+			<MudButton Color="Color.Default"
+					   Variant="Variant.Outlined"
+					   OnClick="CloseDialog"
+					   StartIcon="@Icons.Material.Filled.Close"
+					   Size="Size.Medium">
+				Đóng
+			</MudButton>
+			<!-- Save Button -->
+			<MudButton Color="Color.Primary"
+					   Variant="Variant.Filled"
+					   ButtonType="ButtonType.Submit"
+					   StartIcon="@Icons.Material.Filled.PlaylistAddCheck"
+					   Size="Size.Medium">
+				@if (Inventory != null)
+				{
+					<span>Cập nhật</span>
+				}
+				else
+				{
+					<span>Thêm mới</span>
+				}
+			</MudButton>
+		</DialogActions>
+	</MudDialog>
 </EditForm>
 
 
 @inject ISnackbar Snackbar
-@inject ISubCategoryServices SubCategoryServices
-@inject ICategoryServices CategoryServices
+@inject IInventoryTransactionServices InventoryTransactionServices
+@inject IInventoryItemServices InventoryItemServices
+@inject IWarehouseServices WarehouseServices
 
 @code {
-    [CascadingParameter]
-    public IMudDialogInstance MudDialog { get; set; } = null!;
-    [Parameter]
-    public SubCategoryModel? SubCategory { get; set; } = new();
+	[CascadingParameter]
+	public IMudDialogInstance MudDialog { get; set; } = null!;
+	[Parameter]
+	public InventoryTransactionModel? Inventory { get; set; } = new();
 
-    private bool _loading = false;
+	private bool _loading = false;
 
-    private SubCategoryRequest Request { get; set; } = new();
-    private bool _showPassword = false;
-    private List<CategoryModel> Categories { get; set; } = [];
+	private InventoryTransactionRequest Request { get; set; } = new();
+	private ProductModel? productSelected;
+	private WarehouseModel? warehouseSelected;
+	private List<InventoryItemRequest> items = new();
+	private InventoryItemRequest? editItem;
 
-    protected override async Task OnInitializedAsync() {
-        if (SubCategory != null) {
-            Request = new SubCategoryRequest() {
-                    Name = SubCategory.Name,
-                    Description = SubCategory.Description,
-                    CategoryId = SubCategory.CategoryId
-                };
-        }
+	protected override async Task OnInitializedAsync()
+	{
 
-        Categories = await CategoryServices.GetAllAsync(null);
+		if (Inventory != null)
+		{
+			var result = await InventoryItemServices.GetAllByTransactionIdAsync(Inventory.Id.ToString());
+			items = result.Select(item => new InventoryItemRequest()
+				{
+					Price = item.Price,
+					Quantity = item.Quantity,
+					ProductId = item.ProductId,
+					ProductName = item.ProductName,
+				}).ToList();
 
-        await base.OnInitializedAsync();
-    }
+			Request = new InventoryTransactionRequest
+				{
+					TransactionType = Inventory.TransactionType,
+					Note = Inventory.Note,
+					WarehouseId = Inventory.WarehouseId,
+				};
 
-    private void CloseDialog() => MudDialog.Cancel();
+			warehouseSelected = await WarehouseServices.GetByIdAsync(Inventory.WarehouseId);
+		}
 
-    private async Task OnSave() {
-        _loading = true;
-        if (SubCategory == null) {
-            var result = await SubCategoryServices.CreateAsync(Request);
-            if (result) {
-                Snackbar.Add("Thêm danh mục sản phẩm thành công", Severity.Success);
-            } else {
-                Snackbar.Add("Thêm danh mục sản phẩm thất bại", Severity.Error);
-                _loading = false;
-                return;
-            }
+		Request.Items = items;
 
-        } else {
-            var result = await SubCategoryServices.UpdateAsync(SubCategory.Id.ToString(), Request);
-            if (result) {
-                Snackbar.Add("Cập nhật danh mục sản phẩm thành công", Severity.Success);
-            } else {
-                Snackbar.Add("Cập nhật danh mục sản phẩm thất bại", Severity.Error);
-                _loading = false;
-                return;
-            }
-        }
-        _loading = false;
-        MudDialog.Close(DialogResult.Ok(true));
-    }
+		await base.OnInitializedAsync();
+	}
+
+	private void CloseDialog() => MudDialog.Cancel();
+
+	private async Task OnSave()
+	{
+		try
+		{
+			_loading = true;
+			if (Inventory == null)
+			{
+				var result = await InventoryTransactionServices.CreateAsync(Request);
+				if (result)
+				{
+					Snackbar.Add($"Thêm phiếu {(Request.TransactionType == TransactionTypeEnum.Import ? "nhập" : "xuất")} kho thành công", Severity.Success);
+				}
+				else
+				{
+					Snackbar.Add($"Thêm phiếu {(Request.TransactionType == TransactionTypeEnum.Import ? "nhập" : "xuất")} kho thất bại", Severity.Error);
+					_loading = false;
+					return;
+				}
+
+			}
+			else
+			{
+				var result = await InventoryTransactionServices.UpdateAsync(Inventory.Id.ToString(), Request);
+				if (result)
+				{
+					Snackbar.Add($"Cập nhật phiếu {(Request.TransactionType == TransactionTypeEnum.Import ? "nhập" : "xuất")} kho thành công", Severity.Success);
+				}
+				else
+				{
+					Snackbar.Add($"Cập nhật phiếu {(Request.TransactionType == TransactionTypeEnum.Import ? "nhập" : "xuất")} kho thất bại", Severity.Error);
+					_loading = false;
+					return;
+				}
+			}
+			_loading = false;
+			MudDialog.Close(DialogResult.Ok(true));
+		}
+		catch (Exception ex)
+		{
+			Snackbar.Add($"Có lỗi xảy ra {ex.Message}", Severity.Error);
+			_loading = false;
+			return;
+		}
+
+	}
+
+	private void OnValueSelected(ProductModel product)
+	{
+		if (product != null)
+		{
+			if (Request.Items.Any(x => x.ProductId == product.Id.ToString()))
+			{
+				Snackbar.Add("Sản phẩm đã có trong danh sách", Severity.Warning);
+				return;
+			}
+
+			var item = new InventoryItemRequest()
+				{
+					ProductId = product.Id.ToString(),
+					ProductName = product.Name,
+					Price = product.Price,
+					Quantity = 1
+				};
+			Request.Items.Add(item);
+		}
+	}
+
+	private void OnSelectedWarehouse(WarehouseModel warehouse)
+	{
+		warehouseSelected = warehouse;
+		Request.WarehouseId = warehouse != null ? warehouse.Id.ToString() : string.Empty;
+	}
 }

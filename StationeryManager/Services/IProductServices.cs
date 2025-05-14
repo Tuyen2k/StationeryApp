@@ -5,8 +5,8 @@ namespace StationeryManager.Services
 {
     public interface IProductServices
     {
-        Task<List<ProductModel>> GetAllAsync(FilterModel? filter);
-        Task<int> CountAllAsync(FilterModel? filter);
+        Task<List<ProductModel>> GetAllAsync(ProductFilterModel? filter);
+        Task<int> CountAllAsync(ProductFilterModel? filter);
         Task<ProductModel?> GetByIdAsync(string id);
         Task<bool> CreateAsync(ProductRequest product);
         Task<bool> UpdateAsync(string id, ProductRequest product);

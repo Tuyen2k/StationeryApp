@@ -12,38 +12,38 @@
             {
                 <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7" />
             }
-            
+
             <MudGrid Spacing="2">
                 <MudItem xs="12" lg="12">
                     <!-- Name Field -->
                     <MudTextField @bind-Value="Request.Name"
-                                  Label="Tên danh mục"
-                                  For="@(() => Request.Name)"
-                                  Required="true"/>
+                    Label="Tên danh mục"
+                    For="@(() => Request.Name)"
+                    Required="true"/>
 
                     <!-- Email Field -->
                     <MudTextField @bind-Value="Request.Description"
-                                  Label="Ghi chú"
-                                  Lines="4"
-                                  For="@(() => Request.Description)" />
+                    Label="Ghi chú"
+                    Lines="4"
+                    For="@(() => Request.Description)" />
                 </MudItem>
             </MudGrid>
         </DialogContent>
         <DialogActions>
             <!-- Close Button -->
             <MudButton Color="Color.Default"
-                       Variant="Variant.Outlined"
-                       OnClick="CloseDialog"
-                       StartIcon="@Icons.Material.Filled.Close"
-                       Size="Size.Medium">
+            Variant="Variant.Outlined"
+            OnClick="CloseDialog"
+            StartIcon="@Icons.Material.Filled.Close"
+            Size="Size.Medium">
                 Đóng
             </MudButton>
             <!-- Save Button -->
             <MudButton Color="Color.Primary"
-                       Variant="Variant.Filled"
-                       ButtonType="ButtonType.Submit"
-                       StartIcon="@Icons.Material.Filled.PlaylistAddCheck"
-                       Size="Size.Medium">
+            Variant="Variant.Filled"
+            ButtonType="ButtonType.Submit"
+            StartIcon="@Icons.Material.Filled.PlaylistAddCheck"
+            Size="Size.Medium">
                 @if (Category != null)
                 {
                     <span>Cập nhật</span>
@@ -83,44 +83,55 @@
 				};
         }
 
-		await base.OnInitializedAsync();
+        await base.OnInitializedAsync();
     }
 
     private void CloseDialog() => MudDialog.Cancel();
 
     private async Task OnSave()
     {
-		_loading = true;
-        if(Category == null)
+        try
         {
-            var result = await CategoryServices.CreateAsync(Request);
-            if (result)
+            _loading = true;
+            if (Category == null)
             {
-                Snackbar.Add("Thêm danh mục phân loại thành công", Severity.Success);
-            }
-            else
-            {
-                Snackbar.Add("Thêm danh mục phân loại thất bại", Severity.Error);
-                _loading = false;
-				return;
-            }
+                var result = await CategoryServices.CreateAsync(Request);
+                if (result)
+                {
+                    Snackbar.Add("Thêm danh mục phân loại thành công", Severity.Success);
+                }
+                else
+                {
+                    Snackbar.Add("Thêm danh mục phân loại thất bại", Severity.Error);
+                    _loading = false;
+                    return;
+                }
 
-        }
-        else
-        {
-            var result = await CategoryServices.UpdateAsync(Category.Id.ToString(), Request);
-            if (result)
-            {
-                Snackbar.Add("Cập nhật danh mục phân loại thành công", Severity.Success);
             }
             else
             {
-				Snackbar.Add("Cập nhật danh mục phân loại thất bại", Severity.Error);
-                _loading = false;
-                return;
+                var result = await CategoryServices.UpdateAsync(Category.Id.ToString(), Request);
+                if (result)
+                {
+                    Snackbar.Add("Cập nhật danh mục phân loại thành công", Severity.Success);
+                }
+                else
+                {
+                    Snackbar.Add("Cập nhật danh mục phân loại thất bại", Severity.Error);
+                    _loading = false;
+                    return;
+                }
             }
-        }
-		_loading = false;
-		MudDialog.Close(DialogResult.Ok(true));
+            _loading = false;
+            MudDialog.Close(DialogResult.Ok(true));
+            
+		}
+		catch (Exception ex)
+		{
+			Snackbar.Add("Có lỗi xảy ra: " + ex.Message, Severity.Error);
+			_loading = false;
+			return;
+		}
+    
     }
 }

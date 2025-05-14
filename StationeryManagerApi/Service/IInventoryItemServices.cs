@@ -1,5 +1,6 @@
 ﻿using StationeryManagerLib.Entities;
 using StationeryManagerLib.RequestModel;
+using StationeryManagerLib.ResultDataDb;
 
 namespace StationeryManagerApi.Services
 {
@@ -10,5 +11,7 @@ namespace StationeryManagerApi.Services
         //Task<InventoryTransactionModel> Create(InventoryItemRequest request);
         //Task<int> Update(InventoryTransactionModel inventory, InventoryItemRequest request);
         //Task<int> Delete(InventoryTransactionModel inventory);
+        Task<int> CreateListItemAsync(List<InventoryItemModel> inventoryItems);
+        Task<List<ProductItemStock>> CalculateStockByProductIds(List<string> productIds);
     }
 }

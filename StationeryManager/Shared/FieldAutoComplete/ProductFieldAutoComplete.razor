@@ -1,0 +1,59 @@
+﻿@using MudBlazor
+@using StationeryManager.Services
+@using StationeryManagerLib.Entities
+@using StationeryManagerLib.RequestModel
+
+﻿<!--
+    Sử dụng: bind ProductModel vào biến product:
+    Sự kiện ValueSelected -> OnSearch(ProductModel result)
+    <ProductFieldAutoComplete @@bind-Value="product" Class="flex-grow-1" ValueSelected="OnSearch" />
+-->
+@inherits MudAutocomplete<ProductModel>
+<MudAutocomplete T="ProductModel" Label="@CustomLablel" SearchFunc="@Search" Se Margin="Margin.Dense" Variant="Variant.Outlined"
+ShowProgressIndicator="true" ProgressIndicatorColor="Color.Success" ResetValueOnEmptyText="true" Clearable="true" 
+ValueChanged="OnValueChanged"
+Placeholder="@CustomPlaceholder"
+ToStringFunc="@ToString" Value="Default">
+    <ItemTemplate Context="e">
+        <div>
+            <img src="@e.ImageUrl" style="float: left; margin: 8px 8px 0 0; width: 48px" alt="image"/>
+            @e.Name
+            <br/>
+            @e.Price.ToString("N0")
+        </div>
+    </ItemTemplate>
+</MudAutocomplete>
+
+@inject IProductServices ProductServices
+@code {
+    [Parameter] public EventCallback<ProductModel> ValueSelected { get; set; }
+    [Parameter] public ProductModel? Default { get; set; }
+    [Parameter] public string CustomPlaceholder { get; set; } = "Nhập tên sản phẩm";
+    [Parameter] public string CustomLablel { get; set; } = "Sản phẩm";
+
+    private async Task<IEnumerable<ProductModel>> Search(string value, CancellationToken token)
+    {
+        var result = await ProductServices.GetAllAsync(new ProductFilterModel
+			{
+				Limit = 10,
+				Name = value,
+				Page = 0,
+			}) ?? [];
+		return result;
+    }
+
+    private async Task OnValueChanged(ProductModel? product)
+    {
+        Default = product;
+        await ValueChanged.InvokeAsync(product);
+        await ValueSelected.InvokeAsync(product);
+	}
+
+    private string ToString(ProductModel? model) {
+        return model == null ? string.Empty : $"{model.Name} - ({model.Price.ToString("N0")}) ";
+    }
+}
+
+@code {
+
+}

@@ -13,6 +13,11 @@ namespace StationeryManagerApi.Service.Impl
             _repositories = repositories;
         }
 
+        public async Task<int> CountAll(ProductFilterModel filter)
+        {
+            return await _repositories.CountAll(filter);
+        }
+
         public async Task<ProductModel> Create(ProductRequest request)
         {
             var product = new ProductModel
@@ -35,7 +40,12 @@ namespace StationeryManagerApi.Service.Impl
             return await _repositories.Delete(account);
         }
 
-        public async Task<List<ProductModel>> GetAlls(FilterModel filter)
+        public async Task<List<ProductModel>> GetAllByIds(List<string> ids)
+        {
+            return await _repositories.GetAllByIds(ids);
+        }
+
+        public async Task<List<ProductModel>> GetAlls(ProductFilterModel filter)
         {
             return await _repositories.GetAlls(filter);
         }

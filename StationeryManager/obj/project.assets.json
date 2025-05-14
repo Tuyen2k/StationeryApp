@@ -717,19 +717,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Tuyen\\.nuget\\packages\\": {}
+    "C:\\Users\\test\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Tuyen\\Desktop\\StationeryApp\\StationeryManager\\StationeryManager.csproj",
+      "projectUniqueName": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\StationeryManager.csproj",
       "projectName": "StationeryManager",
-      "projectPath": "C:\\Users\\Tuyen\\Desktop\\StationeryApp\\StationeryManager\\StationeryManager.csproj",
-      "packagesPath": "C:\\Users\\Tuyen\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Tuyen\\Desktop\\StationeryApp\\StationeryManager\\obj\\",
+      "projectPath": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\StationeryManager.csproj",
+      "packagesPath": "C:\\Users\\test\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Tuyen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\test\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -737,15 +744,14 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Tuyen\\Desktop\\StationeryApp\\StationeryManagerLib\\StationeryManagerLib.csproj": {
-              "projectPath": "C:\\Users\\Tuyen\\Desktop\\StationeryApp\\StationeryManagerLib\\StationeryManagerLib.csproj"
+            "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerLib\\StationeryManagerLib.csproj": {
+              "projectPath": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerLib\\StationeryManagerLib.csproj"
             }
           }
         }
@@ -759,7 +765,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net8.0": {
@@ -789,7 +796,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

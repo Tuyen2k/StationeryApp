@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StationeryManagerApi.Services;
+using StationeryManagerLib.Dtos;
 using StationeryManagerLib.Enum;
 using StationeryManagerLib.RequestModel;
 
@@ -11,21 +12,56 @@ namespace StationeryManagerApi.Controllers
     public class InventoryTransactionsController : ControllerBase
     {
         private readonly IInventoryTransactionServices _inventoryTransactionServices;
+        private readonly IInventoryItemServices _inventoryItemServices;
         private readonly IProductServices _productServices;
         private readonly IWarehouseServices _warehouseServices;
 
         public InventoryTransactionsController(
-            IInventoryTransactionServices transactionServices, 
-            IProductServices productServices, 
+            IInventoryTransactionServices transactionServices,
+            IInventoryItemServices inventoryItemServices,
+            IProductServices productServices,
             IWarehouseServices warehouseServices)
         {
             _inventoryTransactionServices = transactionServices;
+            _inventoryItemServices = inventoryItemServices;
             _productServices = productServices;
             _warehouseServices = warehouseServices;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAlls([FromQuery] InventoryTransactionFilterModel filter)
+        {
+            var products = await _productServices.GetAlls(new ProductFilterModel() { 
+                Limit = filter.Limit, 
+                Page = filter.Page,
+                Name = filter.Name
+            });
+
+            var productIds = products.Select(e => e.Id.ToString()).ToList();
+            var items = await _inventoryItemServices.CalculateStockByProductIds(productIds);
+
+            var list = from p in products
+                       join i in items on p.Id.ToString() equals i.ProductId into pi
+                       from i in pi.DefaultIfEmpty()
+                       select new ProductStockModel()
+                       {
+                           Id = p.Id,
+                           Name = p.Name,
+                           Stock = i != null ? i.Stock : 0,
+                           ExportQuantity = i != null ? i.ExportQuantity : 0,
+                           ImportQuantity = i != null ? i.ImportQuantity : 0,
+                           CreatedAt = p.CreatedAt,
+                           UpdatedAt = p.UpdatedAt,
+                           IsDeleted = p.IsDeleted,
+                           Description = p.Description,
+                           ImageUrl = p.ImageUrl,
+                           SubCategoryId = p.SubCategoryId,
+                       };
+            return Ok(list);
+        }
+
+        [HttpGet("transaction")]
+        public async Task<IActionResult> GetAllTransactions([FromQuery] InventoryTransactionFilterModel filter)
         {
             var list = await _inventoryTransactionServices.GetAlls(filter);
             return Ok(list);
@@ -34,10 +70,10 @@ namespace StationeryManagerApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] InventoryTransactionRequest request)
         {
-            if(Enum.TryParse<TransactionTypeEnum>(request.TransactionType, true, out TransactionTypeEnum type) == false)
-            {
-                return BadRequest("Transaction type is invalid");
-            }
+            //if (!request.Items.Any())
+            //{
+            //    return BadRequest("Transaction type is invalid");
+            //}
 
             var warehouse = await _warehouseServices.GetById(request.WarehouseId);
             if (warehouse == null)
@@ -45,14 +81,14 @@ namespace StationeryManagerApi.Controllers
                 return BadRequest("Warehouse not found");
             }
 
-            //var product = await _productServices.GetById(request.ProductId);
-            //if (product == null)
-            //{
-            //    return BadRequest("Product not found");
-            //}
+            var productIds = request.Items.Select(e => e.ProductId).ToList();
+            var products = await _productServices.GetAllByIds(productIds);
+            if (products.Count != productIds.Count)
+            {
+                return BadRequest("Some product not found in bill");
+            }
 
-            //request.ProductName = product.Name;
-            var result = await _inventoryTransactionServices.Create(request);
+            var result = await _inventoryTransactionServices.Create(request, products);
             if (result == null)
             {
                 return BadRequest("Create failed");
@@ -80,10 +116,10 @@ namespace StationeryManagerApi.Controllers
                 return NotFound($"Transaction with id {id} not found");
             }
 
-            if (Enum.TryParse<TransactionTypeEnum>(request.TransactionType, true, out TransactionTypeEnum type) == false)
-            {
-                return BadRequest("Transaction type is invalid");
-            }
+            //if (!request.Items.Any())
+            //{
+            //    return BadRequest("Transaction type is invalid");
+            //}
 
             var warehouse = await _warehouseServices.GetById(request.WarehouseId);
             if (warehouse == null)

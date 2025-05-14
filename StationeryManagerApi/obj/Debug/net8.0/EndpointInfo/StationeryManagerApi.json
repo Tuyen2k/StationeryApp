@@ -515,6 +515,80 @@
         }
       }
     },
+    "/api/inventories/transaction": {
+      "get": {
+        "tags": [
+          "InventoryTransactions"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TransactionType",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "FromDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "ToDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "ProductId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Name",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/inventories/{id}": {
       "get": {
         "tags": [
@@ -603,6 +677,13 @@
         ],
         "parameters": [
           {
+            "name": "SubCategoryId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "Name",
             "in": "query",
             "schema": {
@@ -655,6 +736,50 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/products/count": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "name": "SubCategoryId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Name",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -743,12 +868,19 @@
         }
       }
     },
-    "/api/subCategories": {
+    "/api/subcategories": {
       "get": {
         "tags": [
           "SubCategories"
         ],
         "parameters": [
+          {
+            "name": "CategoryId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "Name",
             "in": "query",
@@ -809,7 +941,51 @@
         }
       }
     },
-    "/api/subCategories/{id}": {
+    "/api/subcategories/count": {
+      "get": {
+        "tags": [
+          "SubCategories"
+        ],
+        "parameters": [
+          {
+            "name": "CategoryId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Name",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/subcategories/{id}": {
       "get": {
         "tags": [
           "SubCategories"
@@ -1131,8 +1307,7 @@
             "nullable": true
           },
           "transactionType": {
-            "minLength": 1,
-            "type": "string"
+            "$ref": "#/components/schemas/TransactionTypeEnum"
           },
           "items": {
             "type": "array",
@@ -1176,7 +1351,6 @@
       "SubCategoryRequest": {
         "required": [
           "categoryId",
-          "description",
           "name"
         ],
         "type": "object",
@@ -1186,8 +1360,8 @@
             "type": "string"
           },
           "description": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "categoryId": {
             "minLength": 1,
@@ -1195,6 +1369,14 @@
           }
         },
         "additionalProperties": false
+      },
+      "TransactionTypeEnum": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "format": "int32"
       },
       "UpdateAccountRequest": {
         "required": [

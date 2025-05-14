@@ -34,4 +34,9 @@ namespace StationeryManagerLib.RequestModel
     public class SubCategoryFilterModel : FilterModel {
         public string? CategoryId { get; set; }
     }
+
+    public class ProductFilterModel : FilterModel
+    {
+        public string? SubCategoryId { get; set; }
+    }
 }

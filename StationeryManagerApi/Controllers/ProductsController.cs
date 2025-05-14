@@ -20,9 +20,16 @@ namespace StationeryManagerApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] FilterModel filter)
+        public async Task<IActionResult> GetAll([FromQuery] ProductFilterModel filter)
         {
             var result = await _productServices.GetAlls(filter);
+            return Ok(result);
+        }
+
+        [HttpGet("count")]
+        public async Task<IActionResult> CountAll([FromQuery] ProductFilterModel filter)
+        {
+            var result = await _productServices.CountAll(filter);
             return Ok(result);
         }
 
