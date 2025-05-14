@@ -7,14 +7,14 @@ namespace StationeryManagerApi
 {
     public class StationeryDBContext : DbContext
     {
-        public StationeryDBContext(DbContextOptions<StationeryDBContext> options) : base(options) {}
+        public StationeryDBContext(DbContextOptions<StationeryDBContext> options) : base(options) { }
 
         public DbSet<AccountModel> Accounts { get; set; }
         public DbSet<CategoryModel> Categories { get; set; }
         public DbSet<SubCategoryModel> SubCategories { get; set; }
         public DbSet<ProductModel> Products { get; set; }
         public DbSet<WarehouseModel> Warehouses { get; set; }
-        public DbSet<InventoryTransactionModel> InventoryTransactions { get; set; } 
+        public DbSet<InventoryTransactionModel> InventoryTransactions { get; set; }
         public DbSet<InventoryItemModel> InventoryItems { get; set; }
         public DbSet<ProductInventoryView> ProductInventories { get; set; }
 
@@ -30,8 +30,17 @@ namespace StationeryManagerApi
 
             // configure view
             var productInventoryView = modelBuilder.Entity<ProductInventoryView>();
-            productInventoryView.HasKey(p => p.ProductId);         
-            productInventoryView.ToView("vw_ProductInventory");    
+            productInventoryView.HasKey(p => p.ProductId);
+            productInventoryView.ToView("vw_ProductInventory");
+
+            // configure constants for table names
+            modelBuilder.Entity<AccountModel>()
+                    .HasIndex(e => e.Email)
+                    .IsUnique();
+
+            modelBuilder.Entity<ProductModel>()
+                    .HasIndex(e => e.Sku)
+                    .IsUnique();
 
             base.OnModelCreating(modelBuilder);
         }

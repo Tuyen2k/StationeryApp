@@ -9,14 +9,26 @@ namespace StationeryManagerLib.RequestModel
 {
     public class ProductRequest
     {
-        [Required]
+        [Required(ErrorMessage ="{0} là bắt buộc")]
+        [StringLength(100, MinimumLength = 2, ErrorMessage = "{0} có độ dài từ {2} đến {1} ký tự")]
+        [Display(Name = "Tên sản phẩm")]
         public string Name { get; set; }
+
+        [Display(Name = "Mô tả")]
         public string? Description { get; set; } = string.Empty;
+
+        [Display(Name = "Hình ảnh")]
         public string? ImageUrl { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "{0} là bắt buộc")]
+        [Display(Name = "Danh mục sản phẩm")]
         public string SubCategoryId { get; set; }
+
+        [Display(Name = "Giá sản phẩm")]
         public double Price { get; set; } = 0;
+
+        [Display(Name = "Mã sản phẩm")]
+        public string? Sku { get; set; }
     }
 
     //public class CreateProductRequest : UpdateProductRequest

@@ -38,5 +38,7 @@ namespace StationeryManagerLib.RequestModel
     public class ProductFilterModel : FilterModel
     {
         public string? SubCategoryId { get; set; }
+        public DateTime? FromTime { get; set; }
+        public DateTime? ToTime { get; set; }
     }
 }

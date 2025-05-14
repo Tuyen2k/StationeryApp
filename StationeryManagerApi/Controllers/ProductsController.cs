@@ -1,7 +1,9 @@
 ﻿using Azure.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StationeryManagerApi.Services;
+using StationeryManagerLib.Entities;
 using StationeryManagerLib.RequestModel;
 
 namespace StationeryManagerApi.Controllers
@@ -51,6 +53,15 @@ namespace StationeryManagerApi.Controllers
             if (subCategory == null)
             {
                 return NotFound($"SubCategory with id {product.SubCategoryId} not found");
+            }
+
+            if(!string.IsNullOrEmpty(product.Sku))
+            {
+                var productExist = await _productServices.GetBySku(product.Sku);
+                if (productExist != null)
+                {
+                    return BadRequest($"Product with sku {product.Sku} already exists");
+                }
             }
 
             var result = await _productServices.Create(product);

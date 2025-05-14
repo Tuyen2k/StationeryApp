@@ -27,6 +27,16 @@ namespace StationeryManagerApi.Repository.Impl
                 query = query.Where(e => e.SubCategoryId == filter.SubCategoryId);
             }
 
+            if(filter.FromTime != null)
+            {
+                query = query.Where(e => e.CreatedAt >= filter.FromTime);
+            }
+
+            if (filter.ToTime != null)
+            {
+                query = query.Where(e => e.CreatedAt <= filter.ToTime);
+            }
+
             var result = await query.CountAsync();
             return result;
         }
@@ -86,6 +96,14 @@ namespace StationeryManagerApi.Repository.Impl
         public async Task<ProductModel?> GetById(Guid id)
         {
             var query = _context.Products.AsQueryable().Where(e => e.Id == id);
+            query = query.Where(e => e.IsDeleted != true);
+            var result = await query.FirstOrDefaultAsync();
+            return result;
+        }
+
+        public async Task<ProductModel?> GetBySku(string sku)
+        {
+            var query = _context.Products.AsQueryable().Where(e => e.Sku == sku);
             query = query.Where(e => e.IsDeleted != true);
             var result = await query.FirstOrDefaultAsync();
             return result;

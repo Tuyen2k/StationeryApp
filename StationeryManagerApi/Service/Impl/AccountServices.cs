@@ -45,6 +45,11 @@ namespace StationeryManagerApi.Service.Impl
             return result;
         }
 
+        public async Task<AccountModel?> GetAccountByEmail(string email)
+        {
+            return await _repositories.GetAccountByEmail(email);
+        }
+
         public async Task<AccountModel?> GetAccountById(string id)
         {
             if (!Guid.TryParse(id, out Guid guidId))

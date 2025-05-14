@@ -18,5 +18,8 @@ namespace StationeryManagerLib.Entities
         [Required]
         public string SubCategoryId { get; set; }
         public double Price { get; set; }
+
+        [Required]
+        public string Sku { get; set; }
     }
 }

@@ -6,6 +6,7 @@ namespace StationeryManagerApi.Repository
     public interface IAccountRepositories
     {
         Task<AccountModel?> GetAccountById(Guid id);
+        Task<AccountModel?> GetAccountByEmail(string email);
         Task<List<AccountModel>> GetAllAccounts(FilterModel filter);
         Task<int> CountAll(FilterModel filter);
         Task<AccountModel> CreateAccount(AccountModel account);

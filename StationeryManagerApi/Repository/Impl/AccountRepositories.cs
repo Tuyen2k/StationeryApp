@@ -41,6 +41,12 @@ namespace StationeryManagerApi.Repository.Impl
             return result;
         }
 
+        public async Task<AccountModel?> GetAccountByEmail(string email)
+        {
+            var result = await _context.Accounts.AsQueryable().Where(e => e.Email == email).FirstOrDefaultAsync();
+            return result;
+        }
+
         public async Task<AccountModel?> GetAccountById(Guid id)
         {
             var query = _context.Accounts.AsQueryable().Where(e => e.Id == id);

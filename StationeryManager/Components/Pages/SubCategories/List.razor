@@ -69,7 +69,7 @@
     }
 
     private string DisplayCategory(string categoryId) {
-        if(!Guid.TryParse(categoryId, out Guid id)) {
+        if(Guid.TryParse(categoryId, out Guid id)) {
             var category = Categories.FirstOrDefault(e => e.Id == id);
             return category != null ? category.Name : "Không xác định";
         }
@@ -99,18 +99,18 @@
 
     }
 
-    private async Task DeleteSubCategory(SubCategoryModel account) {
+    private async Task DeleteSubCategory(SubCategoryModel subcategory) {
         var result = await DialogService.ShowMessageBox(
             "Xoá danh mục sản phẩm",
-            $"Bạn có chắc muốn xóa danh mục sản phẩm {account.Name} không?",
+            $"Bạn có chắc muốn xóa danh mục sản phẩm {subcategory.Name.ToUpper()} không?",
             yesText: "Xác nhận", noText: "Hủy");
 
         if (result == true) {
-            var res = await SubCategoryServices.DeleteAsync(account.Id.ToString());
-            Snackbar.Add($"Đã xóa danh mục sản phẩm {account.Name} thành công", Severity.Success);
+            var res = await SubCategoryServices.DeleteAsync(subcategory.Id.ToString());
+            Snackbar.Add($"Đã xóa danh mục sản phẩm {subcategory.Name} thành công", Severity.Success);
             await _table.ReloadServerData();
         } else {
-            Snackbar.Add($"Xóa danh mục sản phẩm {account.Name} thất bại", Severity.Error);
+            Snackbar.Add("Đã hủy thao tác!", Severity.Warning);
         }
     }
 

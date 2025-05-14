@@ -20,12 +20,14 @@ namespace StationeryManagerApi.Service.Impl
 
         public async Task<ProductModel> Create(ProductRequest request)
         {
+            var sku = string.IsNullOrEmpty(request.Sku) ? await GenerateSku() : request.Sku;
+
             var product = new ProductModel
             {
                 Name = request.Name,
                 Price = request.Price,
                 SubCategoryId = request.SubCategoryId,
-                Description = request.Description,
+                Description = request.Description ?? "",
                 IsDeleted = false,
                 CreatedAt = DateTime.UtcNow,
             };
@@ -59,14 +61,35 @@ namespace StationeryManagerApi.Service.Impl
             return await _repositories.GetById(guid);
         }
 
+        public async Task<ProductModel?> GetBySku(string sku)
+        {
+            return await _repositories.GetBySku(sku);
+        }
+
         public async Task<int> Update(ProductModel account, ProductRequest request)
         {
             account.Name = request.Name;
             account.Price = request.Price;
             account.SubCategoryId = request.SubCategoryId;
-            account.Description = request.Description;
+            account.Description = request.Description ?? "";
             account.UpdatedAt = DateTime.UtcNow;
             return await _repositories.Update(account);
+        }
+
+        private async Task<string> GenerateSku()
+        {
+            var fromDate = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, 0,0,0);
+            var sku = $"SKU-{fromDate.ToString("yyyyMMdd")}";
+            var countInDate = await _repositories.CountAll(new ProductFilterModel
+            {
+                FromTime = fromDate,
+                ToTime = fromDate.AddDays(1),
+            });
+
+            var countNumber = (countInDate + 1).ToString("D6");
+            sku += $"-{countNumber}";
+
+            return sku;
         }
     }
 }

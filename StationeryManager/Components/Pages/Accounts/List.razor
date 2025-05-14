@@ -88,7 +88,7 @@
 	{
 		var result = await DialogService.ShowMessageBox(
 			"Xoá tài khoản",
-			$"Bạn có chắc muốn xóa tài khoản {account.Name} không?",
+			$"Bạn có chắc muốn xóa tài khoản {account.Name.ToUpper()} không?",
 			yesText: "Xác nhận", noText: "Hủy");
 
 		if (result == true)
@@ -99,7 +99,7 @@
 		}
 		else
 		{
-			Snackbar.Add($"Xóa tài khoản {account.Name} thất bại", Severity.Error);
+			Snackbar.Add("Đã hủy thao tác!", Severity.Warning);
 		}
 	}
 

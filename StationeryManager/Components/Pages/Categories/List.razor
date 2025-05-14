@@ -82,18 +82,18 @@
 
     }
 
-    private async Task DeleteCategory(CategoryModel account) {
+    private async Task DeleteCategory(CategoryModel category) {
         var result = await DialogService.ShowMessageBox(
             "Xoá danh mục phân loại",
-            $"Bạn có chắc muốn xóa danh mục phân loại {account.Name} không?",
+            $"Bạn có chắc muốn xóa danh mục phân loại {category.Name.ToUpper()} không?",
             yesText: "Xác nhận", noText: "Hủy");
 
         if (result == true) {
-            var res = await CategoryServices.DeleteAsync(account.Id.ToString());
-            Snackbar.Add($"Đã xóa danh mục phân loại {account.Name} thành công", Severity.Success);
+            var res = await CategoryServices.DeleteAsync(category.Id.ToString());
+            Snackbar.Add($"Đã xóa danh mục phân loại {category.Name} thành công", Severity.Success);
             await _table.ReloadServerData();
         } else {
-            Snackbar.Add($"Xóa danh mục phân loại {account.Name} thất bại", Severity.Error);
+            Snackbar.Add("Đã hủy thao tác!", Severity.Warning);
         }
     }
 

@@ -18,12 +18,14 @@
             <HeaderContent>
                 <MudTh>Tên sản phẩm</MudTh>
                 <MudTh>Ngày tạo</MudTh>
+                <MudTh>Giá</MudTh>
                 <MudTh>Mô tả</MudTh>
                 <MudTh>Ctrl</MudTh>
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="Tên danh mục">@context.Name</MudTd>
                 <MudTd DataLabel="Ngày tạo">@context.CreatedAt.ToString("HH:mm dd/MM/yyyy")</MudTd>
+                <MudTd DataLabel="Giá">@context.Price.ToString("N0")</MudTd>
                 <MudTd DataLabel="Mô tả">
                     <div class="line-clamp-2" title="@context.Description">@context.Description</div>
                 </MudTd>
@@ -85,7 +87,7 @@
     private async Task DeleteProduct(ProductModel product) {
         var result = await DialogService.ShowMessageBox(
             "Xoá sản phẩm",
-            $"Bạn có chắc muốn xóa sản phẩm {product.Name} không?",
+            $"Bạn có chắc muốn xóa sản phẩm {product.Name.ToUpper()} không?",
             yesText: "Xác nhận", noText: "Hủy");
 
         if (result == true) {
@@ -93,7 +95,7 @@
             Snackbar.Add($"Đã xóa sản phẩm {product.Name} thành công", Severity.Success);
             await _table.ReloadServerData();
         } else {
-            Snackbar.Add($"Xóa sản phẩm {product.Name} thất bại", Severity.Error);
+            Snackbar.Add("Đã hủy thao tác!", Severity.Warning);
         }
     }
 

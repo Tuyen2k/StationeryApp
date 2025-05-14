@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Azure.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -53,6 +54,12 @@ namespace StationeryManagerApi.Controllers
                 return NotFound($"Account with id {id} not found");
             }
 
+            var existingAccount = await _accountServices.GetAccountByEmail(request.Email);
+            if (existingAccount != null && existingAccount.Id != account.Id)
+            {
+                return BadRequest($"Email {request.Email} already exists");
+            }
+
             var result = await _accountServices.UpdateAccount(account, request);
 
             if(result == 0)
@@ -63,9 +70,15 @@ namespace StationeryManagerApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateAccountRequest account)
+        public async Task<IActionResult> Create([FromBody] CreateAccountRequest request)
         {
-            var result = await _accountServices.CreateAccount(account);
+            var existingAccount = await _accountServices.GetAccountByEmail(request.Email);
+            if (existingAccount != null)
+            {
+                return BadRequest($"Email {request.Email} already exists");
+            }
+
+            var result = await _accountServices.CreateAccount(request);
             if (result == null) {
                 return BadRequest();
             }
@@ -86,7 +99,6 @@ namespace StationeryManagerApi.Controllers
                 return BadRequest($"Delete failed");
             }
             return Ok("Delete success");
-
 
         }
 

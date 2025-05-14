@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StationeryManagerApi;
 
@@ -11,9 +12,11 @@ using StationeryManagerApi;
 namespace StationeryManagerApi.Migrations
 {
     [DbContext(typeof(StationeryDBContext))]
-    partial class StationeryDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250514082838_addConstraintUniqueEmailToAccount")]
+    partial class addConstraintUniqueEmailToAccount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -230,7 +233,7 @@ namespace StationeryManagerApi.Migrations
 
                     b.Property<string>("Sku")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SubCategoryId")
                         .IsRequired()
@@ -240,9 +243,6 @@ namespace StationeryManagerApi.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Sku")
-                        .IsUnique();
 
                     b.ToTable("Products", (string)null);
                 });

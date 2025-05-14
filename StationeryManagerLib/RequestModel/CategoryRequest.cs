@@ -9,10 +9,12 @@ namespace StationeryManagerLib.RequestModel
 {
     public class CategoryRequest
     {
-        [Required]
+        [Required(ErrorMessage ="{0} là bắt buộc")]
+        [Display(Name = "Tên danh mục phân loại")]
         public string Name { get; set; }
-        [Required]
-        public string Description { get; set; }
+
+        [Display(Name = "Mô tả")]
+        public string? Description { get; set; }
     }
 
 }

@@ -70,10 +70,10 @@ namespace StationeryManagerApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] InventoryTransactionRequest request)
         {
-            //if (!request.Items.Any())
-            //{
-            //    return BadRequest("Transaction type is invalid");
-            //}
+            if (!request.Items.Any())
+            {
+                return BadRequest("No product in bill");
+            }
 
             var warehouse = await _warehouseServices.GetById(request.WarehouseId);
             if (warehouse == null)
