@@ -72,7 +72,7 @@
     private string _searchString = string.Empty;
 
     protected override void OnInitialized() {
-        AppState.SetTitle("Danh sách sản phẩm");
+        AppState.Title = "Danh sách sản phẩm";
     }
 
     private async Task<TableData<ProductModel>> ServerReload(TableState state, CancellationToken token) {

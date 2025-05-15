@@ -93,7 +93,7 @@
 			return;
 		}
 		product = await ProductServices.GetByIdAsync(id);
-		AppState.SetTitle($"Lịch sử xuất/nhập kho của {(product != null ? product.Name.ToUpper() : "sản phẩm")}");
+		AppState.Title = $"Lịch sử xuất/nhập kho của {(product != null ? product.Name.ToUpper() : "sản phẩm")}";
 	}
 
 	private string GetNameWarehouse(string id)

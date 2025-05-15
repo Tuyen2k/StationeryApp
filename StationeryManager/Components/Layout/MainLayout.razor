@@ -1,7 +1,8 @@
-﻿@using StationeryManager.Util
+﻿@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using StationeryManager.Util
+@using System.Net.Http.Headers
 @inherits LayoutComponentBase
 @inject AppStateService AppState
-@implements IDisposable
 
 <div class="page">
 	<div class="sidebar">
@@ -9,8 +10,17 @@
 	</div>
 
 	<main>
-		<div class="top-row px-4">
-			<MudText Typo="Typo.h6" Class="ml-2">@_title</MudText>
+		<div class="top-row px-4 d-flex justify-between align-center">
+			<MudText Typo="Typo.h6">@AppState.Title</MudText>
+
+			@if (string.IsNullOrEmpty(AppState.UserName))
+			{
+				<MudButton Color="Color.Primary" OnClick="@(() => AppState.ShowLoginDialog?.Invoke())">Đăng nhập</MudButton>
+			}
+			else
+			{
+				<MudButton Color="Color.Primary" OnClick="@(() => AppState.ShowUserProfile?.Invoke())">@AppState.UserEmail</MudButton>
+			}
 		</div>
 		@* Required *@
 		<MudThemeProvider />
@@ -34,23 +44,26 @@
 	<a class="dismiss">🗙</a>
 </div>
 
+@inject HttpClient Http
+@inject ProtectedLocalStorage LocalStorage
 @code {
-	private string _title = "";
 
-	protected override void OnInitialized()
+	protected override async Task OnInitializedAsync()
 	{
-		_title = AppState.Title;
-		AppState.OnTitleChanged += UpdateTitle;
+		var result = await LocalStorage.GetAsync<string>("authToken");
+		var userEmailResult = await LocalStorage.GetAsync<string>("userEmail");
+		var token = result.Success ? result.Value : null;
+
+		if (!string.IsNullOrEmpty(token))
+		{
+			Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+		}
+
+		if (userEmailResult.Success && !string.IsNullOrEmpty(userEmailResult.Value))
+		{
+			AppState.UserEmail = userEmailResult.Value;
+		}
 	}
 
-	private void UpdateTitle()
-	{
-		_title = AppState.Title;
-		InvokeAsync(StateHasChanged);
-	}
 
-	public void Dispose()
-	{
-		AppState.OnTitleChanged -= UpdateTitle;
-	}
 }

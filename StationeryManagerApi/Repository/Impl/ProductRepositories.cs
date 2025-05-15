@@ -16,7 +16,10 @@ namespace StationeryManagerApi.Repository.Impl
         {
             var query = _context.Products.AsQueryable();
 
-            query = query.Where(e => e.IsDeleted != true);
+            if (filter.FilterDeleted)
+            {
+                query = query.Where(e => e.IsDeleted != true);
+            }
 
             if (!string.IsNullOrEmpty(filter.Name))
             {

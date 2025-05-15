@@ -94,6 +94,7 @@ namespace StationeryManagerApi.Service.Impl
             {
                 FromTime = fromDate,
                 ToTime = fromDate.AddDays(1),
+                FilterDeleted = false
             });
 
             var countNumber = (countInDate + 1).ToString("D6");

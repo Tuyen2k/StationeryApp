@@ -10,7 +10,7 @@
 	<MudPaper Class="w-100 d-flex align-content-center justify-content-between mt-2">
 		<MudTextField @bind-Value="_searchString" Placeholder="Tìm kiếm tài khoản" Adornment="Adornment.Start" Icon="@Icons.Material.Filled.Search" />
 		<MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="OnSearch" />
-		<MudButton Color="Color.Primary" OnClick="@(() => CreateOrUpdateAccount(null))" StartIcon="@Icons.Material.Filled.Add">Thêm tài khoản</MudButton>
+		<MudButton Color="Color.Primary" OnClick="@(() => CreateAccount())" StartIcon="@Icons.Material.Filled.Add">Thêm tài khoản</MudButton>
 	</MudPaper>
 
 	<MudPaper Class="w-100 mt-2">
@@ -28,7 +28,7 @@
 				<MudTd DataLabel="Ngày tạo">@context.CreatedAt.ToString("HH:mm dd/MM/yyyy")</MudTd>
 				<MudTd DataLabel="Số điện thoại">@context.Phone</MudTd>
 				<MudTd DataLabel="Ctrl">
-					<MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" OnClick="@(() => CreateOrUpdateAccount(context))" />
+					<MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" OnClick="@(() => UpdateAccount(context))" />
 					<MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="@(() => DeleteAccount(context))" />
 				</MudTd>
 			</RowTemplate>
@@ -58,7 +58,7 @@
 
 	protected override void OnInitialized()
 	{
-		AppState.SetTitle("Danh sách tài khoản");
+		AppState.Title = "Danh sách tài khoản";
 	}
 
 	private async Task<TableData<AccountModel>> ServerReload(TableState state, CancellationToken token)
@@ -104,13 +104,31 @@
 	}
 
 
-	private async Task CreateOrUpdateAccount(AccountModel? account)
+	private async Task UpdateAccount(AccountModel account)
 	{
-		var parameters = new DialogParameters<DialogCreateOrUpdateAccount>();
+		var parameters = new DialogParameters<DialogUpdateAccount>();
 		parameters.Add("Account", account);
 		var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Large, FullWidth = true };
-		var dialog = await DialogService.ShowAsync<DialogCreateOrUpdateAccount>(
-			$"{(account != null ? "Cập nhật" : "Tạo")} tài khoản", parameters, options);
+		var dialog = await DialogService.ShowAsync<DialogUpdateAccount>(
+			$"Cập nhật tài khoản", parameters, options);
+		var result = await dialog.Result;
+		if (result != null && !result.Canceled)
+		{
+			await _table.ReloadServerData();
+		}
+		else
+		{
+			Snackbar.Add("Đã hủy thao tác!", Severity.Warning);
+		}
+
+	}
+
+	private async Task CreateAccount()
+	{
+		var parameters = new DialogParameters<DialogCreateAccount>();
+		var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Large, FullWidth = true };
+		var dialog = await DialogService.ShowAsync<DialogCreateAccount>(
+			"Tạo tài khoản", parameters, options);
 		var result = await dialog.Result;
 		if (result != null && !result.Canceled)
 		{

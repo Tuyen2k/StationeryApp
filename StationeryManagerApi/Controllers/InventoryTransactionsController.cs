@@ -47,6 +47,7 @@ namespace StationeryManagerApi.Controllers
                        {
                            Id = p.Id,
                            Name = p.Name,
+                           Sku = p.Sku,
                            Stock = i != null ? i.Stock : 0,
                            ExportQuantity = i != null ? i.ExportQuantity : 0,
                            ImportQuantity = i != null ? i.ImportQuantity : 0,

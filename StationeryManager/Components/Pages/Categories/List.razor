@@ -57,7 +57,7 @@
     private string _searchString = string.Empty;
 
     protected override void OnInitialized() {
-        AppState.SetTitle("Danh sách danh mục phân loại");
+        AppState.Title = "Danh sách danh mục phân loại";
     }
 
     private async Task<TableData<CategoryModel>> ServerReload(TableState state, CancellationToken token) {

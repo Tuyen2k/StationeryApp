@@ -41,5 +41,6 @@ namespace StationeryManagerLib.RequestModel
         public string? SubCategoryId { get; set; }
         public DateTime? FromTime { get; set; }
         public DateTime? ToTime { get; set; }
+        public bool FilterDeleted { get; set; } = true;
     }
 }

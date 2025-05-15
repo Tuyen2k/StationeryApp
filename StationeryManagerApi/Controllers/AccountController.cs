@@ -1,14 +1,17 @@
 ﻿using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StationeryManagerApi.Extentions;
 using StationeryManagerApi.Service;
 using StationeryManagerApi.Services;
 using StationeryManagerLib.RequestModel;
 
 namespace StationeryManagerApi.Controllers
 {
+    [Authorize]
     [Route("api/accounts")]
     [ApiController]
     public class AccountController : ControllerBase
@@ -23,6 +26,7 @@ namespace StationeryManagerApi.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] FilterModel filter) {
+            var user = HttpContext.User.ToClaimModel();
             var list = await _accountServices.GetAllAccounts(filter);
             return Ok(list);
         }

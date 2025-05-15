@@ -2,16 +2,12 @@
 {
     public class AppStateService
     {
-        private string _title = "Trang mặc định";
+        public string Title { get; set; } = "Trang chủ";
+        public string UserEmail { get; set; } = string.Empty;
+        public string UserName { get; set; } = string.Empty;
 
-        public string Title => _title;
-
-        public event Action? OnTitleChanged;
-
-        public void SetTitle(string title)
-        {
-            _title = title;
-            OnTitleChanged?.Invoke();
-        }
+        public Action? ShowLoginDialog { get; set; }
+        public Action? ShowRegister { get; set; }
+        public Action? ShowUserProfile { get; set; }
     }
 }

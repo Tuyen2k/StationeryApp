@@ -1,0 +1,78 @@
+﻿@page "/login"
+@using StationeryManager.Services
+@using StationeryManagerLib.RequestModel
+
+<MudPaper Class="d-flex justify-content-center align-content-center">
+	<EditForm style="padding: 2em" Model="@LoginRequest" OnValidSubmit="Save">
+		<DataAnnotationsValidator />
+		<ValidationSummary />
+
+		<MudText Typo="Typo.h5" Class="text-center">Đăng nhập</MudText>
+		<MudTextField @bind-Value="LoginRequest.Email" Label="Email" Required="true" />
+
+		<MudTextField T="string"
+					  @bind-Value="LoginRequest.Password"
+					  Label="Mật khẩu"
+					  InputType="@(_showPassword ? InputType.Text : InputType.Password)"
+					  Adornment="Adornment.End"
+					  AdornmentIcon="@(_showPassword ? Icons.Material.Filled.VisibilityOff : Icons.Material.Filled.Visibility)"
+					  OnAdornmentClick="@TogglePasswordVisibility"
+					  For="@(() => LoginRequest.Password)" />
+		<MudButton ButtonType="ButtonType.Submit" Color="Color.Primary">Đăng nhập</MudButton>
+		<MudButton Color="Color.Secondary" OnClick="NavigateToRegister">Đăng ký</MudButton>
+		<MudButton Color="Color.Default" OnClick="NavigateToForgotPassword">Quên mật khẩu</MudButton>
+	</EditForm>
+	@* <MudText Typo="Typo.body2" Class="text-center">Hoặc</MudText>
+	<MudButton Color="Color.Info" OnClick="NavigateToGoogleLogin">Đăng nhập bằng Google</MudButton>
+	<MudButton Color="Color.Info" OnClick="NavigateToFacebookLogin">Đăng nhập bằng Facebook</MudButton>
+	<MudButton Color="Color.Info" OnClick="NavigateToGithubLogin">Đăng nhập bằng Github</MudButton>
+	<MudButton Color="Color.Info" OnClick="NavigateToTwitterLogin">Đăng nhập bằng Twitter</MudButton>
+	<MudButton Color="Color.Info" OnClick="NavigateToMicrosoftLogin">Đăng nhập bằng Microsoft</MudButton>
+	<MudButton Color="Color.Info" OnClick="NavigateToLinkedInLogin">Đăng nhập bằng LinkedIn</MudButton>
+	<MudButton Color="Color.Info" OnClick="NavigateToYahooLogin">Đăng nhập bằng Yahoo</MudButton>
+	<MudButton Color="Color.Info" OnClick="NavigateToAppleLogin">Đăng nhập bằng Apple</MudButton>
+	<MudButton Color="Color.Info" OnClick="NavigateToAmazonLogin">Đăng nhập bằng Amazon</MudButton>
+	<MudButton Color="Color.Info" OnClick="NavigateToGitLabLogin">Đăng nhập bằng GitLab</MudButton>
+	<MudButton Color="Color.Info" OnClick="NavigateToBitbucketLogin">Đăng nhập bằng Bitbucket</MudButton>
+	<MudButton Color="Color.Info" OnClick="NavigateToSlackLogin">Đăng nhập bằng Slack</MudButton>
+	<MudButton Color="Color.Info" OnClick="NavigateToDiscordLogin">Đăng nhập bằng Discord</MudButton>
+	<MudButton Color="Color.Info" OnClick="NavigateToTwitchLogin">Đăng nhập bằng Twitch</MudButton>
+	<MudButton Color="Color.Info" OnClick="NavigateToSpotifyLogin">Đăng nhập bằng Spotify</MudButton>
+	<MudButton Color="Color.Info" OnClick="NavigateToSteamLogin">Đăng nhập bằng Steam</MudButton> *@
+</MudPaper>
+
+@inject IAuthServices AuthServices
+@inject ISnackbar Snackbar
+@inject NavigationManager Navigation
+@code {
+
+	private LoginRequestModel LoginRequest = new LoginRequestModel();
+
+	private bool _showPassword = false;
+	private void TogglePasswordVisibility()
+	{
+		_showPassword = !_showPassword;
+	}
+
+	private async Task Save()
+	{
+		var result = await AuthServices.LoginAsync(LoginRequest);
+		if (result)
+		{
+			Snackbar.Add("Đăng nhập thành công", Severity.Success);
+			Navigation.NavigateTo("/");
+		}
+		else
+		{
+			Snackbar.Add("Đăng nhập thất bại", Severity.Error);
+		}
+	}
+	private void NavigateToRegister()
+	{
+		Navigation.NavigateTo("/register");
+	}
+	private void NavigateToForgotPassword()
+	{
+		Navigation.NavigateTo("/forgot-password");
+	}
+}

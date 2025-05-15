@@ -1,4 +1,6 @@
-﻿using StationeryManager.Services;
+﻿using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using StationeryManager.Services;
 using StationeryManager.Services.Impl;
 
 namespace StationeryManager.Util
@@ -24,8 +26,11 @@ namespace StationeryManager.Util
             services.AddScoped<IWarehouseServices, WarehouseServices>();
             services.AddScoped<IInventoryItemServices, InventoryItemServices>();
             services.AddScoped<IMediaServices, MediaServices>();
+            services.AddScoped<IAuthServices, AuthServices>();
 
+            services.AddScoped<ProtectedLocalStorage>();
 
+            // services title web
             services.AddScoped<AppStateService>();
 
             return services;

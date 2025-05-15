@@ -64,7 +64,7 @@
 	private string _categoryId = string.Empty;
 
     protected async override void OnInitialized() {
-        AppState.SetTitle("Danh sách danh mục sản phẩm");
+        AppState.Title = "Danh sách danh mục sản phẩm";
         Categories = await CategoryServices.GetAllAsync(null);
     }
 

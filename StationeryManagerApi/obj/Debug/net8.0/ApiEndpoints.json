@@ -142,6 +142,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "StationeryManagerApi.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "StationeryManagerLib.RequestModel.LoginRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "StationeryManagerApi.Controllers.CategoriesController",
     "Method": "GetAlls",
     "RelativePath": "api/categories",
@@ -591,6 +607,11 @@
         "IsRequired": false
       },
       {
+        "Name": "FilterDeleted",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
         "Name": "Name",
         "Type": "System.String",
         "IsRequired": false
@@ -698,6 +719,11 @@
       {
         "Name": "ToTime",
         "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "FilterDeleted",
+        "Type": "System.Boolean",
         "IsRequired": false
       },
       {

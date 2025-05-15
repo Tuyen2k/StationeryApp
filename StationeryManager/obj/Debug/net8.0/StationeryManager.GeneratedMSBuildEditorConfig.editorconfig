@@ -27,12 +27,20 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/test/Desktop/StationeryManager/StationeryManager/Components/Pages/Accounts/DialogCreateOrUpdateAccount.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBY2NvdW50c1xEaWFsb2dDcmVhdGVPclVwZGF0ZUFjY291bnQucmF6b3I=
+[C:/Users/test/Desktop/StationeryManager/StationeryManager/Components/Pages/Accounts/DialogCreateAccount.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBY2NvdW50c1xEaWFsb2dDcmVhdGVBY2NvdW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/test/Desktop/StationeryManager/StationeryManager/Components/Pages/Accounts/DialogUpdateAccount.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBY2NvdW50c1xEaWFsb2dVcGRhdGVBY2NvdW50LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/test/Desktop/StationeryManager/StationeryManager/Components/Pages/Accounts/List.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBY2NvdW50c1xMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/test/Desktop/StationeryManager/StationeryManager/Components/Pages/Auth/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBdXRoXExvZ2luLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/test/Desktop/StationeryManager/StationeryManager/Components/Pages/Categories/DialogCreateOrUpdateCategory.razor]
@@ -41,10 +49,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/test/Desktop/StationeryManager/StationeryManager/Components/Pages/Categories/List.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDYXRlZ29yaWVzXExpc3QucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/test/Desktop/StationeryManager/StationeryManager/Components/Pages/Counter.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb3VudGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/test/Desktop/StationeryManager/StationeryManager/Components/Pages/Error.razor]
@@ -81,10 +85,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/test/Desktop/StationeryManager/StationeryManager/Components/Pages/SubCategories/List.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTdWJDYXRlZ29yaWVzXExpc3QucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/test/Desktop/StationeryManager/StationeryManager/Components/Pages/Weather.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xXZWF0aGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/test/Desktop/StationeryManager/StationeryManager/Components/Routes.razor]

@@ -64,7 +64,7 @@
 
 	protected override void OnInitialized()
 	{
-		AppState.SetTitle("Danh sách tồn kho sản phẩm");
+		AppState.Title = "Danh sách tồn kho sản phẩm";
 	}
 
 	private async Task<TableData<ProductStockModel>> ServerReload(TableState state, CancellationToken token)
