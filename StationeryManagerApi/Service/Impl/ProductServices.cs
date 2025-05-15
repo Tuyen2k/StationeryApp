@@ -30,6 +30,10 @@ namespace StationeryManagerApi.Service.Impl
                 Description = request.Description ?? "",
                 IsDeleted = false,
                 CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                ImageUrl = request.ImageUrl,
+                Sku = sku,
+                
             };
 
             return await _repositories.Create(product);
@@ -66,14 +70,20 @@ namespace StationeryManagerApi.Service.Impl
             return await _repositories.GetBySku(sku);
         }
 
-        public async Task<int> Update(ProductModel account, ProductRequest request)
+        public async Task<int> Update(ProductModel product, ProductRequest request)
         {
-            account.Name = request.Name;
-            account.Price = request.Price;
-            account.SubCategoryId = request.SubCategoryId;
-            account.Description = request.Description ?? "";
-            account.UpdatedAt = DateTime.UtcNow;
-            return await _repositories.Update(account);
+            product.Name = request.Name;
+            product.Price = request.Price;
+            product.SubCategoryId = request.SubCategoryId;
+            product.Description = request.Description ?? "";
+            product.ImageUrl = request.ImageUrl;
+            if(!string.IsNullOrEmpty(request.Sku) && request.Sku != product.Sku)
+            {
+                product.Sku = request.Sku;
+            }
+            product.UpdatedAt = DateTime.UtcNow;
+
+            return await _repositories.Update(product);
         }
 
         private async Task<string> GenerateSku()

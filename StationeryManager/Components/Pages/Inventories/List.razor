@@ -18,6 +18,7 @@
 		<MudTable Class="width" ServerData="ServerReload" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info" @ref="_table">
 			<HeaderContent>
 				<MudTh>Tên sản phẩm</MudTh>
+				<MudTh>Mã Sku</MudTh>
 				<MudTh>Tồn kho</MudTh>
 				<MudTh>Nhập kho</MudTh>
 				<MudTh>Xuất kho</MudTh>
@@ -25,6 +26,7 @@
 			</HeaderContent>
 			<RowTemplate>
 				<MudTd DataLabel="Tên sản phẩm">@context.Name</MudTd>
+				<MudTd DataLabel="Mã Sku">@context.Sku</MudTd>
 				<MudTd DataLabel="Tồn kho">@context.Stock</MudTd>
 				<MudTd DataLabel="Nhập kho">@context.ImportQuantity</MudTd>
 				<MudTd DataLabel="Xuất kho">@context.ExportQuantity</MudTd>
@@ -52,6 +54,8 @@
 @inject IDialogService DialogService
 @inject ISnackbar Snackbar
 @inject AppStateService AppState
+@inject NavigationManager Navigation
+
 @code {
 
 	private MudTable<ProductStockModel> _table = null!;
@@ -98,9 +102,9 @@
 
 	}
 
-	private async Task ViewInventory(ProductStockModel product)
+	private void ViewInventory(ProductStockModel product)
 	{
-
+		Navigation.NavigateTo($"/inventories/products/{product.Id}");
 	}
 
 

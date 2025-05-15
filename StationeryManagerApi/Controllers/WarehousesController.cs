@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StationeryManagerApi.Services;
 using StationeryManagerLib.RequestModel;
 
@@ -10,10 +11,12 @@ namespace StationeryManagerApi.Controllers
     public class WarehousesController : ControllerBase
     {
         private readonly IWarehouseServices _warehouseServices;
+        private readonly StationeryDBContext _context;
 
-        public WarehousesController(IWarehouseServices warehouseServices)
+        public WarehousesController(IWarehouseServices warehouseServices, StationeryDBContext context)
         {
             _warehouseServices = warehouseServices;
+            _context = context;
         }
 
         [HttpGet]
@@ -76,5 +79,23 @@ namespace StationeryManagerApi.Controllers
             }
             return Ok("Delete success");
         }
+
+        //[HttpGet("fill-sku")]
+        //public async Task<IActionResult> FillProductSku()
+        //{
+        //    var items = await _context.InventoryItems.ToListAsync();
+        //    var products = await _context.Products.ToListAsync();
+        //    foreach (var item in items)
+        //    {
+        //        var product = products.FirstOrDefault(e => e.Id.ToString() == item.ProductId);
+        //        if (product != null)
+        //        {
+        //            item.ProductSku = product.Sku;
+        //            _context.InventoryItems.Update(item);
+        //        }
+        //    }
+        //    await _context.SaveChangesAsync();
+        //    return Ok("Fill product sku success");
+        //}
     }
 }

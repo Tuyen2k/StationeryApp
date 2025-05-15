@@ -30,6 +30,8 @@ namespace StationeryManagerLib.Entities
         [Required]
         public string ProductName { get; set; }
         [Required]
+        public string ProductSku { get; set; }
+        [Required]
         public TransactionTypeEnum InventoryType { get; set; }
         [Required]
         public double Quantity { get; set; }

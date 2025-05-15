@@ -38,5 +38,67 @@ namespace StationeryManagerApi.Repository.Impl
             var result = await _context.SaveChangesAsync();
             return result;
         }
+
+        public async Task<int> CountAll(InventoryItemFilterModel filter)
+        {
+            var query = _context.InventoryItems.AsQueryable();
+            query = query.Where(e => e.IsDeleted != true);
+            if (!string.IsNullOrEmpty(filter.ProductId))
+            {
+                query = query.Where(e => e.ProductId == filter.ProductId);
+            }
+            if (!string.IsNullOrEmpty(filter.InventoryTransactionId))
+            {
+                query = query.Where(e => e.InventoryTransactionId == filter.InventoryTransactionId);
+            }
+            if (!string.IsNullOrEmpty(filter.ProductName))
+            {
+                query = query.Where(e => e.ProductName.Contains(filter.ProductName));
+            }
+
+            if (!string.IsNullOrEmpty(filter.ProductSku))
+            {
+                query = query.Where(e => e.ProductSku == filter.ProductSku);
+            }
+
+
+            var result = await query.CountAsync();
+            return result;
+
+        }
+
+        public async Task<List<InventoryItemModel>> GetAlls(InventoryItemFilterModel filter)
+        {
+            int limit = filter.Limit ?? 10;
+            int skip = (filter.Page ?? 0) * limit;
+
+            var query = _context.InventoryItems.AsQueryable();
+            query = query.Where(e => e.IsDeleted != true);
+            if (!string.IsNullOrEmpty(filter.ProductId))
+            {
+                query = query.Where(e => e.ProductId == filter.ProductId);
+            }
+            if (!string.IsNullOrEmpty(filter.InventoryTransactionId))
+            {
+                query = query.Where(e => e.InventoryTransactionId == filter.InventoryTransactionId);
+            }
+            if (!string.IsNullOrEmpty(filter.ProductName))
+            {
+                query = query.Where(e => e.ProductName.Contains(filter.ProductName));
+            }
+
+            if (!string.IsNullOrEmpty(filter.ProductSku))
+            {
+                query = query.Where(e => e.ProductSku == filter.ProductSku);
+            }
+
+            query = query.OrderByDescending(e => e.CreatedAt);
+
+            query = query.Skip(skip).Take(limit);
+
+            var result = await query.ToListAsync();
+            return result;
+
+        }
     }
 }

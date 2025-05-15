@@ -60,6 +60,22 @@ namespace StationeryManagerApi.Controllers
             return Ok(list);
         }
 
+        [HttpGet("products/{productId}")]
+        public async Task<IActionResult> GetHistoryTransactionByProductId(string productId, [FromQuery]InventoryTransactionFilterModel filter)
+        {
+            var product = await _productServices.GetById(productId);
+            if (product == null)
+            {
+                return NotFound($"Product with id {productId} not found");
+            }
+
+            filter.ProductId = productId;
+
+            var transactions = await _inventoryTransactionServices.GetHistoryByProductId(filter);
+
+            return Ok(transactions);
+        }
+
         [HttpGet("transaction")]
         public async Task<IActionResult> GetAllTransactions([FromQuery] InventoryTransactionFilterModel filter)
         {

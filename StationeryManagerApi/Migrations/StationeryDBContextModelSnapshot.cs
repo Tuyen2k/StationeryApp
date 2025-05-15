@@ -151,6 +151,10 @@ namespace StationeryManagerApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ProductSku")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("Quantity")
                         .HasColumnType("float");
 

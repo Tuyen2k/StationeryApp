@@ -91,6 +91,15 @@ namespace StationeryManagerApi.Controllers
                 }
             }
 
+            if (!string.IsNullOrEmpty(request.Sku) && productExist.Sku != request.Sku)
+            {
+                var productSkuExist = await _productServices.GetBySku(request.Sku);
+                if (productSkuExist != null)
+                {
+                    return BadRequest($"Product with sku {request.Sku} already exists");
+                }
+            }
+
             var result = await _productServices.Update(productExist, request);
 
             return result > 0 ? Ok($"Update {request.Name} success") : BadRequest("Update failed");

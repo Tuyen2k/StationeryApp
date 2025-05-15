@@ -48,6 +48,18 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"1148"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u00224mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg=\u0022"},{"Name":"Last-Modified","Value":"Mon, 12 May 2025 03:29:18 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/StationeryManager/images/image_default.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\image_default.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-QUTLhbvVgVgweT7rDRSiF4GbSa4v/qY/hpzUj2XWkT0="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"2932"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022QUTLhbvVgVgweT7rDRSiF4GbSa4v/qY/hpzUj2XWkT0=\u0022"},{"Name":"Last-Modified","Value":"Thu, 15 May 2025 01:39:16 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/StationeryManager/images/image_default.xklw7mhqw1.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\image_default.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"xklw7mhqw1"},{"Name":"integrity","Value":"sha256-QUTLhbvVgVgweT7rDRSiF4GbSa4v/qY/hpzUj2XWkT0="},{"Name":"label","Value":"_content/StationeryManager/images/image_default.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"2932"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022QUTLhbvVgVgweT7rDRSiF4GbSa4v/qY/hpzUj2XWkT0=\u0022"},{"Name":"Last-Modified","Value":"Thu, 15 May 2025 01:39:16 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/StationeryManager/StationeryManager.898utoop4p.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\StationeryManager.898utoop4p.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>

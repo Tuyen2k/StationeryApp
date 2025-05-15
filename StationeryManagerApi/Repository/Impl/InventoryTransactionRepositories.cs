@@ -65,6 +65,15 @@ namespace StationeryManagerApi.Repository.Impl
             return result;
         }
 
+        public async Task<List<InventoryTransactionModel>> GetAllByIds(List<string> ids)
+        {
+            var query = _context.InventoryTransactions.AsQueryable();
+            query = query.Where(e => e.IsDeleted != true);
+            query = query.Where(e => ids.Contains(e.Id.ToString()));
+            var result = await query.ToListAsync();
+            return result;
+        }
+
         public async Task<List<InventoryTransactionModel>> GetAlls(InventoryTransactionFilterModel filter)
         {
             var query = _context.InventoryTransactions.AsQueryable();

@@ -45,6 +45,9 @@ namespace StationeryManagerLib.RequestModel
         [Display(Name = "Tên sản phẩm")]
         public string? ProductName { get; set; }
 
+        [Display(Name = "Mã Sku")]
+        public string? ProductSku { get; set; }
+
 
         [Required(ErrorMessage = "{0} là bắt buộc")]
         [Display(Name = "Giá")]

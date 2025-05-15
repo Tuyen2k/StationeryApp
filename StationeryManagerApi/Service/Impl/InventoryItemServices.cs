@@ -24,9 +24,20 @@ namespace StationeryManagerApi.Service.Impl
             return await _inventoryItemRepositories.CalculateStockByProductIds(productIds);
         }
 
+        public async Task<int> CountAll(InventoryItemFilterModel filter)
+        {
+            return await _inventoryItemRepositories.CountAll(filter);
+        }
+
         public async Task<int> CreateListItemAsync(List<InventoryItemModel> inventoryItems)
         {
            return await _inventoryItemRepositories.CreateListItemAsync(inventoryItems);
+        }
+
+        public async Task<List<InventoryItemModel>> GetAlls(InventoryItemFilterModel filter)
+        {
+            var result = await _inventoryItemRepositories.GetAlls(filter);
+            return result;
         }
     }
 }

@@ -23,6 +23,7 @@ namespace StationeryManager.Util
             services.AddScoped<ISubCategoryServices, SubCategoryServices>();
             services.AddScoped<IWarehouseServices, WarehouseServices>();
             services.AddScoped<IInventoryItemServices, InventoryItemServices>();
+            services.AddScoped<IMediaServices, MediaServices>();
 
 
             services.AddScoped<AppStateService>();

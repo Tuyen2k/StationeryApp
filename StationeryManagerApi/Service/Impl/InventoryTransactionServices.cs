@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using StationeryManagerApi.Repository;
 using StationeryManagerApi.Services;
+using StationeryManagerLib.Dtos;
 using StationeryManagerLib.Entities;
 using StationeryManagerLib.Enum;
 using StationeryManagerLib.RequestModel;
@@ -42,6 +43,7 @@ namespace StationeryManagerApi.Service.Impl
                 Quantity = type == TransactionTypeEnum.Import ? e.Quantity : e.Quantity * (-1),
                 Price = e.Price,
                 ProductName = products.FirstOrDefault(p => p.Id.ToString() == e.ProductId)?.Name ?? string.Empty,
+                ProductSku = products.FirstOrDefault(p => p.Id.ToString() == e.ProductId)?.Sku ?? string.Empty,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
                 IsDeleted = false,
@@ -73,6 +75,45 @@ namespace StationeryManagerApi.Service.Impl
                 return await _repositories.GetById(guid);
             }
             return null;
+        }
+
+        public async Task<List<HistoryProductInTransaction>> GetHistoryByProductId(InventoryTransactionFilterModel filter)
+        {
+            var items = await _inventoryItemServices.GetAlls(new InventoryItemFilterModel()
+            {
+                ProductId = filter.ProductId,
+                Limit = filter.Limit,
+                Page = filter.Page,
+            });
+
+            if (items == null || items.Count == 0)
+            {
+                return [];
+            }
+
+            var inventoryTransactionIds = items.Select(e => e.InventoryTransactionId).Distinct().ToList();
+            var inventories = await _repositories.GetAllByIds(inventoryTransactionIds);
+
+            var result = from i in inventories
+                         join item in items on i.Id.ToString() equals item.InventoryTransactionId
+                         select new HistoryProductInTransaction()
+                         {
+                             Id = i.Id,
+                             Code = i.Code,
+                             TransactionType = i.TransactionType,
+                             CreatedAt = i.CreatedAt,
+                             Note = i.Note,
+                             DeletedAt = i.DeletedAt,
+                             WarehouseId = i.WarehouseId,
+                             IsDeleted = i.IsDeleted,
+                             ProductId = item.ProductId,
+                             UpdatedAt = i.UpdatedAt,
+                             Quantity = item.Quantity,
+                             Price = item.Price,
+                             ProductName = item.ProductName,
+                             ProductSku = item.ProductSku,
+                         };
+            return result.ToList();
         }
 
         public async Task<int> Update(InventoryTransactionModel inventory, InventoryTransactionRequest request)

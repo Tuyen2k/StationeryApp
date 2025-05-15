@@ -15,39 +15,44 @@
 			}
 
 			<MudGrid Spacing="2">
-				<MudItem xs="12" lg="12">
+				<MudItem xs="12" md="6">
 
-					<MudTextField Placeholder="" @bind-Value="Request.Name"
+					<MudTextField @bind-Value="Request.Name"
 								  Label="Tên sản phẩm"
 								  For="@(() => Request.Name)"
 								  Required="true" />
-					@* @if (SubCategories.Any())
-					{
-						<MudSelect Label="Danh mục sản phẩm" @bind-Value="Request.SubCategoryId" For="@(() => Request.SubCategoryId)" T="string">
-							@* <MudSelectItem Value="string.Empty">Chọn Danh mục sản phẩm</MudSelectItem> *@
-							@*@foreach (var item in SubCategories)
-							{
-								<MudSelectItem Value="item.Id.ToString()">@item.Name</MudSelectItem>
-							}
-						</MudSelect>
-					}
-					else
-					{
-						<div class="nav-item">
-							<NavLink class="nav-link" href="/subcategories/">
-								<MudIcon Icon="@Icons.Material.Filled.Add" Color="Color.Primary" /> Tạo danh mục sản phẩm trước
-							</NavLink>
-						</div>
-					} *@
+
+					<MudTextField @bind-Value="Request.Sku"
+								  Label="Mã Sku"
+								  For="@(() => Request.Sku)" />
 
 					<SubCategoryFieldAutoComplete Default="subcategorySelected" ValueChanged="OnSelectedSubCategory" />
 
-					<MudNumericField @bind-Value="Request.Price" Label="Giá" For="@(() => Request.Price)" Required="true" />
+					<MudNumericField @bind-Value="Request.Price" Format="N0" Label="Giá" For="@(() => Request.Price)" Required="true" />
 
 					<MudTextField @bind-Value="Request.Description"
 								  Label="Ghi chú"
 								  Lines="4"
 								  For="@(() => Request.Description)" />
+				</MudItem>
+				<MudItem xs="12" md="6">
+					<MudFileUpload T="IBrowserFile" Accept=".png, .jpg, .jpeg, .jfif" FilesChanged="UploadFiles" MaximumFileCount="100">
+						<ActivatorContent>
+							<MudButton Variant="Variant.Filled"
+									   Color="Color.Primary"
+									   StartIcon="@Icons.Material.Filled.CloudUpload">
+								Ảnh sản phẩm
+							</MudButton>
+						</ActivatorContent>
+					</MudFileUpload>
+					<MudPaper Class="d-flex justify-center align-center" Style="height: 100%; width: 100%; margin-top: 10px;">
+						<MudFileUpload T="IBrowserFile" Accept=".png, .jpg, .jpeg, .jfif" FilesChanged="UploadFiles" MaximumFileCount="100">
+							<ActivatorContent>
+								<MudImage Alt="product image" Src="@GetImageSource()" Style="width: 100%; height: auto" />
+							</ActivatorContent>
+						</MudFileUpload>
+
+					</MudPaper>
 				</MudItem>
 			</MudGrid>
 		</DialogContent>
@@ -83,6 +88,7 @@
 @inject ISnackbar Snackbar
 @inject ISubCategoryServices SubCategoryServices
 @inject IProductServices ProductServices
+@inject IMediaServices MediaServices
 
 @code {
 	[CascadingParameter]
@@ -97,6 +103,10 @@
 	private List<SubCategoryModel> SubCategories { get; set; } = [];
 	private SubCategoryModel? subcategorySelected;
 
+	// image
+	private IBrowserFile? selectedImage;
+	private string? previewImage;
+
 	protected override async Task OnInitializedAsync()
 	{
 		if (Product != null)
@@ -105,7 +115,10 @@
 				{
 					Name = Product.Name,
 					Description = Product.Description,
-					SubCategoryId = Product.SubCategoryId
+					SubCategoryId = Product.SubCategoryId,
+					Price = Product.Price,
+					Sku = Product.Sku,
+					ImageUrl = Product.ImageUrl
 				};
 
 			subcategorySelected = await SubCategoryServices.GetByIdAsync(Product.SubCategoryId);
@@ -122,17 +135,29 @@
 	{
 		try
 		{
+			if (selectedImage != null)
+			{
+				var path = await MediaServices.UploadImage(selectedImage);
+				if (string.IsNullOrEmpty(path))
+				{
+					Snackbar.Add("Có lỗi xảy ra khi tải ảnh lên", Severity.Error);
+					_loading = false;
+					return;
+				}
+				Request.ImageUrl = path;
+			}
+
 			_loading = true;
 			if (Product == null)
 			{
 				var result = await ProductServices.CreateAsync(Request);
 				if (result)
 				{
-					Snackbar.Add("Thêm danh mục sản phẩm thành công", Severity.Success);
+					Snackbar.Add("Thêm sản phẩm thành công", Severity.Success);
 				}
 				else
 				{
-					Snackbar.Add("Thêm danh mục sản phẩm thất bại", Severity.Error);
+					Snackbar.Add("Thêm sản phẩm thất bại", Severity.Error);
 					_loading = false;
 					return;
 				}
@@ -143,11 +168,11 @@
 				var result = await ProductServices.UpdateAsync(Product.Id.ToString(), Request);
 				if (result)
 				{
-					Snackbar.Add("Cập nhật danh mục sản phẩm thành công", Severity.Success);
+					Snackbar.Add("Cập nhật sản phẩm thành công", Severity.Success);
 				}
 				else
 				{
-					Snackbar.Add("Cập nhật danh mục sản phẩm thất bại", Severity.Error);
+					Snackbar.Add("Cập nhật sản phẩm thất bại", Severity.Error);
 					_loading = false;
 					return;
 				}
@@ -168,6 +193,34 @@
 	{
 		subcategorySelected = subcategory;
 		Request.SubCategoryId = subcategory != null ? subcategory.Id.ToString() : string.Empty;
+	}
+
+	private async Task UploadFiles(IBrowserFile file)
+	{
+		const long maxSize = 5 * 1024 * 1024; // 5MB
+
+		if (file.Size > maxSize)
+		{
+			Snackbar.Add("Kích thước ảnh vượt quá 5MB. Vui lòng chọn ảnh nhỏ hơn.", Severity.Warning);
+			return;
+		}
+
+		selectedImage = file;
+		using var stream = selectedImage.OpenReadStream(maxAllowedSize: maxSize);
+		var buffer = new byte[selectedImage.Size];
+		await stream.ReadAsync(buffer);
+		previewImage = $"data:{selectedImage.ContentType};base64,{Convert.ToBase64String(buffer)}";
+	}
+
+	private string GetImageSource()
+	{
+		if (!string.IsNullOrEmpty(previewImage))
+			return previewImage;
+
+		if (Product != null && !string.IsNullOrEmpty(Product.ImageUrl))
+			return $"https://localhost:7069/{Product.ImageUrl}";
+
+		return "../images/image_default.png";
 	}
 
 }

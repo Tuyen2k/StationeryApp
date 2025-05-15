@@ -4,9 +4,9 @@
 @using StationeryManagerLib.RequestModel
 
 ﻿<!--
-    Sử dụng: bind ProductModel vào biến product:
-    Sự kiện ValueSelected -> OnSearch(ProductModel result)
-    <ProductFieldAutoComplete @@bind-Value="product" Class="flex-grow-1" ValueSelected="OnSearch" />
+Sử dụng: bind ProductModel vào biến product:
+Sự kiện ValueSelected -> OnSearch(ProductModel result)
+<ProductFieldAutoComplete @@bind-Value="product" Class="flex-grow-1" ValueSelected="OnSearch" />
 -->
 @inherits MudAutocomplete<ProductModel>
 <MudAutocomplete T="ProductModel" Label="@CustomLablel" SearchFunc="@Search" Se Margin="Margin.Dense" Variant="Variant.Outlined"
@@ -16,7 +16,14 @@ Placeholder="@CustomPlaceholder"
 ToStringFunc="@ToString" Value="Default">
     <ItemTemplate Context="e">
         <div>
-            <img src="@e.ImageUrl" style="float: left; margin: 8px 8px 0 0; width: 48px" alt="image"/>
+            @if (!string.IsNullOrEmpty(e.ImageUrl))
+            {
+                <img src="@($"https://localhost:7069/{e.ImageUrl}")" style="float: left; margin: 8px 8px 0 0; width: 48px" alt="image" />
+            }
+            else
+            {
+                <img src="../images/image_default.png" style="float: left; margin: 8px 8px 0 0; width: 48px" alt="image" />
+            }
             @e.Name
             <br/>
             @e.Price.ToString("N0")

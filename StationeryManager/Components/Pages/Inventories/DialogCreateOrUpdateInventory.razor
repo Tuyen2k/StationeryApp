@@ -46,16 +46,18 @@
 						<MudTable Items="@Request.Items" Striped="true" Hover="true" Breakpoint="Breakpoint.Sm">
 							<HeaderContent>
 								<MudTh>Tên sản phẩm</MudTh>
+								<MudTh>Mã Sku</MudTh>
 								<MudTh>Giá</MudTh>
 								<MudTh>Số lượng</MudTh>
 								<MudTh>Ctrl</MudTh>
 							</HeaderContent>
 							<RowTemplate Context="item">
 								<MudTd DataLabel="Tên sản phẩm">@item.ProductName</MudTd>
+								<MudTd DataLabel="Mã Sky">@item.ProductSku</MudTd>
 								<MudTd DataLabel="Giá">
 									@if (editItem == item)
 									{
-										<MudTextField @bind-Value="item.Price" For="@(() => item.Price)" />
+										<MudNumericField Format="N0" @bind-Value="item.Price" For="@(() => item.Price)" />
 									}
 									else
 									{
@@ -65,7 +67,7 @@
 								<MudTd DataLabel="Số lượng">
 									@if (editItem == item)
 									{
-										<MudTextField @bind-Value="item.Quantity" For="@(() => item.Quantity)" />
+										<MudNumericField Format="N0" @bind-Value="item.Quantity" For="@(() => item.Quantity)" />
 									}
 									else
 									{
@@ -150,6 +152,7 @@
 					Quantity = item.Quantity,
 					ProductId = item.ProductId,
 					ProductName = item.ProductName,
+					ProductSku = item.ProductSku,
 				}).ToList();
 
 			Request = new InventoryTransactionRequest

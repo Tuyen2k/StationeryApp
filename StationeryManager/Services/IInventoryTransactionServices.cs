@@ -12,5 +12,7 @@ namespace StationeryManager.Services
         public Task<List<InventoryTransactionModel>> GetAlls(InventoryTransactionFilterModel filter);
         public Task<InventoryTransactionModel?> GetById(string id);
         public Task<bool> UpdateAsync(string id, InventoryTransactionRequest request);
+
+        public Task<List<HistoryProductInTransaction>> GetHistoryByProductId(string productId,InventoryTransactionFilterModel filter);
     }
 }

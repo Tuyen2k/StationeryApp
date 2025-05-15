@@ -24,11 +24,12 @@ namespace StationeryManagerLib.RequestModel
         public string? ProductId { get; set; } = "";
     }
 
-    public class InventoryItemFilterModel
+    public class InventoryItemFilterModel : FilterModel
     {
         public string? InventoryTransactionId { get; set; } = "";
         public string? ProductId { get; set; } = "";
         public string? ProductName { get; set; } = "";
+        public string? ProductSku { get; set; } = "";
     }
 
     public class SubCategoryFilterModel : FilterModel {

@@ -13,5 +13,7 @@ namespace StationeryManagerApi.Services
         //Task<int> Delete(InventoryTransactionModel inventory);
         Task<int> CreateListItemAsync(List<InventoryItemModel> inventoryItems);
         Task<List<ProductItemStock>> CalculateStockByProductIds(List<string> productIds);
+        Task<List<InventoryItemModel>> GetAlls(InventoryItemFilterModel filter);
+        Task<int> CountAll(InventoryItemFilterModel filter);
     }
 }

@@ -25,7 +25,6 @@ C:\Users\test\Desktop\StationeryManager\StationeryManager\obj\Debug\net8.0\stati
 C:\Users\test\Desktop\StationeryManager\StationeryManager\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.StationeryManager.props
 C:\Users\test\Desktop\StationeryManager\StationeryManager\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.StationeryManager.props
 C:\Users\test\Desktop\StationeryManager\StationeryManager\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\test\Desktop\StationeryManager\StationeryManager\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\test\Desktop\StationeryManager\StationeryManager\obj\Debug\net8.0\StationeryManager.dll
 C:\Users\test\Desktop\StationeryManager\StationeryManager\obj\Debug\net8.0\refint\StationeryManager.dll
 C:\Users\test\Desktop\StationeryManager\StationeryManager\obj\Debug\net8.0\StationeryManager.pdb
@@ -96,3 +95,4 @@ C:\Users\Tuyen\Desktop\StationeryApp\StationeryManager\obj\Debug\net8.0\refint\S
 C:\Users\Tuyen\Desktop\StationeryApp\StationeryManager\obj\Debug\net8.0\StationeryManager.pdb
 C:\Users\Tuyen\Desktop\StationeryApp\StationeryManager\obj\Debug\net8.0\StationeryManager.genruntimeconfig.cache
 C:\Users\Tuyen\Desktop\StationeryApp\StationeryManager\obj\Debug\net8.0\ref\StationeryManager.dll
+C:\Users\test\Desktop\StationeryManager\StationeryManager\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

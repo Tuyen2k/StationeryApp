@@ -42,6 +42,7 @@ namespace StationeryManagerApi.Extentions
             services.AddScoped<IWarehouseServices, WarehouseServices>();
             services.AddScoped<IPasswordServices, PasswordServices>();
             services.AddScoped<IInventoryItemServices, InventoryItemServices>();
+            services.AddScoped<IMediaServices, MediaServices>();
 
             return services;
         }

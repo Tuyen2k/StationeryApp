@@ -2,68 +2,115 @@
 @using StationeryManager.Services
 @using StationeryManager.Shared
 @using StationeryManager.Util
+@using StationeryManagerLib.Util.Extension
 @using StationeryManagerLib.Dtos
 @using StationeryManagerLib.Entities
+@using StationeryManagerLib.Enum
 @using StationeryManagerLib.RequestModel
+
 
 <MudGrid>
 
-	<MudPaper Class="w-100 d-flex align-content-center justify-content-between mt-2">
+	@* <MudPaper Class="w-100 d-flex align-content-center justify-content-between mt-2">
 		<MudTextField @bind-Value="_searchString" Placeholder="Tìm kiếm sản phẩm" Adornment="Adornment.Start" Icon="@Icons.Material.Filled.Search" />
 		<MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="OnSearch" />
 		<MudButton Color="Color.Primary" OnClick="@(() => CreateInventory(null))" StartIcon="@Icons.Material.Filled.Add">Thêm phiếu xuất/nhập kho</MudButton>
-	</MudPaper>
-
-	<MudPaper Class="w-100 mt-2">
-		<MudTable Class="width" ServerData="ServerReload" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info" @ref="_table">
-			<HeaderContent>
-				<MudTh>Tên sản phẩm</MudTh>
-				<MudTh>Tồn kho</MudTh>
-				<MudTh>Nhập kho</MudTh>
-				<MudTh>Xuất kho</MudTh>
-				<MudTh>Ctrl</MudTh>
-			</HeaderContent>
-			<RowTemplate>
-				<MudTd DataLabel="Tên sản phẩm">@context.Name</MudTd>
-				<MudTd DataLabel="Tồn kho">@context.Stock</MudTd>
-				<MudTd DataLabel="Nhập kho">@context.ImportQuantity</MudTd>
-				<MudTd DataLabel="Xuất kho">@context.ExportQuantity</MudTd>
-
-				<MudTd DataLabel="Ctrl">
-					<MudIconButton Icon="@Icons.Material.Filled.Visibility" Color="Color.Primary" OnClick="@(() => ViewInventory(context))" />
-				</MudTd>
-			</RowTemplate>
-			<NoRecordsContent>
-				<MudText>Không có sản phẩm nào</MudText>
-			</NoRecordsContent>
-			<LoadingContent>
-				<MudText>Loading...</MudText>
-			</LoadingContent>
-			<PagerContent>
-				<MudTablePager />
-			</PagerContent>
-		</MudTable>
-	</MudPaper>
+	</MudPaper> *@
+	@if (product == null)
+	{
+		<MudText Class="w-100 mt-2">Không tìm thấy sản phẩm với Id: @id</MudText>
+	}
+	else
+	{
+		<MudPaper Class="w-100 mt-2">
+			<MudTable Class="width" ServerData="ServerReload" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info" @ref="_table">
+				<HeaderContent>
+					<MudTh>Tên kho</MudTh>
+					<MudTh>Mã phiếu</MudTh>
+					<MudTh>Loại phiếu</MudTh>
+					<MudTh>Số lượng</MudTh>
+					<MudTh>Giá</MudTh>
+					<MudTh>Ghi chú</MudTh>
+					<MudTh></MudTh>
+				</HeaderContent>
+				<RowTemplate>
+					<MudTd DataLabel="Tên kho">@GetNameWarehouse(context.WarehouseId)</MudTd>
+					<MudTd DataLabel="Mã phiếu">@context.Code</MudTd>
+					<MudTd DataLabel="Loại phiếu">@context.TransactionType.ToFriendlyString()</MudTd>
+					<MudTd DataLabel="Số lượng">@(context.Quantity > 0 ? context.Quantity : (context.Quantity * (-1)))</MudTd>
+					<MudTd DataLabel="Giá">@context.Price</MudTd>
+					<MudTd DataLabel="Ghi chú">
+						<div class="line-clamp-2" title="@context.Note">@context.Note</div>
+					</MudTd>
+				</RowTemplate>
+				<NoRecordsContent>
+					<MudText>Không có lịch sử xuất/nhập kho nào</MudText>
+				</NoRecordsContent>
+				<LoadingContent>
+					<MudText>Loading...</MudText>
+				</LoadingContent>
+				<PagerContent>
+					<MudTablePager />
+				</PagerContent>
+			</MudTable>
+		</MudPaper>
+	}
 
 </MudGrid>
 
 @inject IInventoryTransactionServices InventoryServices
+@inject IInventoryItemServices InventoryItemServices
+@inject IWarehouseServices WarehouseServices
 @inject IProductServices ProductServices
 @inject IDialogService DialogService
 @inject ISnackbar Snackbar
 @inject AppStateService AppState
 @code {
 
-	private MudTable<ProductStockModel> _table = null!;
+	private MudTable<HistoryProductInTransaction> _table = null!;
 	private bool _loading = false;
-	private string _searchString = string.Empty;
 
-	protected override void OnInitialized()
+	[Parameter]
+	public string id { get; set; }
+
+	private ProductModel? product { get; set; }
+	private List<WarehouseModel> warehouses { get; set; } = [];
+
+	protected override async Task OnInitializedAsync()
 	{
-		AppState.SetTitle("Danh sách tồn kho sản phẩm");
+		var filter = new FilterModel()
+			{
+				Limit = 100,
+				Page = 0,
+			};
+		warehouses = await WarehouseServices.GetAllAsync(filter);
 	}
 
-	private async Task<TableData<ProductStockModel>> ServerReload(TableState state, CancellationToken token)
+	protected override async Task OnParametersSetAsync()
+	{
+		if (string.IsNullOrEmpty(id))
+		{
+			return;
+		}
+		product = await ProductServices.GetByIdAsync(id);
+		AppState.SetTitle($"Lịch sử xuất/nhập kho của {(product != null ? product.Name.ToUpper() : "sản phẩm")}");
+	}
+
+	private string GetNameWarehouse(string id)
+	{
+		if (string.IsNullOrEmpty(id))
+		{
+			return "Không xác định";
+		}
+		var warehouse = warehouses.FirstOrDefault(x => x.Id.ToString() == id);
+		if (warehouse != null)
+		{
+			return warehouse.Name;
+		}
+		return "Không xác định";
+	}
+
+	private async Task<TableData<HistoryProductInTransaction>> ServerReload(TableState state, CancellationToken token)
 	{
 		try
 		{
@@ -71,17 +118,15 @@
 				{
 					Limit = state.PageSize,
 					Page = state.Page,
-					Name = _searchString
 				};
-			var filterProduct = new ProductFilterModel()
+
+			var filterCount = new InventoryItemFilterModel()
 				{
-					Limit = state.PageSize,
-					Page = state.Page,
-					Name = _searchString
+					ProductId = id
 				};
-			var list = await InventoryServices.GetAllAsync(filter);
-			var total = await ProductServices.CountAllAsync(filterProduct);
-			return new TableData<ProductStockModel>()
+			var list = await InventoryServices.GetHistoryByProductId(id, filter);
+			var total = await InventoryItemServices.CountAllAsync(filterCount);
+			return new TableData<HistoryProductInTransaction>()
 				{
 					TotalItems = total,
 					Items = list
@@ -89,36 +134,11 @@
 		}
 		catch (Exception e)
 		{
-			return new TableData<ProductStockModel>()
+			return new TableData<HistoryProductInTransaction>()
 				{
 					TotalItems = 0,
 					Items = []
 				};
-		}
-
-	}
-
-	private async Task ViewInventory(ProductStockModel product)
-	{
-
-	}
-
-
-	private async Task CreateInventory(InventoryTransactionModel? inventory)
-	{
-		var parameters = new DialogParameters<DialogCreateOrUpdateInventory>();
-		parameters.Add("Inventory", inventory);
-		var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Large, FullWidth = true };
-		var dialog = await DialogService.ShowAsync<DialogCreateOrUpdateInventory>(
-			$"Tạo phiếu xuất/nhập kho cho sản phẩm", parameters, options);
-		var result = await dialog.Result;
-		if (result != null && !result.Canceled)
-		{
-			await _table.ReloadServerData();
-		}
-		else
-		{
-			Snackbar.Add("Đã hủy thao tác!", Severity.Warning);
 		}
 
 	}

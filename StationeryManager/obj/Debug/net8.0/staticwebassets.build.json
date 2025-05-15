@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "UZ3+LpPD6aZeSrelDLWD0aVLPoXjkGNSHDW2SKlqGMk=",
+  "Hash": "MVbulJAxVfzH1CB91thAUJPYOPvsZ1fEJNKE5b2L5Ww=",
   "Source": "StationeryManager",
   "BasePath": "_content/StationeryManager",
   "Mode": "Default",
@@ -183,6 +183,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.png"
+    },
+    {
+      "Identity": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\images\\image_default.png",
+      "SourceId": "StationeryManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\",
+      "BasePath": "_content/StationeryManager",
+      "RelativePath": "images/image_default#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "xklw7mhqw1",
+      "Integrity": "QUTLhbvVgVgweT7rDRSiF4GbSa4v/qY/hpzUj2XWkT0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\image_default.png"
     }
   ],
   "Endpoints": [
@@ -675,6 +696,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg="
+        }
+      ]
+    },
+    {
+      "Route": "images/image_default.png",
+      "AssetFile": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\images\\image_default.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2932"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"QUTLhbvVgVgweT7rDRSiF4GbSa4v/qY/hpzUj2XWkT0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 15 May 2025 01:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-QUTLhbvVgVgweT7rDRSiF4GbSa4v/qY/hpzUj2XWkT0="
+        }
+      ]
+    },
+    {
+      "Route": "images/image_default.xklw7mhqw1.png",
+      "AssetFile": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\wwwroot\\images\\image_default.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2932"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"QUTLhbvVgVgweT7rDRSiF4GbSa4v/qY/hpzUj2XWkT0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 15 May 2025 01:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "xklw7mhqw1"
+        },
+        {
+          "Name": "label",
+          "Value": "images/image_default.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-QUTLhbvVgVgweT7rDRSiF4GbSa4v/qY/hpzUj2XWkT0="
         }
       ]
     },

@@ -10,6 +10,5 @@ namespace StationeryManagerLib.Enum
     {
         Import,
         Export,
-
-    }
+    } 
 }

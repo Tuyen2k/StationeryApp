@@ -3,44 +3,132 @@
   "WorkspaceRootPath": "C:\\Users\\test\\Desktop\\StationeryManager\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FD28C186-459A-4DA0-952E-15A760FCCAC2}|StationeryManagerLib\\StationeryManagerLib.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerlib\\util\\validate\\novietnameseattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FD28C186-459A-4DA0-952E-15A760FCCAC2}|StationeryManagerLib\\StationeryManagerLib.csproj|solutionrelative:stationerymanagerlib\\util\\validate\\novietnameseattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanager\\components\\pages\\inventories\\detailproductinventory.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|solutionrelative:stationerymanager\\components\\pages\\inventories\\detailproductinventory.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FD28C186-459A-4DA0-952E-15A760FCCAC2}|StationeryManagerLib\\StationeryManagerLib.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerlib\\requestmodel\\accountrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FD28C186-459A-4DA0-952E-15A760FCCAC2}|StationeryManagerLib\\StationeryManagerLib.csproj|solutionrelative:stationerymanagerlib\\requestmodel\\accountrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanager\\services\\impl\\inventoryitemservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|solutionrelative:stationerymanager\\services\\impl\\inventoryitemservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerapi\\controllers\\inventoryitemscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|solutionrelative:stationerymanagerapi\\controllers\\inventoryitemscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerapi\\repository\\impl\\inventoryitemrepositories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|solutionrelative:stationerymanagerapi\\repository\\impl\\inventoryitemrepositories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerapi\\service\\impl\\inventoryitemservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|solutionrelative:stationerymanagerapi\\service\\impl\\inventoryitemservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerapi\\service\\iinventoryitemservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|solutionrelative:stationerymanagerapi\\service\\iinventoryitemservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerapi\\repository\\iinventoryitemrepositories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|solutionrelative:stationerymanagerapi\\repository\\iinventoryitemrepositories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerapi\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|solutionrelative:stationerymanagerapi\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FD28C186-459A-4DA0-952E-15A760FCCAC2}|StationeryManagerLib\\StationeryManagerLib.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerlib\\entities\\productmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FD28C186-459A-4DA0-952E-15A760FCCAC2}|StationeryManagerLib\\StationeryManagerLib.csproj|solutionrelative:stationerymanagerlib\\entities\\productmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanager\\components\\pages\\inventories\\list.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|solutionrelative:stationerymanager\\components\\pages\\inventories\\list.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FD28C186-459A-4DA0-952E-15A760FCCAC2}|StationeryManagerLib\\StationeryManagerLib.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerlib\\requestmodel\\productrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FD28C186-459A-4DA0-952E-15A760FCCAC2}|StationeryManagerLib\\StationeryManagerLib.csproj|solutionrelative:stationerymanagerlib\\requestmodel\\productrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanager\\components\\pages\\inventories\\dialogcreateorupdateinventory.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|solutionrelative:stationerymanager\\components\\pages\\inventories\\dialogcreateorupdateinventory.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerapi\\service\\impl\\productservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|solutionrelative:stationerymanagerapi\\service\\impl\\productservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerapi\\controllers\\inventorytransactionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|solutionrelative:stationerymanagerapi\\controllers\\inventorytransactionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerapi\\repository\\iproductrepositories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|solutionrelative:stationerymanagerapi\\repository\\iproductrepositories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerapi\\controllers\\warehousescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|solutionrelative:stationerymanagerapi\\controllers\\warehousescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerapi\\repository\\impl\\productrepositories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|solutionrelative:stationerymanagerapi\\repository\\impl\\productrepositories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FD28C186-459A-4DA0-952E-15A760FCCAC2}|StationeryManagerLib\\StationeryManagerLib.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerlib\\requestmodel\\filtermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FD28C186-459A-4DA0-952E-15A760FCCAC2}|StationeryManagerLib\\StationeryManagerLib.csproj|solutionrelative:stationerymanagerlib\\requestmodel\\filtermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerapi\\controllers\\subcategoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|solutionrelative:stationerymanagerapi\\controllers\\subcategoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerapi\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|solutionrelative:stationerymanagerapi\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerapi\\controllers\\mediacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|solutionrelative:stationerymanagerapi\\controllers\\mediacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerapi\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|solutionrelative:stationerymanagerapi\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanager\\services\\impl\\categoryservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|solutionrelative:stationerymanager\\services\\impl\\categoryservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanager\\services\\iinventoryitemservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|solutionrelative:stationerymanager\\services\\iinventoryitemservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanager\\services\\impl\\inventorytransactionservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|solutionrelative:stationerymanager\\services\\impl\\inventorytransactionservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanager\\services\\iinventorytransactionservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|solutionrelative:stationerymanager\\services\\iinventorytransactionservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerapi\\service\\impl\\inventorytransactionservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|solutionrelative:stationerymanagerapi\\service\\impl\\inventorytransactionservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FD28C186-459A-4DA0-952E-15A760FCCAC2}|StationeryManagerLib\\StationeryManagerLib.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerlib\\util\\extension\\transactiontypeextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FD28C186-459A-4DA0-952E-15A760FCCAC2}|StationeryManagerLib\\StationeryManagerLib.csproj|solutionrelative:stationerymanagerlib\\util\\extension\\transactiontypeextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanager\\components\\pages\\products\\list.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|solutionrelative:stationerymanager\\components\\pages\\products\\list.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanager\\services\\impl\\warehouseservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|solutionrelative:stationerymanager\\services\\impl\\warehouseservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FD28C186-459A-4DA0-952E-15A760FCCAC2}|StationeryManagerLib\\StationeryManagerLib.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerlib\\dtos\\historyproductintransaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FD28C186-459A-4DA0-952E-15A760FCCAC2}|StationeryManagerLib\\StationeryManagerLib.csproj|solutionrelative:stationerymanagerlib\\dtos\\historyproductintransaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FD28C186-459A-4DA0-952E-15A760FCCAC2}|StationeryManagerLib\\StationeryManagerLib.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerlib\\entities\\inventorytransactionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FD28C186-459A-4DA0-952E-15A760FCCAC2}|StationeryManagerLib\\StationeryManagerLib.csproj|solutionrelative:stationerymanagerlib\\entities\\inventorytransactionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerapi\\service\\iinventorytransactionservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|solutionrelative:stationerymanagerapi\\service\\iinventorytransactionservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FD28C186-459A-4DA0-952E-15A760FCCAC2}|StationeryManagerLib\\StationeryManagerLib.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerlib\\dtos\\productstockmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FD28C186-459A-4DA0-952E-15A760FCCAC2}|StationeryManagerLib\\StationeryManagerLib.csproj|solutionrelative:stationerymanagerlib\\dtos\\productstockmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerapi\\repository\\impl\\inventorytransactionrepositories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|solutionrelative:stationerymanagerapi\\repository\\impl\\inventorytransactionrepositories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanagerapi\\repository\\iinventorytransactionrepositories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92DA8176-76D5-496E-86D5-F538BD0DAA7E}|StationeryManagerApi\\StationeryManagerApi.csproj|solutionrelative:stationerymanagerapi\\repository\\iinventorytransactionrepositories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanager\\services\\impl\\productservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|solutionrelative:stationerymanager\\services\\impl\\productservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|c:\\users\\test\\desktop\\stationerymanager\\stationerymanager\\components\\pages\\products\\dialogcreateorupdateproduct.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{983FD206-DE6A-4BC5-AB33-A052CEBDB8F2}|StationeryManager\\StationeryManager.csproj|solutionrelative:stationerymanager\\components\\pages\\products\\dialogcreateorupdateproduct.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -50,7 +138,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -58,132 +146,418 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ProductModel.cs",
-              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerLib\\Entities\\ProductModel.cs",
-              "RelativeDocumentMoniker": "StationeryManagerLib\\Entities\\ProductModel.cs",
-              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerLib\\Entities\\ProductModel.cs",
-              "RelativeToolTip": "StationeryManagerLib\\Entities\\ProductModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAApAAAAAAAAAA==",
+              "DocumentIndex": 6,
+              "Title": "IInventoryItemRepositories.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Repository\\IInventoryItemRepositories.cs",
+              "RelativeDocumentMoniker": "StationeryManagerApi\\Repository\\IInventoryItemRepositories.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Repository\\IInventoryItemRepositories.cs",
+              "RelativeToolTip": "StationeryManagerApi\\Repository\\IInventoryItemRepositories.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T09:49:36.138Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "NoVietnameseAttribute.cs",
-              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerLib\\Util\\Validate\\NoVietnameseAttribute.cs",
-              "RelativeDocumentMoniker": "StationeryManagerLib\\Util\\Validate\\NoVietnameseAttribute.cs",
-              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerLib\\Util\\Validate\\NoVietnameseAttribute.cs*",
-              "RelativeToolTip": "StationeryManagerLib\\Util\\Validate\\NoVietnameseAttribute.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T09:49:19.479Z",
+              "WhenOpened": "2025-05-15T04:19:45.984Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Controllers\\AccountController.cs",
-              "RelativeDocumentMoniker": "StationeryManagerApi\\Controllers\\AccountController.cs",
-              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Controllers\\AccountController.cs",
-              "RelativeToolTip": "StationeryManagerApi\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAAF0AAAAAAAAAAAAuwHAAAAAJAAAAAAAAAA==",
+              "Title": "InventoryItemsController.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Controllers\\InventoryItemsController.cs",
+              "RelativeDocumentMoniker": "StationeryManagerApi\\Controllers\\InventoryItemsController.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Controllers\\InventoryItemsController.cs",
+              "RelativeToolTip": "StationeryManagerApi\\Controllers\\InventoryItemsController.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA1wBwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T09:31:52.263Z",
+              "WhenOpened": "2025-05-15T06:22:07.727Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DetailProductInventory.razor",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Components\\Pages\\Inventories\\DetailProductInventory.razor",
+              "RelativeDocumentMoniker": "StationeryManager\\Components\\Pages\\Inventories\\DetailProductInventory.razor",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Components\\Pages\\Inventories\\DetailProductInventory.razor",
+              "RelativeToolTip": "StationeryManager\\Components\\Pages\\Inventories\\DetailProductInventory.razor",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABYAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-15T04:09:53.442Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "AccountRequest.cs",
-              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerLib\\RequestModel\\AccountRequest.cs",
-              "RelativeDocumentMoniker": "StationeryManagerLib\\RequestModel\\AccountRequest.cs",
-              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerLib\\RequestModel\\AccountRequest.cs",
-              "RelativeToolTip": "StationeryManagerLib\\RequestModel\\AccountRequest.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABAAAAAVAAAAAAAAAA==",
+              "Title": "InventoryItemServices.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Services\\Impl\\InventoryItemServices.cs",
+              "RelativeDocumentMoniker": "StationeryManager\\Services\\Impl\\InventoryItemServices.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Services\\Impl\\InventoryItemServices.cs",
+              "RelativeToolTip": "StationeryManager\\Services\\Impl\\InventoryItemServices.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T09:27:21.537Z",
+              "WhenOpened": "2025-05-15T06:18:05.769Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "FilterModel.cs",
-              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerLib\\RequestModel\\FilterModel.cs",
-              "RelativeDocumentMoniker": "StationeryManagerLib\\RequestModel\\FilterModel.cs",
-              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerLib\\RequestModel\\FilterModel.cs",
-              "RelativeToolTip": "StationeryManagerLib\\RequestModel\\FilterModel.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAA3wCkAAAAgAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "InventoryItemRepositories.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Repository\\Impl\\InventoryItemRepositories.cs",
+              "RelativeDocumentMoniker": "StationeryManagerApi\\Repository\\Impl\\InventoryItemRepositories.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Repository\\Impl\\InventoryItemRepositories.cs",
+              "RelativeToolTip": "StationeryManagerApi\\Repository\\Impl\\InventoryItemRepositories.cs",
+              "ViewState": "AgIAAEEAAAAAAAAAAADwv08AAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T09:10:34.735Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ProductRepositories.cs",
-              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Repository\\Impl\\ProductRepositories.cs",
-              "RelativeDocumentMoniker": "StationeryManagerApi\\Repository\\Impl\\ProductRepositories.cs",
-              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Repository\\Impl\\ProductRepositories.cs",
-              "RelativeToolTip": "StationeryManagerApi\\Repository\\Impl\\ProductRepositories.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwCQAAABFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T09:04:51.67Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "IProductRepositories.cs",
-              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Repository\\IProductRepositories.cs",
-              "RelativeDocumentMoniker": "StationeryManagerApi\\Repository\\IProductRepositories.cs",
-              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Repository\\IProductRepositories.cs",
-              "RelativeToolTip": "StationeryManagerApi\\Repository\\IProductRepositories.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T09:04:37.985Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ProductServices.cs",
-              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Service\\Impl\\ProductServices.cs",
-              "RelativeDocumentMoniker": "StationeryManagerApi\\Service\\Impl\\ProductServices.cs",
-              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Service\\Impl\\ProductServices.cs",
-              "RelativeToolTip": "StationeryManagerApi\\Service\\Impl\\ProductServices.cs",
-              "ViewState": "AgIAADEAAAAAAAAAAAAcwDkAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T09:03:57.072Z",
+              "WhenOpened": "2025-05-15T04:19:54.576Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "ProductRequest.cs",
-              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerLib\\RequestModel\\ProductRequest.cs",
-              "RelativeDocumentMoniker": "StationeryManagerLib\\RequestModel\\ProductRequest.cs",
-              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerLib\\RequestModel\\ProductRequest.cs",
-              "RelativeToolTip": "StationeryManagerLib\\RequestModel\\ProductRequest.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABoAAAAoAAAAAAAAAA==",
+              "Title": "InventoryItemServices.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Service\\Impl\\InventoryItemServices.cs",
+              "RelativeDocumentMoniker": "StationeryManagerApi\\Service\\Impl\\InventoryItemServices.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Service\\Impl\\InventoryItemServices.cs",
+              "RelativeToolTip": "StationeryManagerApi\\Service\\Impl\\InventoryItemServices.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAgwBwAAABFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T09:02:20.124Z",
+              "WhenOpened": "2025-05-15T04:18:57.529Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IInventoryItemServices.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Service\\IInventoryItemServices.cs",
+              "RelativeDocumentMoniker": "StationeryManagerApi\\Service\\IInventoryItemServices.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Service\\IInventoryItemServices.cs",
+              "RelativeToolTip": "StationeryManagerApi\\Service\\IInventoryItemServices.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBAAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T04:17:53.16Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "StationeryManagerApi\\Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "StationeryManagerApi\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T06:19:59.182Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
+              "Title": "DialogCreateOrUpdateInventory.razor",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Components\\Pages\\Inventories\\DialogCreateOrUpdateInventory.razor",
+              "RelativeDocumentMoniker": "StationeryManager\\Components\\Pages\\Inventories\\DialogCreateOrUpdateInventory.razor",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Components\\Pages\\Inventories\\DialogCreateOrUpdateInventory.razor",
+              "RelativeToolTip": "StationeryManager\\Components\\Pages\\Inventories\\DialogCreateOrUpdateInventory.razor",
+              "ViewState": "AgIAAIsAAAAAAAAAAAAswJIAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-15T04:58:10.872Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "WarehousesController.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Controllers\\WarehousesController.cs",
+              "RelativeDocumentMoniker": "StationeryManagerApi\\Controllers\\WarehousesController.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Controllers\\WarehousesController.cs",
+              "RelativeToolTip": "StationeryManagerApi\\Controllers\\WarehousesController.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAQwBMAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T03:48:27.883Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "InventoryTransactionsController.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Controllers\\InventoryTransactionsController.cs",
+              "RelativeDocumentMoniker": "StationeryManagerApi\\Controllers\\InventoryTransactionsController.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Controllers\\InventoryTransactionsController.cs",
+              "RelativeToolTip": "StationeryManagerApi\\Controllers\\InventoryTransactionsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEEAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T03:48:05.749Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "List.razor",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Components\\Pages\\Inventories\\List.razor",
+              "RelativeDocumentMoniker": "StationeryManager\\Components\\Pages\\Inventories\\List.razor",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Components\\Pages\\Inventories\\List.razor",
+              "RelativeToolTip": "StationeryManager\\Components\\Pages\\Inventories\\List.razor",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAAGQAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-15T04:10:11.084Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "CategoriesController.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Controllers\\CategoriesController.cs",
+              "RelativeDocumentMoniker": "StationeryManagerApi\\Controllers\\CategoriesController.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Controllers\\CategoriesController.cs",
+              "RelativeToolTip": "StationeryManagerApi\\Controllers\\CategoriesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T06:19:57.767Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "MediaController.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Controllers\\MediaController.cs",
+              "RelativeDocumentMoniker": "StationeryManagerApi\\Controllers\\MediaController.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Controllers\\MediaController.cs",
+              "RelativeToolTip": "StationeryManagerApi\\Controllers\\MediaController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T06:20:01.78Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "SubCategoriesController.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Controllers\\SubCategoriesController.cs",
+              "RelativeDocumentMoniker": "StationeryManagerApi\\Controllers\\SubCategoriesController.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Controllers\\SubCategoriesController.cs",
+              "RelativeToolTip": "StationeryManagerApi\\Controllers\\SubCategoriesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T06:20:05.888Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "CategoryServices.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Services\\Impl\\CategoryServices.cs",
+              "RelativeDocumentMoniker": "StationeryManager\\Services\\Impl\\CategoryServices.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Services\\Impl\\CategoryServices.cs",
+              "RelativeToolTip": "StationeryManager\\Services\\Impl\\CategoryServices.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwCIAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T06:18:19.002Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "ProductsController.cs",
               "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Controllers\\ProductsController.cs",
               "RelativeDocumentMoniker": "StationeryManagerApi\\Controllers\\ProductsController.cs",
               "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Controllers\\ProductsController.cs",
               "RelativeToolTip": "StationeryManagerApi\\Controllers\\ProductsController.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAIwEIAAAA2AAAAAAAAAA==",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAAAE4AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T08:44:45.302Z",
+              "WhenOpened": "2025-05-15T04:03:19.037Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "IInventoryItemServices.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Services\\IInventoryItemServices.cs",
+              "RelativeDocumentMoniker": "StationeryManager\\Services\\IInventoryItemServices.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Services\\IInventoryItemServices.cs",
+              "RelativeToolTip": "StationeryManager\\Services\\IInventoryItemServices.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T06:17:16.926Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "InventoryTransactionServices.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Services\\Impl\\InventoryTransactionServices.cs",
+              "RelativeDocumentMoniker": "StationeryManager\\Services\\Impl\\InventoryTransactionServices.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Services\\Impl\\InventoryTransactionServices.cs",
+              "RelativeToolTip": "StationeryManager\\Services\\Impl\\InventoryTransactionServices.cs",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAcwHkAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T04:39:12.197Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "IInventoryTransactionServices.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Services\\IInventoryTransactionServices.cs",
+              "RelativeDocumentMoniker": "StationeryManager\\Services\\IInventoryTransactionServices.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Services\\IInventoryTransactionServices.cs",
+              "RelativeToolTip": "StationeryManager\\Services\\IInventoryTransactionServices.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAewA8AAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T04:38:57.431Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "InventoryTransactionServices.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Service\\Impl\\InventoryTransactionServices.cs",
+              "RelativeDocumentMoniker": "StationeryManagerApi\\Service\\Impl\\InventoryTransactionServices.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Service\\Impl\\InventoryTransactionServices.cs",
+              "RelativeToolTip": "StationeryManagerApi\\Service\\Impl\\InventoryTransactionServices.cs",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAAAFEAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T04:17:09.765Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "WarehouseServices.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Services\\Impl\\WarehouseServices.cs",
+              "RelativeDocumentMoniker": "StationeryManager\\Services\\Impl\\WarehouseServices.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Services\\Impl\\WarehouseServices.cs",
+              "RelativeToolTip": "StationeryManager\\Services\\Impl\\WarehouseServices.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T04:54:03.114Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "TransactionTypeExtensions.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerLib\\Util\\Extension\\TransactionTypeExtensions.cs",
+              "RelativeDocumentMoniker": "StationeryManagerLib\\Util\\Extension\\TransactionTypeExtensions.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerLib\\Util\\Extension\\TransactionTypeExtensions.cs",
+              "RelativeToolTip": "StationeryManagerLib\\Util\\Extension\\TransactionTypeExtensions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T05:25:58.409Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "HistoryProductInTransaction.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerLib\\Dtos\\HistoryProductInTransaction.cs",
+              "RelativeDocumentMoniker": "StationeryManagerLib\\Dtos\\HistoryProductInTransaction.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerLib\\Dtos\\HistoryProductInTransaction.cs",
+              "RelativeToolTip": "StationeryManagerLib\\Dtos\\HistoryProductInTransaction.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA8AAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T04:29:37.196Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "List.razor",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Components\\Pages\\Products\\List.razor",
+              "RelativeDocumentMoniker": "StationeryManager\\Components\\Pages\\Products\\List.razor",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Components\\Pages\\Products\\List.razor",
+              "RelativeToolTip": "StationeryManager\\Components\\Pages\\Products\\List.razor",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACsAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-15T04:56:54.445Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "InventoryTransactionModel.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerLib\\Entities\\InventoryTransactionModel.cs",
+              "RelativeDocumentMoniker": "StationeryManagerLib\\Entities\\InventoryTransactionModel.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerLib\\Entities\\InventoryTransactionModel.cs",
+              "RelativeToolTip": "StationeryManagerLib\\Entities\\InventoryTransactionModel.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAxwBAAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T04:28:39.253Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "IInventoryTransactionServices.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Service\\IInventoryTransactionServices.cs",
+              "RelativeDocumentMoniker": "StationeryManagerApi\\Service\\IInventoryTransactionServices.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Service\\IInventoryTransactionServices.cs",
+              "RelativeToolTip": "StationeryManagerApi\\Service\\IInventoryTransactionServices.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA0AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T04:17:05.297Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "ProductStockModel.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerLib\\Dtos\\ProductStockModel.cs",
+              "RelativeDocumentMoniker": "StationeryManagerLib\\Dtos\\ProductStockModel.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerLib\\Dtos\\ProductStockModel.cs",
+              "RelativeToolTip": "StationeryManagerLib\\Dtos\\ProductStockModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T04:30:04.365Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "InventoryTransactionRepositories.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Repository\\Impl\\InventoryTransactionRepositories.cs",
+              "RelativeDocumentMoniker": "StationeryManagerApi\\Repository\\Impl\\InventoryTransactionRepositories.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Repository\\Impl\\InventoryTransactionRepositories.cs",
+              "RelativeToolTip": "StationeryManagerApi\\Repository\\Impl\\InventoryTransactionRepositories.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAowEIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T04:23:56.197Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "IInventoryTransactionRepositories.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Repository\\IInventoryTransactionRepositories.cs",
+              "RelativeDocumentMoniker": "StationeryManagerApi\\Repository\\IInventoryTransactionRepositories.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManagerApi\\Repository\\IInventoryTransactionRepositories.cs",
+              "RelativeToolTip": "StationeryManagerApi\\Repository\\IInventoryTransactionRepositories.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T04:15:31.851Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "ProductServices.cs",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Services\\Impl\\ProductServices.cs",
+              "RelativeDocumentMoniker": "StationeryManager\\Services\\Impl\\ProductServices.cs",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Services\\Impl\\ProductServices.cs",
+              "RelativeToolTip": "StationeryManager\\Services\\Impl\\ProductServices.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAlwBMAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T03:59:47.348Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "DialogCreateOrUpdateProduct.razor",
+              "DocumentMoniker": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Components\\Pages\\Products\\DialogCreateOrUpdateProduct.razor",
+              "RelativeDocumentMoniker": "StationeryManager\\Components\\Pages\\Products\\DialogCreateOrUpdateProduct.razor",
+              "ToolTip": "C:\\Users\\test\\Desktop\\StationeryManager\\StationeryManager\\Components\\Pages\\Products\\DialogCreateOrUpdateProduct.razor",
+              "RelativeToolTip": "StationeryManager\\Components\\Pages\\Products\\DialogCreateOrUpdateProduct.razor",
+              "ViewState": "AgIAAJMAAAAAAAAAAAAAAKMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-15T03:54:43.175Z",
               "EditorCaption": ""
             }
           ]

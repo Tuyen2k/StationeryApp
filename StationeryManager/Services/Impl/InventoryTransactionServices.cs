@@ -1,4 +1,5 @@
-﻿using StationeryManagerLib.Dtos;
+﻿using StationeryManager.Util;
+using StationeryManagerLib.Dtos;
 using StationeryManagerLib.Entities;
 using StationeryManagerLib.RequestModel;
 
@@ -8,7 +9,8 @@ namespace StationeryManager.Services
     {
         private readonly HttpClient _httpClient;
 
-        public InventoryTransactionServices(HttpClient httpClient) {
+        public InventoryTransactionServices(HttpClient httpClient)
+        {
             _httpClient = httpClient;
         }
 
@@ -101,6 +103,29 @@ namespace StationeryManager.Services
                 return inventory;
             }
             return null;
+        }
+
+        public async Task<List<HistoryProductInTransaction>> GetHistoryByProductId(string productId, InventoryTransactionFilterModel filter)
+        {
+            var parameters = new Dictionary<string, string?>();
+            if (filter != null)
+            {
+                parameters = new Dictionary<string, string?>
+                {
+                    { "limit", filter.Limit.ToString() },
+                    { "page", filter.Page.ToString() }
+                };
+            }
+
+            var uriBuilder = await UriHelperUtil.BuildUriAsync(_httpClient.BaseAddress + $"api/inventories/products/{productId}", parameters);
+
+            var result = await _httpClient.GetAsync(uriBuilder.Uri);
+            if (result.IsSuccessStatusCode)
+            {
+                var inventories = await result.Content.ReadFromJsonAsync<List<HistoryProductInTransaction>>();
+                return inventories ?? [];
+            }
+            return [];
         }
 
         public async Task<bool> UpdateAsync(string id, InventoryTransactionRequest request)

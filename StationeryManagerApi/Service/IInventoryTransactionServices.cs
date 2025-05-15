@@ -1,4 +1,5 @@
-﻿using StationeryManagerLib.Entities;
+﻿using StationeryManagerLib.Dtos;
+using StationeryManagerLib.Entities;
 using StationeryManagerLib.RequestModel;
 
 namespace StationeryManagerApi.Services
@@ -10,5 +11,6 @@ namespace StationeryManagerApi.Services
         Task<InventoryTransactionModel> Create(InventoryTransactionRequest request, List<ProductModel> products);
         Task<int> Update(InventoryTransactionModel inventory, InventoryTransactionRequest request);
         Task<int> Delete(InventoryTransactionModel inventory);
+        Task<List<HistoryProductInTransaction>> GetHistoryByProductId(InventoryTransactionFilterModel filter);
     }
 }

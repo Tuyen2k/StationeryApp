@@ -36,8 +36,11 @@ using (var scope = app.Services.CreateScope())
     dbContext.Database.Migrate(); // Áp dụng các migration và tạo DB nếu chưa có
 }
 
+app.UseStaticFiles();
+
 // Bật CORS middleware
 app.UseCors(allowCORS);
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
