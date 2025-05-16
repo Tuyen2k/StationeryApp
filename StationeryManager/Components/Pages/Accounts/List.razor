@@ -10,7 +10,10 @@
 	<MudPaper Class="w-100 d-flex align-content-center justify-content-between mt-2">
 		<MudTextField @bind-Value="_searchString" Placeholder="Tìm kiếm tài khoản" Adornment="Adornment.Start" Icon="@Icons.Material.Filled.Search" />
 		<MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="OnSearch" />
-		<MudButton Color="Color.Primary" OnClick="@(() => CreateAccount())" StartIcon="@Icons.Material.Filled.Add">Thêm tài khoản</MudButton>
+		@if (AppState.IsLoggedIn)
+		{
+			<MudButton Color="Color.Primary" OnClick="@(() => CreateAccount())" StartIcon="@Icons.Material.Filled.Add">Thêm tài khoản</MudButton>
+		}		
 	</MudPaper>
 
 	<MudPaper Class="w-100 mt-2">
@@ -18,15 +21,28 @@
 			<HeaderContent>
 				<MudTh>Tên tài khoản</MudTh>
 				<MudTh>Email</MudTh>
-				<MudTh>Ngày tạo</MudTh>
+				@* <MudTh>Ngày tạo</MudTh> *@
 				<MudTh>Số điện thoại</MudTh>
+				<MudTh>Lịch sử thao tác</MudTh>
 				<MudTh>Ctrl</MudTh>
 			</HeaderContent>
 			<RowTemplate>
 				<MudTd DataLabel="Tên tài khoản">@context.Name</MudTd>
 				<MudTd DataLabel="Email">@context.Email</MudTd>
-				<MudTd DataLabel="Ngày tạo">@context.CreatedAt.ToString("HH:mm dd/MM/yyyy")</MudTd>
+				@* <MudTd DataLabel="Ngày tạo">@context.CreatedAt.ToString("HH:mm dd/MM/yyyy")</MudTd> *@
 				<MudTd DataLabel="Số điện thoại">@context.Phone</MudTd>
+				<MudTd DataLabel="Lịch sử thao tác">
+					<div>
+						@if (!string.IsNullOrEmpty(context.CreatedByAccountEmail))
+						{
+							<div><strong>Người tạo:</strong> @context.CreatedByAccountEmail - @context.CreatedAt.ToString("HH:mm dd/MM/yyyy")</div>
+						}
+						@if (!string.IsNullOrEmpty(context.UpdatedByAccountEmail))
+						{
+							<div><strong>Người sửa cuối:</strong> @context.UpdatedByAccountEmail - @context.UpdatedAt.ToString("HH:mm dd/MM/yyyy")</div>
+						}
+					</div>
+				</MudTd>
 				<MudTd DataLabel="Ctrl">
 					<MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" OnClick="@(() => UpdateAccount(context))" />
 					<MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="@(() => DeleteAccount(context))" />
@@ -59,6 +75,7 @@
 	protected override void OnInitialized()
 	{
 		AppState.Title = "Danh sách tài khoản";
+		AppState.OnLoginStateChanged += StateHasChanged;
 	}
 
 	private async Task<TableData<AccountModel>> ServerReload(TableState state, CancellationToken token)
@@ -144,5 +161,10 @@
 	private async Task OnSearch()
 	{
 		await _table.ReloadServerData();
+	}
+
+	public void Dispose()
+	{
+		AppState.OnLoginStateChanged -= StateHasChanged;
 	}
 }

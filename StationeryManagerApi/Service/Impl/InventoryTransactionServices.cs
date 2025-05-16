@@ -19,7 +19,7 @@ namespace StationeryManagerApi.Service.Impl
             _inventoryItemServices = inventoryItemServices;
         }
 
-        public async Task<InventoryTransactionModel> Create(InventoryTransactionRequest request, List<ProductModel> products)
+        public async Task<InventoryTransactionModel> Create(InventoryTransactionRequest request, List<ProductModel> products, ClaimModel user)
         {
             var type = request.TransactionType;
             var code = await GenerateInventoryCode(type);
@@ -33,6 +33,9 @@ namespace StationeryManagerApi.Service.Impl
                 UpdatedAt = DateTime.UtcNow,
                 IsDeleted = false,
                 Note = request.Note,
+                CreatedByAccountId = user.UserId,
+                CreatedByAccountName = user.UserName,
+                CreatedByAccountEmail = user.Email,
             };
 
             var result = await _repositories.Create(inventory);
@@ -49,6 +52,9 @@ namespace StationeryManagerApi.Service.Impl
                 IsDeleted = false,
                 InventoryTransactionId = result.Id.ToString(),
                 InventoryType = type,
+                CreatedByAccountId = user.UserId,
+                CreatedByAccountName = user.UserName,
+                CreatedByAccountEmail = user.Email,
             }).ToList();
 
             await _inventoryItemServices.CreateListItemAsync(items);
@@ -56,10 +62,16 @@ namespace StationeryManagerApi.Service.Impl
             return result;
         }
 
-        public async Task<int> Delete(InventoryTransactionModel inventory)
+        public async Task<int> Delete(InventoryTransactionModel inventory, ClaimModel user)
         {
             inventory.IsDeleted = true;
             inventory.DeletedAt = DateTime.UtcNow;
+            inventory.DeletedByAccountId = user.UserId;
+            inventory.DeletedByAccountName = user.UserName;
+            inventory.DeletedByAccountEmail = user.Email;
+
+            // chưa có xóa danh sách sản phẩm trong phiếu
+
             return await _repositories.Delete(inventory);
         }
 
@@ -116,13 +128,18 @@ namespace StationeryManagerApi.Service.Impl
             return result.ToList();
         }
 
-        public async Task<int> Update(InventoryTransactionModel inventory, InventoryTransactionRequest request)
+        public async Task<int> Update(InventoryTransactionModel inventory, InventoryTransactionRequest request, ClaimModel user)
         {
             var type = request.TransactionType;
             inventory.WarehouseId = request.WarehouseId;
             inventory.TransactionType = type;
             inventory.UpdatedAt = DateTime.UtcNow;
             inventory.Note = request.Note;
+            inventory.UpdatedByAccountId = user.UserId;
+            inventory.UpdatedByAccountName = user.UserName;
+            inventory.UpdatedByAccountEmail = user.Email;
+
+            // chưa có cập nhật danh sách sản phẩm trong phiếu
 
             return await _repositories.Update(inventory);
         }

@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StationeryManagerApi.Extentions;
 using StationeryManagerApi.Services;
 using StationeryManagerLib.RequestModel;
 
@@ -26,10 +28,12 @@ namespace StationeryManagerApi.Controllers
             return Ok(list);
         }
 
+        [Authorize] 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] WarehouseRequest request)
         {
-            var result = await _warehouseServices.Create(request);
+            var user = HttpContext.User.ToClaimModel();
+            var result = await _warehouseServices.Create(request, user);
             if (result == null)
             {
                 return BadRequest("Create failed");
@@ -48,15 +52,17 @@ namespace StationeryManagerApi.Controllers
             return Ok(warehouse);
         }
 
+        [Authorize]
         [HttpPatch("{id}")]
         public async Task<IActionResult> UpdateById(string id, [FromBody] WarehouseRequest request)
         {
+            var user = HttpContext.User.ToClaimModel();
             var warehouse = await _warehouseServices.GetById(id);
             if (warehouse == null)
             {
                 return NotFound($"Warehouse with id {id} not found");
             }
-            var result = await _warehouseServices.Update(warehouse, request);
+            var result = await _warehouseServices.Update(warehouse, request, user);
             if (result == 0)
             {
                 return BadRequest("Update failed");
@@ -64,15 +70,17 @@ namespace StationeryManagerApi.Controllers
             return Ok("Update success");
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteById(string id)
         {
+            var user = HttpContext.User.ToClaimModel();
             var warehouse = await _warehouseServices.GetById(id);
             if (warehouse == null)
             {
                 return NotFound($"Warehouse with id {id} not found");
             }
-            var result = await _warehouseServices.Delete(warehouse);
+            var result = await _warehouseServices.Delete(warehouse, user);
             if (result == 0)
             {
                 return BadRequest("Delete failed");

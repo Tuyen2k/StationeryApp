@@ -26,7 +26,7 @@ ToStringFunc="@ToString" Value="Default">
             }
             @e.Name
             <br/>
-            @e.Price.ToString("N0")
+            @e.Sku
         </div>
     </ItemTemplate>
 </MudAutocomplete>
@@ -57,7 +57,7 @@ ToStringFunc="@ToString" Value="Default">
 	}
 
     private string ToString(ProductModel? model) {
-        return model == null ? string.Empty : $"{model.Name} - ({model.Price.ToString("N0")}) ";
+        return model == null ? string.Empty : $"{model.Name} - ({model.Sku}) ";
     }
 }
 

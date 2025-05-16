@@ -11,12 +11,17 @@
 	<MudPaper Class="w-100 d-flex align-content-center justify-content-between mt-2">
 		<MudTextField @bind-Value="_searchString" Placeholder="Tìm kiếm sản phẩm" Adornment="Adornment.Start" Icon="@Icons.Material.Filled.Search" />
 		<MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="OnSearch" />
-		<MudButton Color="Color.Primary" OnClick="@(() => CreateInventory(null))" StartIcon="@Icons.Material.Filled.Add">Thêm phiếu xuất/nhập kho</MudButton>
+		@if (AppState.IsLoggedIn)
+		{
+			<MudButton Color="Color.Primary" OnClick="@(() => CreateInventory(null))" StartIcon="@Icons.Material.Filled.Add">Thêm phiếu xuất/nhập kho</MudButton>
+		}
 	</MudPaper>
 
 	<MudPaper Class="w-100 mt-2">
 		<MudTable Class="width" ServerData="ServerReload" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info" @ref="_table">
 			<HeaderContent>
+
+				<MudTh>Ảnh</MudTh>
 				<MudTh>Tên sản phẩm</MudTh>
 				<MudTh>Mã Sku</MudTh>
 				<MudTh>Tồn kho</MudTh>
@@ -25,6 +30,16 @@
 				<MudTh>Ctrl</MudTh>
 			</HeaderContent>
 			<RowTemplate>
+				<MudTd DataLabel="Ảnh" style="width: 10em; height: auto">
+					@if (!string.IsNullOrEmpty(context.ImageUrl))
+					{
+						<MudImage Alt="product image" Src="@($"https://localhost:7069/{context.ImageUrl}")" Style="width: 100%; height: auto" />
+					}
+					else
+					{
+						<MudImage Alt="default image" Src="../images/image_default.png" Style="width: 100%; height: auto" />
+					}
+				</MudTd>
 				<MudTd DataLabel="Tên sản phẩm">@context.Name</MudTd>
 				<MudTd DataLabel="Mã Sku">@context.Sku</MudTd>
 				<MudTd DataLabel="Tồn kho">@context.Stock</MudTd>
@@ -65,6 +80,7 @@
 	protected override void OnInitialized()
 	{
 		AppState.Title = "Danh sách tồn kho sản phẩm";
+		AppState.OnLoginStateChanged += StateHasChanged;
 	}
 
 	private async Task<TableData<ProductStockModel>> ServerReload(TableState state, CancellationToken token)
@@ -130,5 +146,10 @@
 	private async Task OnSearch()
 	{
 		await _table.ReloadServerData();
+	}
+
+	public void Dispose()
+	{
+		AppState.OnLoginStateChanged -= StateHasChanged;
 	}
 }

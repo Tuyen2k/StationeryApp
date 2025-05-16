@@ -57,6 +57,8 @@ namespace StationeryManager.Services.Impl
                     await _localStorage.SetAsync("authToken", token);
                     await _localStorage.SetAsync("userEmail", request.Email);
                     _appState.UserEmail = request.Email;
+                    _appState.IsLoggedIn = true;
+                    _appState.Token = token;
                     _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                     return true;
                 }

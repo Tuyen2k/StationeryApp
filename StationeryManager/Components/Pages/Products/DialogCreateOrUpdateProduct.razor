@@ -28,7 +28,8 @@
 
 					<SubCategoryFieldAutoComplete Default="subcategorySelected" ValueChanged="OnSelectedSubCategory" />
 
-					<MudNumericField @bind-Value="Request.Price" Format="N0" Label="Giá" For="@(() => Request.Price)" Required="true" />
+					<MudNumericField @bind-Value="Request.Price" Format="N0" Label="Giá nhập" For="@(() => Request.Price)" Required="true" />
+					<MudNumericField @bind-Value="Request.PriceSale" Format="N0" Label="Giá bán" For="@(() => Request.PriceSale)" Required="true" />
 
 					<MudTextField @bind-Value="Request.Description"
 								  Label="Ghi chú"
@@ -117,6 +118,7 @@
 					Description = Product.Description,
 					SubCategoryId = Product.SubCategoryId,
 					Price = Product.Price,
+					PriceSale = Product.PriceSale,
 					Sku = Product.Sku,
 					ImageUrl = Product.ImageUrl
 				};

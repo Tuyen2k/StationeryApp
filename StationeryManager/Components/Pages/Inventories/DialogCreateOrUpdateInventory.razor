@@ -17,25 +17,25 @@
 
 			<MudGrid Spacing="2">
 				<MudItem xs="12" lg="12">
-					<MudSelect @bind-Value="Request.TransactionType" Label="Loại phiếu" For="@(() => Request.TransactionType)" T="TransactionTypeEnum">
+					<MudSelect ValueChanged="OnSelectedType" Label="Loại phiếu" For="@(() => Request.TransactionType)" T="TransactionTypeEnum">
 						<MudSelectItem Value="TransactionTypeEnum.Import">Nhập kho</MudSelectItem>
 						<MudSelectItem Value="TransactionTypeEnum.Export">Xuất kho</MudSelectItem>
 					</MudSelect>
 
 					<ProductFieldAutoComplete ValueSelected="OnValueSelected"
-											  CustomPlaceholder="Nhập tên sản phẩm"
-											  CustomLablel="Sản phẩm" />
+					CustomPlaceholder="Nhập tên sản phẩm"
+					CustomLablel="Sản phẩm" />
 
 					<WarehouseFieldAutoComplete Default="warehouseSelected"
-												ValueChanged="OnSelectedWarehouse" />
+					ValueChanged="OnSelectedWarehouse" />
 
 					<MudTextField @bind-Value="Request.Note"
-								  Label="Ghi chú"
-								  Lines="4"
-								  For="@(() => Request.Note)" />
+					Label="Ghi chú"
+					Lines="4"
+					For="@(() => Request.Note)" />
 				</MudItem>
 			</MudGrid>
-			@if (items.Count == 0)
+			@if (Request.Items.Count == 0)
 			{
 				<MudText>Chưa có sản phẩm nào</MudText>
 			}
@@ -55,7 +55,7 @@
 								<MudTd DataLabel="Tên sản phẩm">@item.ProductName</MudTd>
 								<MudTd DataLabel="Mã Sky">@item.ProductSku</MudTd>
 								<MudTd DataLabel="Giá">
-									@if (editItem == item)
+									@if (editItem == item && Request.TransactionType == TransactionTypeEnum.Import)
 									{
 										<MudNumericField Format="N0" @bind-Value="item.Price" For="@(() => item.Price)" />
 									}
@@ -83,7 +83,7 @@
 									{
 										<MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" OnClick="@(() => {editItem = item;})" />
 									}
-									<MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="@(() => items.Remove(item))" />
+									<MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="@(() => Request.Items.Remove(item))" />
 								</MudTd>
 							</RowTemplate>
 						</MudTable>
@@ -95,18 +95,18 @@
 		<DialogActions>
 			<!-- Close Button -->
 			<MudButton Color="Color.Default"
-					   Variant="Variant.Outlined"
-					   OnClick="CloseDialog"
-					   StartIcon="@Icons.Material.Filled.Close"
-					   Size="Size.Medium">
+			Variant="Variant.Outlined"
+			OnClick="CloseDialog"
+			StartIcon="@Icons.Material.Filled.Close"
+			Size="Size.Medium">
 				Đóng
 			</MudButton>
 			<!-- Save Button -->
 			<MudButton Color="Color.Primary"
-					   Variant="Variant.Filled"
-					   ButtonType="ButtonType.Submit"
-					   StartIcon="@Icons.Material.Filled.PlaylistAddCheck"
-					   Size="Size.Medium">
+			Variant="Variant.Filled"
+			ButtonType="ButtonType.Submit"
+			StartIcon="@Icons.Material.Filled.PlaylistAddCheck"
+			Size="Size.Medium">
 				@if (Inventory != null)
 				{
 					<span>Cập nhật</span>
@@ -125,6 +125,7 @@
 @inject IInventoryTransactionServices InventoryTransactionServices
 @inject IInventoryItemServices InventoryItemServices
 @inject IWarehouseServices WarehouseServices
+@inject IProductServices ProductServices
 
 @code {
 	[CascadingParameter]
@@ -137,12 +138,12 @@
 	private InventoryTransactionRequest Request { get; set; } = new();
 	private ProductModel? productSelected;
 	private WarehouseModel? warehouseSelected;
-	private List<InventoryItemRequest> items = new();
+	private List<ProductModel> listProductSelected = new();
 	private InventoryItemRequest? editItem;
 
 	protected override async Task OnInitializedAsync()
 	{
-
+		List<InventoryItemRequest> items = [];
 		if (Inventory != null)
 		{
 			var result = await InventoryItemServices.GetAllByTransactionIdAsync(Inventory.Id.ToString());
@@ -166,7 +167,10 @@
 		}
 
 		Request.Items = items;
-
+		if (items.Any())
+		{
+			listProductSelected = await ProductServices.GetAllByIdsAsync(items.Select(i => i.ProductId).ToList());
+		}
 		await base.OnInitializedAsync();
 	}
 
@@ -218,6 +222,28 @@
 
 	}
 
+	private void OnSelectedType(TransactionTypeEnum type)
+	{
+		Request.TransactionType = type;
+
+		// set lại giá theo loại phiếu
+		if (Request.Items.Any())
+		{
+			// trường hợp phiếu có nhiều item sẽ làm chậm chương trình
+			// nếu update phiếu thì không cho thay đổi loại phiếu
+			ProductModel? product;
+			foreach (var item in Request.Items)
+			{
+				product = listProductSelected.FirstOrDefault(x => x.Id.ToString() == item.ProductId);
+				if (product != null)
+				{
+					item.Price = type == TransactionTypeEnum.Import ? product.Price : product.PriceSale;
+				}
+			}
+		}
+	}
+
+
 	private void OnValueSelected(ProductModel product)
 	{
 		if (product != null)
@@ -232,10 +258,11 @@
 				{
 					ProductId = product.Id.ToString(),
 					ProductName = product.Name,
-					Price = product.Price,
+					Price = Request.TransactionType == TransactionTypeEnum.Import ?  product.Price : product.PriceSale,
 					Quantity = 1
 				};
 			Request.Items.Add(item);
+			listProductSelected.Add(product);
 		}
 	}
 

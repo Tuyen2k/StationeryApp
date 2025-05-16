@@ -84,14 +84,6 @@
 				Page = 0,
 			};
 		warehouses = await WarehouseServices.GetAllAsync(filter);
-	}
-
-	protected override async Task OnParametersSetAsync()
-	{
-		if (string.IsNullOrEmpty(id))
-		{
-			return;
-		}
 		product = await ProductServices.GetByIdAsync(id);
 		AppState.Title = $"Lịch sử xuất/nhập kho của {(product != null ? product.Name.ToUpper() : "sản phẩm")}";
 	}

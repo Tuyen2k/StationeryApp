@@ -20,7 +20,7 @@ namespace StationeryManagerLib.Entities
 
         public string PaswordHash { get; set; }
         
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
         public bool IsActive { get; set; }
     }
 }

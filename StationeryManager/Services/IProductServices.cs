@@ -11,5 +11,6 @@ namespace StationeryManager.Services
         Task<bool> CreateAsync(ProductRequest product);
         Task<bool> UpdateAsync(string id, ProductRequest product);
         Task<bool> DeleteAsync(string id);
+        Task<List<ProductModel>> GetAllByIdsAsync(List<string> ids);
     }
 }

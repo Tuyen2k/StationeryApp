@@ -10,7 +10,10 @@
     <MudPaper Class="w-100 d-flex align-content-center justify-content-between mt-2">
         <MudTextField @bind-Value="_searchString" Placeholder="Tìm kiếm sản phẩm" Adornment="Adornment.Start" Icon="@Icons.Material.Filled.Search" />
         <MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="OnSearch" />
-        <MudButton Color="Color.Primary" OnClick="@(() => CreateOrUpdateProduct(null))" StartIcon="@Icons.Material.Filled.Add">Thêm sản phẩm</MudButton>
+        @if (AppState.IsLoggedIn)
+        {
+            <MudButton Color="Color.Primary" OnClick="@(() => CreateOrUpdateProduct(null))" StartIcon="@Icons.Material.Filled.Add">Thêm sản phẩm</MudButton>
+        }
     </MudPaper>
 
     <MudPaper Class="w-100 mt-2">
@@ -19,8 +22,10 @@
                 <MudTh>Ảnh</MudTh>
                 <MudTh>Tên sản phẩm</MudTh>
                 <MudTh>Mã Sku</MudTh>
-                <MudTh>Ngày tạo</MudTh>
-                <MudTh>Giá</MudTh>
+                @* <MudTh>Ngày tạo</MudTh> *@
+                <MudTh>Giá nhập</MudTh>
+                <MudTh>Giá bán</MudTh>
+                <MudTh>Lịch sử thao tác</MudTh>
                 @* <MudTh>Mô tả</MudTh> *@
                 <MudTh>Ctrl</MudTh>
             </HeaderContent>
@@ -37,11 +42,24 @@
                 </MudTd>
                 <MudTd DataLabel="Tên sản phẩm">@context.Name</MudTd>
                 <MudTd DataLabel="Mã Sku">@context.Sku</MudTd>
-                <MudTd DataLabel="Ngày tạo">@context.CreatedAt.ToString("HH:mm dd/MM/yyyy")</MudTd>
-                <MudTd DataLabel="Giá">@context.Price.ToString("N0")</MudTd>
+                @* <MudTd DataLabel="Ngày tạo">@context.CreatedAt.ToString("HH:mm dd/MM/yyyy")</MudTd> *@
+                <MudTd DataLabel="Giá nhập">@context.Price.ToString("N0")</MudTd>
+                <MudTd DataLabel="Giá bán">@context.PriceSale.ToString("N0")</MudTd>
                 @* <MudTd DataLabel="Mô tả">
                     <div class="line-clamp-2" title="@context.Description">@context.Description</div>
                 </MudTd> *@
+                <MudTd DataLabel="Lịch sử thao tác">
+                    <div>
+                        @if (!string.IsNullOrEmpty(context.CreatedByAccountEmail))
+                        {
+                            <div><strong>Người tạo:</strong> @context.CreatedByAccountEmail - @context.CreatedAt.ToString("HH:mm dd/MM/yyyy")</div>
+                        }
+                        @if (!string.IsNullOrEmpty(context.UpdatedByAccountEmail))
+                        {
+                            <div><strong>Người sửa cuối:</strong> @context.UpdatedByAccountEmail - @context.UpdatedAt.ToString("HH:mm dd/MM/yyyy")</div>
+                        }
+                    </div>
+                </MudTd>
                 <MudTd DataLabel="Ctrl">
                     <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" OnClick="@(() => CreateOrUpdateProduct(context))" />
                     <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="@(() => DeleteProduct(context))" />
@@ -73,6 +91,7 @@
 
     protected override void OnInitialized() {
         AppState.Title = "Danh sách sản phẩm";
+        AppState.OnLoginStateChanged += StateHasChanged;
     }
 
     private async Task<TableData<ProductModel>> ServerReload(TableState state, CancellationToken token) {
@@ -130,5 +149,10 @@
 
     private async Task OnSearch() {
         await _table.ReloadServerData();
+    }
+
+    public void Dispose()
+    {
+        AppState.OnLoginStateChanged -= StateHasChanged;
     }
 }

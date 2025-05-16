@@ -1,0 +1,23 @@
+----------- Tính Báo cáo Doanh thu sản phẩm -------------- 
+-------START--------
+  select 
+  it.ProductId,
+  p.Name,
+  Sum(Case when it.InventoryType = 0 then it.Quantity else 0 end) as Import,
+  Sum(Case when it.InventoryType = 0 then (it.Quantity * it.Price) else 0 end) as TotalImport,
+  Sum(Case when it.InventoryType = 1 then ABS(it.Quantity) else 0 end) as Export,
+  Sum(Case when it.InventoryType = 1 then  ABS(it.Quantity * it.Price) else 0 end) as TotalExport,
+  ABS( Sum((p.Price - Case when it.InventoryType = 1 then it.Price else 0 end) 
+  * Case when it.InventoryType = 1 then it.Quantity else 0 end)) as LN
+
+  from InventoryItems as it	
+
+  join Products as p on it.ProductId = p.id
+
+  where it.ProductId in(select p.Id
+						  from Products as p
+						  where IsDeleted = 0)
+
+  group By it.ProductId, p.Name
+
+---------END----------

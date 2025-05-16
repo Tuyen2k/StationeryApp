@@ -18,7 +18,7 @@ namespace StationeryManagerApi.Service.Impl
             return await _repositories.CountAll(filter);
         }
 
-        public async Task<CategoryModel> Create(CategoryRequest category)
+        public async Task<CategoryModel> Create(CategoryRequest category, ClaimModel user)
         {
             var categoryCreate = new CategoryModel()
             {
@@ -26,15 +26,24 @@ namespace StationeryManagerApi.Service.Impl
                 Description = category.Description,
                 Name = category.Name,
                 IsDeleted = false,
+                UpdatedAt = DateTime.UtcNow,
+                CreatedByAccountId = user.UserId,
+                CreatedByAccountName = user.UserName,
+                CreatedByAccountEmail = user.Email,
+
             };
             var result = await _repositories.Create(categoryCreate);
             return result;
         }
 
-        public async Task<int> Delete(CategoryModel category)
+        public async Task<int> Delete(CategoryModel category, ClaimModel user)
         {
             category.IsDeleted = true;
             category.DeletedAt = DateTime.UtcNow;
+            category.DeletedByAccountId = user.UserId;
+            category.DeletedByAccountName = user.UserName;
+            category.DeletedByAccountEmail = user.Email;
+
             return await _repositories.Delete(category);
         }
 
@@ -53,11 +62,14 @@ namespace StationeryManagerApi.Service.Impl
             return await _repositories.GetById(guidId);
         }
 
-        public async Task<int> Update(CategoryModel category, CategoryRequest request)
+        public async Task<int> Update(CategoryModel category, CategoryRequest request, ClaimModel user)
         {
             category.Description = request.Description;
             category.Name = request.Name;
             category.UpdatedAt = DateTime.UtcNow;
+            category.UpdatedByAccountId = user.UserId;
+            category.UpdatedByAccountName = user.UserName;
+            category.UpdatedByAccountEmail = user.Email;
 
             return await _repositories.Update(category);
         }

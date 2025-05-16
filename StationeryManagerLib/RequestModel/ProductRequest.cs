@@ -15,7 +15,7 @@ namespace StationeryManagerLib.RequestModel
         public string Name { get; set; }
 
         [Display(Name = "Mô tả")]
-        public string? Description { get; set; } = string.Empty;
+        public string? Description { get; set; }
 
         [Display(Name = "Hình ảnh")]
         public string? ImageUrl { get; set; }
@@ -24,8 +24,11 @@ namespace StationeryManagerLib.RequestModel
         [Display(Name = "Danh mục sản phẩm")]
         public string SubCategoryId { get; set; }
 
-        [Display(Name = "Giá sản phẩm")]
+        [Display(Name = "Giá nhập sản phẩm")]
         public double Price { get; set; } = 0;
+
+        [Display(Name = "Giá bán sản phẩm")]
+        public double PriceSale { get; set; } = 0;
 
         [Display(Name = "Mã sản phẩm")]
         public string? Sku { get; set; }

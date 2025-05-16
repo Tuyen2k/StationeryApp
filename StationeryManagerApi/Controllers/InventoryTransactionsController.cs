@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StationeryManagerApi.Extentions;
 using StationeryManagerApi.Services;
 using StationeryManagerLib.Dtos;
 using StationeryManagerLib.Enum;
@@ -84,9 +86,11 @@ namespace StationeryManagerApi.Controllers
             return Ok(list);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] InventoryTransactionRequest request)
         {
+            var user = HttpContext.User.ToClaimModel();
             if (!request.Items.Any())
             {
                 return BadRequest("No product in bill");
@@ -105,7 +109,7 @@ namespace StationeryManagerApi.Controllers
                 return BadRequest("Some product not found in bill");
             }
 
-            var result = await _inventoryTransactionServices.Create(request, products);
+            var result = await _inventoryTransactionServices.Create(request, products, user);
             if (result == null)
             {
                 return BadRequest("Create failed");
@@ -124,9 +128,11 @@ namespace StationeryManagerApi.Controllers
             return Ok(transaction);
         }
 
+        [Authorize]
         [HttpPatch("{id}")]
         public async Task<IActionResult> UpdateById(string id, [FromBody] InventoryTransactionRequest request)
         {
+            var user = HttpContext.User.ToClaimModel();
             var transaction = await _inventoryTransactionServices.GetById(id);
             if (transaction == null)
             {
@@ -152,7 +158,7 @@ namespace StationeryManagerApi.Controllers
 
             //request.ProductName = product.Name;
 
-            var result = await _inventoryTransactionServices.Update(transaction, request);
+            var result = await _inventoryTransactionServices.Update(transaction, request, user);
             if (result == 0)
             {
                 return BadRequest("Update failed");
@@ -160,15 +166,17 @@ namespace StationeryManagerApi.Controllers
             return Ok("Update success");
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteById(string id)
         {
+            var user = HttpContext.User.ToClaimModel();
             var transaction = await _inventoryTransactionServices.GetById(id);
             if (transaction == null)
             {
                 return NotFound($"Transaction with id {id} not found");
             }
-            var result = await _inventoryTransactionServices.Delete(transaction);
+            var result = await _inventoryTransactionServices.Delete(transaction, user);
             if (result == 0)
             {
                 return BadRequest("Delete failed");

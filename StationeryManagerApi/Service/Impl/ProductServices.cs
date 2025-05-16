@@ -18,7 +18,7 @@ namespace StationeryManagerApi.Service.Impl
             return await _repositories.CountAll(filter);
         }
 
-        public async Task<ProductModel> Create(ProductRequest request)
+        public async Task<ProductModel> Create(ProductRequest request, ClaimModel user)
         {
             var sku = string.IsNullOrEmpty(request.Sku) ? await GenerateSku() : request.Sku;
 
@@ -26,6 +26,7 @@ namespace StationeryManagerApi.Service.Impl
             {
                 Name = request.Name,
                 Price = request.Price,
+                PriceSale = request.PriceSale,
                 SubCategoryId = request.SubCategoryId,
                 Description = request.Description ?? "",
                 IsDeleted = false,
@@ -33,16 +34,24 @@ namespace StationeryManagerApi.Service.Impl
                 UpdatedAt = DateTime.UtcNow,
                 ImageUrl = request.ImageUrl,
                 Sku = sku,
-                
+                CreatedByAccountId = user.UserId,
+                CreatedByAccountName = user.UserName,
+                CreatedByAccountEmail = user.Email,
+
             };
 
             return await _repositories.Create(product);
         }
 
-        public async Task<int> Delete(ProductModel account)
+        public async Task<int> Delete(ProductModel account, ClaimModel user)
         {
             account.IsDeleted = true;
             account.DeletedAt = DateTime.UtcNow;
+            account.DeletedByAccountId = user.UserId;
+            account.DeletedByAccountName = user.UserName;
+            account.DeletedByAccountEmail = user.Email;
+
+
             return await _repositories.Delete(account);
         }
 
@@ -70,10 +79,11 @@ namespace StationeryManagerApi.Service.Impl
             return await _repositories.GetBySku(sku);
         }
 
-        public async Task<int> Update(ProductModel product, ProductRequest request)
+        public async Task<int> Update(ProductModel product, ProductRequest request, ClaimModel user)
         {
             product.Name = request.Name;
             product.Price = request.Price;
+            product.PriceSale = request.PriceSale;
             product.SubCategoryId = request.SubCategoryId;
             product.Description = request.Description ?? "";
             product.ImageUrl = request.ImageUrl;
@@ -82,6 +92,10 @@ namespace StationeryManagerApi.Service.Impl
                 product.Sku = request.Sku;
             }
             product.UpdatedAt = DateTime.UtcNow;
+
+            product.UpdatedByAccountId = user.UserId;
+            product.UpdatedByAccountName = user.UserName;
+            product.UpdatedByAccountEmail = user.Email;
 
             return await _repositories.Update(product);
         }

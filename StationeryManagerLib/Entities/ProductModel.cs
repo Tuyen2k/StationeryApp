@@ -12,12 +12,21 @@ namespace StationeryManagerLib.Entities
     {
         [Required]
         public string Name { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public string? ImageUrl { get; set; }
 
         [Required]
         public string SubCategoryId { get; set; }
+
+        /// <summary>
+        /// Giá nhập
+        /// </summary>
         public double Price { get; set; }
+
+        /// <summary>
+        /// Giá bán
+        /// </summary>
+        public double PriceSale { get; set; } = 0;
 
         [Required]
         public string Sku { get; set; }

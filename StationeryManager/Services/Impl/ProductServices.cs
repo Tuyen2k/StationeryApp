@@ -1,4 +1,6 @@
-﻿using StationeryManager.Util;
+﻿using System.Text;
+using System.Text.Json;
+using StationeryManager.Util;
 using StationeryManagerLib.Entities;
 using StationeryManagerLib.RequestModel;
 
@@ -87,6 +89,17 @@ namespace StationeryManager.Services
             return [];
         }
 
+        public async Task<List<ProductModel>> GetAllByIdsAsync(List<string> ids)
+        {
+            var result = await _httpClient.PostAsync("api/products/ids", new StringContent(JsonSerializer.Serialize(ids), Encoding.UTF8, "application/json"));
+            if (result.IsSuccessStatusCode)
+            {
+                var products = await result.Content.ReadFromJsonAsync<List<ProductModel>>();
+                return products ?? [];
+            }
+            return [];
+        }
+
         public async Task<ProductModel?> GetByIdAsync(string id) {
             var result = await _httpClient.GetAsync($"api/products/{id}");
             if (result.IsSuccessStatusCode)
@@ -105,5 +118,7 @@ namespace StationeryManager.Services
             }
             return false;
         }
+
+
     }
 }

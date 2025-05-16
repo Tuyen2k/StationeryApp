@@ -100,5 +100,22 @@ namespace StationeryManagerApi.Repository.Impl
             return result;
 
         }
+
+        public async Task<List<InventoryItemModel>> GetAlls(List<string> productIds, FromToFilterModel time)
+        {
+            var query = _context.InventoryItems.AsQueryable();
+            query = query.Where(e => e.IsDeleted != true);
+            query = query.Where(e => productIds.Contains(e.ProductId));
+            if (time.FromTime != null)
+            {
+                query = query.Where(e => e.CreatedAt >= time.FromTime);
+            }
+            if (time.ToTime != null)
+            {
+                query = query.Where(e => e.CreatedAt <= time.ToTime);
+            }
+            var result = await query.ToListAsync();
+            return result;
+        }
     }
 }

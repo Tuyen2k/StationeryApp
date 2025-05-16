@@ -10,16 +10,19 @@
 	</div>
 
 	<main>
-		<div class="top-row px-4 d-flex justify-between align-center">
+		<div class="px-4 d-flex justify-between align-center header-top">
 			<MudText Typo="Typo.h6">@AppState.Title</MudText>
 
-			@if (string.IsNullOrEmpty(AppState.UserName))
+			@if (string.IsNullOrEmpty(AppState.UserEmail))
 			{
-				<MudButton Color="Color.Primary" OnClick="@(() => AppState.ShowLoginDialog?.Invoke())">Đăng nhập</MudButton>
+				<MudButton Color="Color.Primary" OnClick="@(() => {Navigation.NavigateTo($"/login?redirect={CurrentUrl}");})">Đăng nhập</MudButton>
 			}
 			else
 			{
-				<MudButton Color="Color.Primary" OnClick="@(() => AppState.ShowUserProfile?.Invoke())">@AppState.UserEmail</MudButton>
+				<div>
+					<MudButton Color="Color.Primary" OnClick="@(() => AppState.ShowUserProfile?.Invoke())">@AppState.UserEmail</MudButton>
+					<MudButton Color="Color.Primary" OnClick="@(() => Logout())">Đăng xuất</MudButton>
+				</div>
 			}
 		</div>
 		@* Required *@
@@ -44,9 +47,13 @@
 	<a class="dismiss">🗙</a>
 </div>
 
-@inject HttpClient Http
+@inject HttpClient HttpClient
 @inject ProtectedLocalStorage LocalStorage
+@inject NavigationManager Navigation
+@inject ISnackbar Snackbar
 @code {
+
+	private string CurrentUrl => Navigation.ToBaseRelativePath(Navigation.Uri);
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -56,14 +63,59 @@
 
 		if (!string.IsNullOrEmpty(token))
 		{
-			Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+			HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+			AppState.IsLoggedIn = true;
+			AppState.Token = token;
 		}
 
 		if (userEmailResult.Success && !string.IsNullOrEmpty(userEmailResult.Value))
 		{
 			AppState.UserEmail = userEmailResult.Value;
 		}
+
+		AppState.OnTitleChanged += UpdateTitle;
+
+		await base.OnInitializedAsync();
 	}
 
+	private async Task Logout()
+	{
+		// Remove the token from local storage
+		await LocalStorage.DeleteAsync("authToken");
+		await LocalStorage.DeleteAsync("userEmail");
+		HttpClient.DefaultRequestHeaders.Authorization = null;
+
+		// check local storage
+		var result = await LocalStorage.GetAsync<string>("authToken");
+		var emailResult = await LocalStorage.GetAsync<string>("authToken");
+		var token = result.Success ? result.Value : null;
+		var email = emailResult.Success ? emailResult.Value : null;
+
+		// set default value to AppStateService
+		if (string.IsNullOrEmpty(token) && string.IsNullOrEmpty(email))
+		{
+			AppState.IsLoggedIn = false;
+			AppState.Token = string.Empty;
+			AppState.UserEmail = string.Empty;
+			Snackbar.Add("Đăng xuất thành công", Severity.Success);
+			
+			AppState.NotifyLoginStateChanged(); // thông báo cho component con
+
+			return;
+		}
+
+		Snackbar.Add("Đăng xuất thất bại", Severity.Error);
+
+	}
+
+	private void UpdateTitle()
+	{
+		InvokeAsync(StateHasChanged);
+	}
+
+	public void Dispose()
+	{
+		AppState.OnTitleChanged -= UpdateTitle;
+	}
 
 }

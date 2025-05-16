@@ -10,22 +10,38 @@
     <MudPaper Class="w-100 d-flex align-content-center justify-content-between mt-2">
         <MudTextField @bind-Value="_searchString" Placeholder="Tìm kiếm danh mục phân loại" Adornment="Adornment.Start" Icon="@Icons.Material.Filled.Search" />
         <MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="OnSearch" />
-        <MudButton Color="Color.Primary" OnClick="@(() => CreateOrUpdateCategory(null))" StartIcon="@Icons.Material.Filled.Add">Thêm danh mục phân loại</MudButton>
+        @if (AppState.IsLoggedIn)
+        {
+            <MudButton Color="Color.Primary" OnClick="@(() => CreateOrUpdateCategory(null))" StartIcon="@Icons.Material.Filled.Add">Thêm danh mục phân loại</MudButton>
+        }
     </MudPaper>
 
     <MudPaper Class="w-100 mt-2">
         <MudTable Class="width" ServerData="ServerReload" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info" @ref="_table">
             <HeaderContent>
                 <MudTh>Tên danh mục</MudTh>
-                <MudTh>Ngày tạo</MudTh>
+                @* <MudTh>Ngày tạo</MudTh> *@
                 <MudTh>Mô tả</MudTh>
+                <MudTh>Lịch sử thao tác</MudTh>
                 <MudTh>Ctrl</MudTh>
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="Tên danh mục">@context.Name</MudTd>
-                <MudTd DataLabel="Ngày tạo">@context.CreatedAt.ToString("HH:mm dd/MM/yyyy")</MudTd>
+                @* <MudTd DataLabel="Ngày tạo">@context.CreatedAt.ToString("HH:mm dd/MM/yyyy")</MudTd> *@
                 <MudTd DataLabel="Mô tả">
                     <div class="line-clamp-2" title="@context.Description">@context.Description</div>
+                </MudTd>
+                <MudTd DataLabel="Lịch sử thao tác">
+                    <div>
+                        @if (!string.IsNullOrEmpty(context.CreatedByAccountEmail))
+                        {
+                            <div><strong>Người tạo:</strong> @context.CreatedByAccountEmail - @context.CreatedAt.ToString("HH:mm dd/MM/yyyy")</div>
+                        }
+                        @if (!string.IsNullOrEmpty(context.UpdatedByAccountEmail))
+                        {
+                            <div><strong>Người sửa cuối:</strong> @context.UpdatedByAccountEmail - @context.UpdatedAt.ToString("HH:mm dd/MM/yyyy")</div>
+                        }
+                    </div>
                 </MudTd>
                 <MudTd DataLabel="Ctrl">
                     <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" OnClick="@(() => CreateOrUpdateCategory(context))" />
@@ -58,6 +74,7 @@
 
     protected override void OnInitialized() {
         AppState.Title = "Danh sách danh mục phân loại";
+        AppState.OnLoginStateChanged += StateHasChanged;
     }
 
     private async Task<TableData<CategoryModel>> ServerReload(TableState state, CancellationToken token) {
@@ -115,5 +132,10 @@
 
     private async Task OnSearch() {
         await _table.ReloadServerData();
+    }
+
+    public void Dispose()
+    {
+        AppState.OnLoginStateChanged -= StateHasChanged;
     }
 }

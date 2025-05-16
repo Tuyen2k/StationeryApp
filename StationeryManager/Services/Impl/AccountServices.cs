@@ -1,4 +1,5 @@
-﻿using StationeryManager.Util;
+﻿using Microsoft.AspNetCore.Components;
+using StationeryManager.Util;
 using StationeryManagerLib.Entities;
 using StationeryManagerLib.RequestModel;
 
@@ -7,9 +8,14 @@ namespace StationeryManager.Services.Impl
     public class AccountServices : IAccountServices
     {
         private readonly HttpClient _httpClient;
-        public AccountServices(HttpClient client)
+
+        //public AccountServices(IHttpClientFactory httpClientFactory)
+        //{
+        //    _httpClient = httpClientFactory.CreateClient("AuthorizedClient");
+        //}
+        public AccountServices(HttpClient httpClient)
         {
-            _httpClient = client;
+            _httpClient = httpClient;
         }
 
         public async Task<int> CountAll(FilterModel? filter)
@@ -77,7 +83,7 @@ namespace StationeryManager.Services.Impl
                     { "page", filter.Page.ToString() }
                 };
 
-                if(!string.IsNullOrEmpty(filter.Name))
+                if (!string.IsNullOrEmpty(filter.Name))
                 {
                     parameters.Add("name", filter.Name);
                 }

@@ -50,8 +50,26 @@ namespace StationeryManagerApi.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CreatedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedByAccountName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeletedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeletedByAccountName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -73,11 +91,19 @@ namespace StationeryManagerApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedByAccountName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -96,11 +122,28 @@ namespace StationeryManagerApi.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CreatedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedByAccountName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DeletedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeletedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeletedByAccountName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -112,6 +155,15 @@ namespace StationeryManagerApi.Migrations
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedByAccountName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -127,8 +179,26 @@ namespace StationeryManagerApi.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CreatedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedByAccountName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeletedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeletedByAccountName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("InventoryTransactionId")
                         .IsRequired()
@@ -161,6 +231,15 @@ namespace StationeryManagerApi.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("UpdatedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedByAccountName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("InventoryItems", (string)null);
@@ -179,8 +258,26 @@ namespace StationeryManagerApi.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CreatedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedByAccountName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeletedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeletedByAccountName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -193,6 +290,15 @@ namespace StationeryManagerApi.Migrations
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedByAccountName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WarehouseId")
                         .IsRequired()
@@ -212,11 +318,28 @@ namespace StationeryManagerApi.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CreatedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedByAccountName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DeletedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeletedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeletedByAccountName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
@@ -232,6 +355,9 @@ namespace StationeryManagerApi.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<double>("PriceSale")
+                        .HasColumnType("float");
+
                     b.Property<string>("Sku")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -242,6 +368,15 @@ namespace StationeryManagerApi.Migrations
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedByAccountName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -264,8 +399,26 @@ namespace StationeryManagerApi.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CreatedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedByAccountName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeletedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeletedByAccountName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -279,6 +432,15 @@ namespace StationeryManagerApi.Migrations
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedByAccountName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -294,8 +456,26 @@ namespace StationeryManagerApi.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CreatedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedByAccountName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeletedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeletedByAccountName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -312,6 +492,15 @@ namespace StationeryManagerApi.Migrations
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedByAccountEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedByAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedByAccountName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

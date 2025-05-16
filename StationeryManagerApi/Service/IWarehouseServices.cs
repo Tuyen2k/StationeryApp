@@ -7,8 +7,8 @@ namespace StationeryManagerApi.Services
     {
         Task<WarehouseModel?> GetById(string id);
         Task<List<WarehouseModel>> GetAlls(FilterModel filter);
-        Task<WarehouseModel> Create(WarehouseRequest request);
-        Task<int> Update(WarehouseModel warehouse, WarehouseRequest request);
-        Task<int> Delete(WarehouseModel warehouse);
+        Task<WarehouseModel> Create(WarehouseRequest request, ClaimModel user);
+        Task<int> Update(WarehouseModel warehouse, WarehouseRequest request, ClaimModel user);
+        Task<int> Delete(WarehouseModel warehouse, ClaimModel user);
     }
 }

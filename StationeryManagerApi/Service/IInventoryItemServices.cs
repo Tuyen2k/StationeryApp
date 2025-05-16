@@ -1,4 +1,5 @@
-﻿using StationeryManagerLib.Entities;
+﻿using StationeryManagerLib.Dtos;
+using StationeryManagerLib.Entities;
 using StationeryManagerLib.RequestModel;
 using StationeryManagerLib.ResultDataDb;
 
@@ -15,5 +16,7 @@ namespace StationeryManagerApi.Services
         Task<List<ProductItemStock>> CalculateStockByProductIds(List<string> productIds);
         Task<List<InventoryItemModel>> GetAlls(InventoryItemFilterModel filter);
         Task<int> CountAll(InventoryItemFilterModel filter);
+
+        Task<List<ReportProductModel>> CalculateRepostProduct(List<ProductModel> products, FromToFilterModel time);
     }
 }

@@ -358,5 +358,5 @@ C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerApi\obj\Debug\net8.0\Stati
 C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerApi\obj\Debug\net8.0\StationeryManagerApi.genruntimeconfig.cache
 C:\Users\Tuyen\Desktop\StationeryApp\StationeryManagerApi\obj\Debug\net8.0\ref\StationeryManagerApi.dll
 C:\Users\test\Desktop\StationeryManager\StationeryManagerApi\bin\Debug\net8.0\StationeryManagerApi.staticwebassets.runtime.json
-C:\Users\test\Desktop\StationeryManager\StationeryManagerApi\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\test\Desktop\StationeryManager\StationeryManagerApi\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\test\Desktop\StationeryManager\StationeryManagerApi\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

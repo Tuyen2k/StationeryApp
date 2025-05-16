@@ -58,3 +58,19 @@ h1:focus {
     text-overflow: ellipsis;
 }
 
+.d-flex {
+    display: flex !important;
+}
+
+.justify-between {
+    justify-content: space-between !important;
+}
+
+.align-center {
+    align-items: center !important;
+}
+
+.header-top {
+    background-color: #f8f9fa;
+    padding: 0.5rem 1rem;
+}

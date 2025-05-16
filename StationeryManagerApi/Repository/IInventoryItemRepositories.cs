@@ -15,6 +15,7 @@ namespace StationeryManagerApi.Repository
         Task<int> CreateListItemAsync(List<InventoryItemModel> inventoryItems);
         Task<List<ProductItemStock>> CalculateStockByProductIds(List<string> productIds);
         Task<List<InventoryItemModel>> GetAlls(InventoryItemFilterModel filter);
+        Task<List<InventoryItemModel>> GetAlls(List<string> productIds, FromToFilterModel time);
         Task<int> CountAll(InventoryItemFilterModel filter);
     }
 }

@@ -1,0 +1,134 @@
+﻿@page "/products/repost"
+@using StationeryManager.Services
+@using StationeryManager.Util
+@using StationeryManagerLib.Dtos
+@using StationeryManagerLib.RequestModel
+
+<MudGrid>
+
+    <MudPaper Class="w-100 d-flex align-content-center justify-content-between mt-2">
+        <MudTextField @bind-Value="_searchString" Placeholder="Tìm kiếm sản phẩm" Adornment="Adornment.Start" Icon="@Icons.Material.Filled.Search" />
+		<MudDateRangePicker @bind-Date="_fromTime" Label="Từ ngày" />
+        <MudDateRangePicker @bind-Date="_toTime" Label="Đến ngày" />
+        <MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="OnSearch" />
+
+    </MudPaper>
+
+    <MudPaper Class="w-100 mt-2">
+        <MudTable Class="width" ServerData="ServerReload" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info" @ref="_table">
+            <HeaderContent>
+                <MudTh>Ảnh</MudTh>
+                <MudTh>Tên sản phẩm</MudTh>
+                <MudTh>Mã Sku</MudTh>
+                <MudTh>Tổng nhập</MudTh>
+                <MudTh>Doanh thu</MudTh>
+                <MudTh>Lợi nhuận</MudTh>
+                <MudTh>Ctrl</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Ảnh" style="width: 10em; height: auto">
+                    @if (!string.IsNullOrEmpty(context.ImageUrl))
+                    {
+                        <MudImage Alt="product image" Src="@($"https://localhost:7069/{context.ImageUrl}")" Style="width: 100%; height: auto" />
+                    }
+                    else
+                    {
+                        <MudImage Alt="default image" Src="../images/image_default.png" Style="width: 100%; height: auto" />
+                    }
+                </MudTd>
+                <MudTd DataLabel="Tên sản phẩm">@context.Name</MudTd>
+                <MudTd DataLabel="Mã Sku">@context.Sku</MudTd>
+                <MudTd DataLabel="Tổng nhập">@context.TotalImport.ToString("N0")</MudTd>
+                <MudTd DataLabel="Doanh thu">@context.TotalExport.ToString("N0")</MudTd>
+                <MudTd DataLabel="Lợi nhuận">@context.Profit.ToString("N0")</MudTd>
+                <MudTd DataLabel="Ctrl">
+                    <MudIconButton Icon="@Icons.Material.Filled.Visibility" Color="Color.Primary" OnClick="@(() => ViewInventory(context))" />
+                </MudTd>
+            </RowTemplate>
+            <NoRecordsContent>
+                <MudText>Không có sản phẩm nào</MudText>
+            </NoRecordsContent>
+            <LoadingContent>
+                <MudText>Loading...</MudText>
+            </LoadingContent>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
+    </MudPaper>
+
+</MudGrid>
+
+@inject AppStateService AppState
+@inject IReportServices ReportServices
+@code {
+
+    private MudTable<ReportProductModel> _table = null!;
+    private bool _loading = false;
+    private string _searchString = string.Empty;
+    public DateTime _fromTime { get; set; } 
+    private DateTime _toTime { get; set; }
+
+    protected override void OnInitialized()
+    {
+        AppState.Title = "Danh sách sản phẩm";
+        AppState.OnLoginStateChanged += StateHasChanged;
+		_fromTime = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, 0, 0, 0);
+		_toTime = _fromTime.AddDays(1);
+    }
+
+    private async Task<TableData<ReportProductModel>> ServerReload(TableState state, CancellationToken token)
+    {
+        try
+        {
+            var filter = new ReportFilterModel()
+                {
+                    Limit = state.PageSize,
+                    Page = state.Page,
+                    Name = _searchString,
+                    FromTime = _fromTime,
+					ToTime = _toTime,
+
+                };
+            var list = await ReportServices.GetReportProduct(filter);
+            // var total = await ProductServices.CountAllAsync(filter);
+            return new TableData<ReportProductModel>()
+                {
+                    TotalItems = 0,
+                    Items = list
+                };
+        }
+        catch (Exception e)
+        {
+            return new TableData<ReportProductModel>()
+                {
+                    TotalItems = 0,
+                    Items = []
+                };
+        }
+
+    }
+
+	private async Task ViewInventory(ReportProductModel product)
+	{
+		// var parameters = new DialogParameters();
+		// parameters.Add("ProductId", product.Id);
+		// var dialog = DialogService.Show<RepostDialog>("Chi tiết sản phẩm", parameters);
+		// var result = await dialog.Result;
+		// if (!result.Cancelled)
+		// {
+		// 	Snackbar.Add("Thao tác thành công", Severity.Success);
+		// 	await _table.ReloadServerData();
+		// }
+	}
+
+    private async Task OnSearch()
+    {
+        await _table.ReloadServerData();
+    }
+
+    public void Dispose()
+    {
+        AppState.OnLoginStateChanged -= StateHasChanged;
+    }
+}

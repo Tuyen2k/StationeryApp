@@ -26,7 +26,7 @@ namespace StationeryManagerApi.Service.Impl
                     new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
                     new Claim(ClaimTypes.Name, account.Name),
                     new Claim(ClaimTypes.Email, account.Email),
-                    new Claim(ClaimTypes.MobilePhone, account.Phone),
+                    new Claim(ClaimTypes.MobilePhone, account.Phone ?? ""),
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)), SecurityAlgorithms.HmacSha256Signature)

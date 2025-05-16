@@ -27,11 +27,20 @@ namespace StationeryManager.Util
             services.AddScoped<IInventoryItemServices, InventoryItemServices>();
             services.AddScoped<IMediaServices, MediaServices>();
             services.AddScoped<IAuthServices, AuthServices>();
+            services.AddScoped<IReportServices, ReportServices>();
 
             services.AddScoped<ProtectedLocalStorage>();
 
             // services title web
             services.AddScoped<AppStateService>();
+
+            // services for authentication
+            //services.AddScoped<AuthTokenHandler>();
+
+            //services.AddHttpClient("AuthorizedClient", client =>
+            //{
+            //    client.BaseAddress = new Uri("https://localhost:7069/");
+            //}).AddHttpMessageHandler<AuthTokenHandler>();
 
             return services;
         }

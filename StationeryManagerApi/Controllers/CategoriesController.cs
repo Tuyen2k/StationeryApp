@@ -1,6 +1,9 @@
 ﻿using Azure.Core;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StationeryManagerApi.Extentions;
 using StationeryManagerApi.Services;
 using StationeryManagerLib.RequestModel;
 
@@ -18,12 +21,16 @@ namespace StationeryManagerApi.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetAlls([FromQuery] FilterModel filter) {
+            
             var list = await _categoryServices.GetAlls(filter);
             return Ok(list);
         }
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CategoryRequest request) {
-            var result = await _categoryServices.Create(request);
+            var user = HttpContext.User.ToClaimModel();
+            var result = await _categoryServices.Create(request, user);
             if(result == null)
             {
                 return BadRequest("Create failed");
@@ -38,30 +45,38 @@ namespace StationeryManagerApi.Controllers
             }
             return Ok(category);
         }
+
+        [Authorize]
         [HttpPatch("{id}")]
         public async Task<IActionResult> UpdateById(string id, [FromBody] CategoryRequest request) {
+
+            var user = HttpContext.User.ToClaimModel();
+
             var category = await _categoryServices.GetById(id);
             if (category == null)
             {
                 return NotFound($"Category with id {id} not found");
             }
 
-            var result = await _categoryServices.Update(category, request);
+            var result = await _categoryServices.Update(category, request, user);
             if(result == 0)
             {
                 return BadRequest("Update failed");
             }
             return Ok("Update success");
         }
+
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteById(string id) {
+            var user = HttpContext.User.ToClaimModel();
             var category = await _categoryServices.GetById(id);
             if (category == null)
             {
                 return NotFound($"Category with id {id} not found");
             }
 
-            var result = await _categoryServices.Delete(category);
+            var result = await _categoryServices.Delete(category, user);
             if (result == 0)
             {
                 return BadRequest("Delete failed");

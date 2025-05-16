@@ -11,7 +11,7 @@ using StationeryManagerLib.RequestModel;
 
 namespace StationeryManagerApi.Controllers
 {
-    [Authorize]
+    //
     [Route("api/accounts")]
     [ApiController]
     public class AccountController : ControllerBase
@@ -26,7 +26,6 @@ namespace StationeryManagerApi.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] FilterModel filter) {
-            var user = HttpContext.User.ToClaimModel();
             var list = await _accountServices.GetAllAccounts(filter);
             return Ok(list);
         }
@@ -50,8 +49,11 @@ namespace StationeryManagerApi.Controllers
             return Ok(account);
         }
 
+        [Authorize]
         [HttpPatch("{id}")]
         public async Task<IActionResult> UpdateById(string id, [FromBody] UpdateAccountRequest request) {
+            
+            var claim = HttpContext.User.ToClaimModel();
             var account = await _accountServices.GetAccountById(id);
             if (account == null)
             {
@@ -64,7 +66,7 @@ namespace StationeryManagerApi.Controllers
                 return BadRequest($"Email {request.Email} already exists");
             }
 
-            var result = await _accountServices.UpdateAccount(account, request);
+            var result = await _accountServices.UpdateAccount(account, request, claim);
 
             if(result == 0)
             {
@@ -73,30 +75,35 @@ namespace StationeryManagerApi.Controllers
             return Ok("Update success");
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateAccountRequest request)
         {
+            var claim = HttpContext.User.ToClaimModel();
             var existingAccount = await _accountServices.GetAccountByEmail(request.Email);
             if (existingAccount != null)
             {
                 return BadRequest($"Email {request.Email} already exists");
             }
 
-            var result = await _accountServices.CreateAccount(request);
+            var result = await _accountServices.CreateAccount(request, claim);
             if (result == null) {
                 return BadRequest();
             }
             return Ok("Create success");
         }
 
+
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteById(string id) {
+            var claim = HttpContext.User.ToClaimModel();
             var account = await _accountServices.GetAccountById(id);
             if (account == null) {
                 return NotFound($"Account with id {id} not found");
             }
 
-            var result = await _accountServices.DeleteAccount(account);
+            var result = await _accountServices.DeleteAccount(account, claim);
 
             if (result == 0)
             {

@@ -43,4 +43,15 @@ namespace StationeryManagerLib.RequestModel
         public DateTime? ToTime { get; set; }
         public bool FilterDeleted { get; set; } = true;
     }
+
+    public class ReportFilterModel : FilterModel {
+        public DateTime? FromTime { get; set; }
+        public DateTime? ToTime { get; set; }
+    }
+
+    public class FromToFilterModel
+    {
+        public DateTime? FromTime { get; set; }
+        public DateTime? ToTime { get; set; }
+    }
 }

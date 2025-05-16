@@ -1,7 +1,9 @@
 ﻿using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StationeryManagerApi.Extentions;
 using StationeryManagerApi.Services;
 using StationeryManagerLib.Entities;
 using StationeryManagerLib.RequestModel;
@@ -28,6 +30,17 @@ namespace StationeryManagerApi.Controllers
             return Ok(result);
         }
 
+        [HttpPost("ids")]
+        public async Task<IActionResult> GetAllByIds([FromBody] List<string> ids)
+        {
+            if (ids == null || ids.Count == 0)
+            {
+                return BadRequest("Ids cannot be null or empty");
+            }
+            var result = await _productServices.GetAllByIds(ids);
+            return Ok(result);
+        }
+
         [HttpGet("count")]
         public async Task<IActionResult> CountAll([FromQuery] ProductFilterModel filter)
         {
@@ -46,9 +59,11 @@ namespace StationeryManagerApi.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] ProductRequest product)
         {
+            var user = HttpContext.User.ToClaimModel();
             var subCategory = await _subCategoryServices.GetById(product.SubCategoryId);
             if (subCategory == null)
             {
@@ -64,7 +79,7 @@ namespace StationeryManagerApi.Controllers
                 }
             }
 
-            var result = await _productServices.Create(product);
+            var result = await _productServices.Create(product, user);
             if (result == null)
             {
                 return BadRequest("Failed to create product");
@@ -72,10 +87,11 @@ namespace StationeryManagerApi.Controllers
             return Ok("Create success");
         }
 
+        [Authorize]
         [HttpPatch("{id}")]
         public async Task<IActionResult> UpdateById(string id, [FromBody] ProductRequest request)
         {
-
+            var user = HttpContext.User.ToClaimModel();
             var productExist = await _productServices.GetById(id);
             if (productExist == null)
             {
@@ -100,20 +116,22 @@ namespace StationeryManagerApi.Controllers
                 }
             }
 
-            var result = await _productServices.Update(productExist, request);
+            var result = await _productServices.Update(productExist, request, user);
 
             return result > 0 ? Ok($"Update {request.Name} success") : BadRequest("Update failed");
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteById(string id)
         {
+            var user = HttpContext.User.ToClaimModel();
             var product = await _productServices.GetById(id);
             if (product == null)
             {
                 return NotFound($"Product with id {id} not found");
             }
-            var result = await _productServices.Delete(product);
+            var result = await _productServices.Delete(product, user);
             return result > 0 ? Ok($"Delete {product.Name} success") : BadRequest("Delete failed");
         }
     }
