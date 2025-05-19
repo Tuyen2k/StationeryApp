@@ -1,0 +1,38 @@
+﻿@using StationeryManagerLib.RequestModel
+
+@{
+	@model SubCategoryRequest
+	ViewData["Title"] = "Thêm mới danh mục";
+}
+
+<h1>@ViewData["Title"]</h1>
+<a asp-action="Index" class="btn btn-secondary">Danh sách danh mục tài khoản</a>
+<div class="container">
+	<form method="post" asp-action="Create">
+		<div class="form-group">
+			<label asp-for="Name"></label>
+			<input asp-for="Name" class="form-control" />
+			<span asp-validation-for="Name" class="text-danger"></span>
+		</div>
+		<div class="form-group">
+			<label asp-for="Description"></label>
+			<input asp-for="Description" class="form-control" />
+			<span asp-validation-for="Description" class="text-danger"></span>
+		</div>
+
+		<div class="form-group">
+			<label asp-for="CategoryId" class="control-label"></label>
+			<select asp-for="CategoryId" asp-items="ViewBag.CategoryList" class="form-control">
+				<option value="">-- Chọn danh mục cha --</option>
+			</select>
+			<span asp-validation-for="CategoryId" class="text-danger"></span>
+		</div>
+
+
+		@* nút submit *@
+		<div class="form-group">
+			<input type="submit" value="Thêm mới" class="btn btn-primary" />
+		</div>
+	</form>
+</div>
+

@@ -1,0 +1,151 @@
+﻿@page "/report/staff"
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using StationeryManager.Services
+@using StationeryManager.Util
+@using StationeryManagerLib.Dtos
+@using StationeryManagerLib.RequestModel
+
+<MudGrid>
+
+	<MudPaper Class="w-100 d-flex align-content-center justify-content-between mt-2 gap-10 p-2">
+		<MudTextField Class="search" @bind-Value="_searchString" Placeholder="Tìm kiếm theo tên nhân viên" Adornment="Adornment.Start" Icon="@Icons.Material.Filled.Search" />
+		<MudDateRangePicker Label="Từ ngày - Đến ngày" DateRangeChanged="OnDateRangeChanged" />
+		<MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="OnSearch" />
+
+	</MudPaper>
+
+	<MudPaper Class="w-100 mt-2">
+		<MudTable Class="width" ServerData="ServerReload" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info" @ref="_table">
+			<HeaderContent>
+				<MudTh>Ảnh</MudTh>
+				<MudTh>Thông tin nhân viên</MudTh>
+				<MudTh>Số lượng bán</MudTh>
+				<MudTh>Doanh thu</MudTh>
+				<MudTh>Lợi nhuận</MudTh>
+				<MudTh>Ctrl</MudTh>
+			</HeaderContent>
+			<RowTemplate>
+				<MudTd DataLabel="Ảnh" style="width: 10em; height: auto">
+					@if (!string.IsNullOrEmpty(context.ImageUrl))
+					{
+						<MudImage Alt="account image" Src="@($"https://localhost:7069/{context.ImageUrl}")" Style="width: 100%; height: auto" />
+					}
+					else
+					{
+						<MudImage Alt="default image" Src="../images/image_default.png" Style="width: 100%; height: auto" />
+					}
+				</MudTd>
+				<MudTd DataLabel="Thông tin nhân viên">
+					<MudText Typo="Typo.body2">@context.Name</MudText>
+					<MudText Typo="Typo.body2">@context.Phone</MudText>
+					<MudText Typo="Typo.body2">@context.Email</MudText>
+				</MudTd>
+				<MudTd DataLabel="Số lượng bán">@context.QuantitySale.ToString("N0")</MudTd>
+				<MudTd DataLabel="Doanh thu">@context.Revenue.ToString("N0")</MudTd>
+				<MudTd DataLabel="Lợi nhuận">@context.Profit.ToString("N0")</MudTd>
+				<MudTd DataLabel="Ctrl">
+					<MudIconButton Icon="@Icons.Material.Filled.Visibility" Color="Color.Primary" OnClick="@(() => ViewDetail(context))" />
+				</MudTd>
+			</RowTemplate>
+			<NoRecordsContent>
+				<MudText>Không có sản phẩm nào</MudText>
+			</NoRecordsContent>
+			<LoadingContent>
+				<MudText>Loading...</MudText>
+			</LoadingContent>
+			<PagerContent>
+				<MudTablePager />
+			</PagerContent>
+		</MudTable>
+	</MudPaper>
+
+</MudGrid>
+
+@inject AppStateService AppState
+@inject ProtectedLocalStorage LocalStorage
+@inject IReportServices ReportServices
+@inject NavigationManager Navigation
+@code {
+
+	private MudTable<ReportStaffModel> _table = null!;
+	private bool _loading = false;
+	private string _searchString = string.Empty;
+	public DateTime? _fromTime { get; set; }
+	private DateTime? _toTime { get; set; }
+	private DateRange? _dateRange { get; set; }
+
+	protected override void OnInitialized()
+	{
+		AppState.Title = "Doanh thu theo nhân viên";
+		AppState.OnLoginStateChanged += StateHasChanged;
+	}
+
+	private async Task<TableData<ReportStaffModel>> ServerReload(TableState state, CancellationToken token)
+	{
+		try
+		{
+			var filter = new ReportFilterModel()
+				{
+					Limit = state.PageSize,
+					Page = state.Page,
+					Name = _searchString,
+					FromTime = _fromTime,
+					ToTime = _toTime,
+
+				};
+			var list = await ReportServices.GetReportStaff(filter);
+			var total = await ReportServices.CountReportStaff(filter);
+			return new TableData<ReportStaffModel>()
+				{
+					TotalItems = total,
+					Items = list
+				};
+		}
+		catch (Exception e)
+		{
+			return new TableData<ReportStaffModel>()
+				{
+					TotalItems = 0,
+					Items = []
+				};
+		}
+
+	}
+
+	private void OnDateRangeChanged(DateRange range)
+	{
+		_dateRange = range;
+		_fromTime = range.Start?.Date;
+		_toTime = range.End?.Date.AddDays(1).AddTicks(-1);
+	}
+
+
+	private async Task ViewDetail(ReportStaffModel model)
+	{
+		await LocalStorage.SetAsync("detailStaff", model);
+		var query = string.Empty;
+		if(_fromTime != null)
+		{
+			var from = _fromTime?.ToString();
+			query += $"fromTime={from}";
+		}
+		if (_toTime != null)
+		{
+			var to = _toTime?.ToString();
+			query += _fromTime != null ? $"&toTime={to}" : $"toTime={to}";
+		}
+
+		var uri = $"/report/staff/{model.Id}{(!string.IsNullOrEmpty(query) ? $"?{query}" : "")}";
+		Navigation.NavigateTo(uri);
+	}
+
+	private async Task OnSearch()
+	{
+		await _table.ReloadServerData();
+	}
+
+	public void Dispose()
+	{
+		AppState.OnLoginStateChanged -= StateHasChanged;
+	}
+}

@@ -8,7 +8,7 @@ namespace StationeryManagerLib.Util.Validate
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var input = value as string;
+            var input = value as string ?? string.Empty;
             input = input.Normalize(NormalizationForm.FormC);
             if (string.IsNullOrWhiteSpace(input)) return ValidationResult.Success;
 

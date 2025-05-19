@@ -1,4 +1,4 @@
-﻿@page "/products/repost"
+﻿@page "/report/product"
 @using StationeryManager.Services
 @using StationeryManager.Util
 @using StationeryManagerLib.Dtos
@@ -6,10 +6,10 @@
 
 <MudGrid>
 
-    <MudPaper Class="w-100 d-flex align-content-center justify-content-between mt-2">
-        <MudTextField @bind-Value="_searchString" Placeholder="Tìm kiếm sản phẩm" Adornment="Adornment.Start" Icon="@Icons.Material.Filled.Search" />
-		<MudDateRangePicker @bind-Date="_fromTime" Label="Từ ngày" />
-        <MudDateRangePicker @bind-Date="_toTime" Label="Đến ngày" />
+    <MudPaper Class="w-100 d-flex align-content-center justify-content-between mt-2 gap-10 p-2">
+        <MudTextField Class="search" @bind-Value="_searchString" Placeholder="Tìm kiếm sản phẩm" Adornment="Adornment.Start" Icon="@Icons.Material.Filled.Search" />
+        <MudDateRangePicker Label="Từ ngày - Đến ngày" DateRangeChanged="OnDateRangeChanged" />
+        @* <MudDateRangePicker @bind-Date="_toTime" Label="Đến ngày" /> *@
         <MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="OnSearch" />
 
     </MudPaper>
@@ -23,7 +23,7 @@
                 <MudTh>Tổng nhập</MudTh>
                 <MudTh>Doanh thu</MudTh>
                 <MudTh>Lợi nhuận</MudTh>
-                <MudTh>Ctrl</MudTh>
+                @* <MudTh>Ctrl</MudTh> *@
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="Ảnh" style="width: 10em; height: auto">
@@ -41,9 +41,9 @@
                 <MudTd DataLabel="Tổng nhập">@context.TotalImport.ToString("N0")</MudTd>
                 <MudTd DataLabel="Doanh thu">@context.TotalExport.ToString("N0")</MudTd>
                 <MudTd DataLabel="Lợi nhuận">@context.Profit.ToString("N0")</MudTd>
-                <MudTd DataLabel="Ctrl">
+               @*  <MudTd DataLabel="Ctrl">
                     <MudIconButton Icon="@Icons.Material.Filled.Visibility" Color="Color.Primary" OnClick="@(() => ViewInventory(context))" />
-                </MudTd>
+                </MudTd> *@
             </RowTemplate>
             <NoRecordsContent>
                 <MudText>Không có sản phẩm nào</MudText>
@@ -66,15 +66,14 @@
     private MudTable<ReportProductModel> _table = null!;
     private bool _loading = false;
     private string _searchString = string.Empty;
-    public DateTime _fromTime { get; set; } 
-    private DateTime _toTime { get; set; }
+    public DateTime? _fromTime { get; set; } 
+    private DateTime? _toTime { get; set; }
+    private DateRange? _dateRange { get; set; }
 
     protected override void OnInitialized()
     {
-        AppState.Title = "Danh sách sản phẩm";
+        AppState.Title = "Doanh thu theo sản phẩm";
         AppState.OnLoginStateChanged += StateHasChanged;
-		_fromTime = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, 0, 0, 0);
-		_toTime = _fromTime.AddDays(1);
     }
 
     private async Task<TableData<ReportProductModel>> ServerReload(TableState state, CancellationToken token)
@@ -91,10 +90,10 @@
 
                 };
             var list = await ReportServices.GetReportProduct(filter);
-            // var total = await ProductServices.CountAllAsync(filter);
+            var total = await ReportServices.CountReportProduct(filter);
             return new TableData<ReportProductModel>()
                 {
-                    TotalItems = 0,
+                    TotalItems = total,
                     Items = list
                 };
         }
@@ -108,6 +107,14 @@
         }
 
     }
+
+    private void OnDateRangeChanged(DateRange range)
+    {
+        _dateRange = range;
+        _fromTime = range.Start?.Date; 
+        _toTime = range.End?.Date.AddDays(1).AddTicks(-1);
+    }
+
 
 	private async Task ViewInventory(ReportProductModel product)
 	{

@@ -1,0 +1,62 @@
+﻿@using StationeryManagerLib.RequestModel
+
+@{
+	@model CreateAccountRequest
+	ViewData["Title"] = "Thêm mới tài khoản";
+}
+
+<h1>@ViewData["Title"]</h1>
+<a asp-action="Index" class="btn btn-secondary">Danh sách tài khoản</a>
+<div class="container">
+	<form method="post" asp-action="Create">
+		<div class="form-group">
+			<label asp-for="Name"></label>
+			<input asp-for="Name" class="form-control" />
+			<span asp-validation-for="Name" class="text-danger"></span>
+		</div>
+		<div class="form-group">
+			<label asp-for="Email"></label>
+			<input asp-for="Email" class="form-control" />
+			<span asp-validation-for="Email" class="text-danger"></span>
+		</div>
+		<div class="form-group">
+			<label asp-for="Phone"></label>
+			<input asp-for="Phone" class="form-control" />
+			<span asp-validation-for="Phone" class="text-danger"></span>
+		</div>
+		<div class="form-group position-relative">
+			<label asp-for="Password"></label>
+			<div class="input-group">
+				<input type="password" asp-for="Password" class="form-control" id="passwordInput" />
+				<button type="button" class="btn btn-outline-secondary" onclick="togglePassword()" tabindex="-1">
+					<i id="eyeIcon" class="fa fa-eye"></i>
+				</button>
+			</div>
+			<span asp-validation-for="Password" class="text-danger"></span>
+		</div>
+
+		@* nút submit *@
+		<div class="form-group">
+			<input type="submit" value="Thêm mới" class="btn btn-primary" />
+		</div>
+	</form>
+</div>
+
+@section Scripts {
+	<script>
+		function togglePassword() {
+			const input = document.getElementById("passwordInput");
+			const icon = document.getElementById("eyeIcon");
+			if (input.type === "password") {
+				input.type = "text";
+				icon.classList.remove("fa-eye");
+				icon.classList.add("fa-eye-slash");
+			} else {
+				input.type = "password";
+				icon.classList.remove("fa-eye-slash");
+				icon.classList.add("fa-eye");
+			}
+		}
+	</script>
+}
+

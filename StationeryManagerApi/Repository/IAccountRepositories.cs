@@ -12,5 +12,6 @@ namespace StationeryManagerApi.Repository
         Task<AccountModel> CreateAccount(AccountModel account);
         Task<int> UpdateAccount(AccountModel account);
         Task<int> DeleteAccount(AccountModel account);
+        Task<int> ResetPassword(AccountModel account);
     }
 }

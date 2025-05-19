@@ -1,0 +1,183 @@
+﻿@page "/report/staff/{id}"
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Microsoft.AspNetCore.WebUtilities
+@using StationeryManager.Services
+@using StationeryManager.Util
+@using StationeryManagerLib.Dtos
+@using StationeryManagerLib.RequestModel
+
+<MudGrid>
+
+	<MudPaper Class="w-100 d-flex align-content-center justify-content-between mt-2 gap-10 p-2">
+		<MudTextField Class="search" @bind-Value="_searchString" Placeholder="Tìm kiếm theo tên sản phẩm" Adornment="Adornment.Start" Icon="@Icons.Material.Filled.Search" />
+		<MudDateRangePicker Label="Từ ngày - Đến ngày" DateRangeChanged="OnDateRangeChanged" />
+		<MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="OnSearch" />
+
+	</MudPaper>
+
+	<MudPaper Class="w-100 mt-2">
+
+		<MudAlert Severity="Severity.Info" Icon="@Icons.Material.Filled.Info" Class="mb-2 ">
+			<MudText Class="d-flex gap-1" Typo="Typo.body2">
+				Doanh thu của nhân viên <strong> @_reportStaffModel?.Name.ToUpper()</strong>
+				@if(_fromTime != null)
+				{
+					<div>
+						Từ <strong>@_fromTime?.ToString("dd/MM/yyyy")</strong>
+					</div>
+				}
+				@if(_toTime != null)
+				{
+					<div>
+						Đến <strong>@_toTime?.ToString("dd/MM/yyyy")</strong>
+					</div>
+				}
+				@* Là: <strong>@_reportStaffModel?.Revenue.ToString("N0")</strong> *@
+				
+			</MudText>
+		</MudAlert>
+
+		<MudTable Class="width" ServerData="ServerReload" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info" @ref="_table">
+			<HeaderContent>
+				<MudTh>Ảnh</MudTh>
+				<MudTh>Tên sản phẩm</MudTh>
+				<MudTh>Mã Sku</MudTh>
+				<MudTh>Số lượng đã bán</MudTh>
+				<MudTh>Doanh thu</MudTh>
+				<MudTh>Lợi nhuận</MudTh>
+				@* <MudTh>Ctrl</MudTh> *@
+			</HeaderContent>
+			<RowTemplate>
+				<MudTd DataLabel="Ảnh" style="width: 10em; height: auto">
+					@if (!string.IsNullOrEmpty(context.ImageUrl))
+					{
+						<MudImage Alt="product image" Src="@($"https://localhost:7069/{context.ImageUrl}")" Style="width: 100%; height: auto" />
+					}
+					else
+					{
+						<MudImage Alt="default image" Src="../images/image_default.png" Style="width: 100%; height: auto" />
+					}
+				</MudTd>
+				<MudTd DataLabel="Tên sản phẩm">@context.Name</MudTd>
+				<MudTd DataLabel="Mã Sku">@context.Sku</MudTd>
+				<MudTd DataLabel="Số lượng đã bán">@context.QuantityExport.ToString("N0")</MudTd>
+				<MudTd DataLabel="Doanh thu">@context.TotalExport.ToString("N0")</MudTd>
+				<MudTd DataLabel="Lợi nhuận">@context.Profit.ToString("N0")</MudTd>
+				@*  <MudTd DataLabel="Ctrl">
+                    <MudIconButton Icon="@Icons.Material.Filled.Visibility" Color="Color.Primary" OnClick="@(() => ViewInventory(context))" />
+                </MudTd> *@
+			</RowTemplate>
+			<NoRecordsContent>
+				<MudText>Không có sản phẩm nào</MudText>
+			</NoRecordsContent>
+			<LoadingContent>
+				<MudText>Loading...</MudText>
+			</LoadingContent>
+			<PagerContent>
+				<MudTablePager />
+			</PagerContent>
+		</MudTable>
+	</MudPaper>
+
+</MudGrid>
+
+@inject AppStateService AppState
+@inject IReportServices ReportServices
+@inject ProtectedLocalStorage LocalStorage;
+@inject NavigationManager Navigation
+@code {
+
+	private MudTable<ReportProductModel> _table = null!;
+	private bool _loading = false;
+	private string _searchString = string.Empty;
+	public DateTime? _fromTime { get; set; }
+	private DateTime? _toTime { get; set; }
+	private DateRange? _dateRange { get; set; }
+	private ReportStaffModel? _reportStaffModel { get; set; }
+
+	[Parameter]
+	public string Id { get; set; } = string.Empty;
+
+
+	protected override void OnInitialized()
+	{
+		AppState.Title = "Chi tiết doanh thu";
+		AppState.OnLoginStateChanged += StateHasChanged;
+	}
+
+	protected override async Task OnParametersSetAsync()
+	{
+		var result = await LocalStorage.GetAsync<ReportStaffModel>("detailStaff");
+		if (result.Success)
+		{
+			_reportStaffModel = result.Value;
+			AppState.Title = $"Chi tiết doanh thu {_reportStaffModel?.Name.ToUpper()}";
+		}
+
+		var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+
+		var queryParams = QueryHelpers.ParseQuery(uri.Query);
+		if (queryParams.TryGetValue("fromTime", out var fromTimeStr) && DateTime.TryParse(fromTimeStr, out var fromTime))
+		{
+			_fromTime = fromTime;
+		}
+		if (queryParams.TryGetValue("toTime", out var toTimeStr) && DateTime.TryParse(toTimeStr, out var toTime))
+		{
+			_toTime = toTime;
+		}
+
+		_dateRange = new DateRange
+			{
+				Start = _fromTime,
+				End = _toTime
+			};
+	}
+
+	private async Task<TableData<ReportProductModel>> ServerReload(TableState state, CancellationToken token)
+	{
+		try
+		{
+			var filter = new ReportFilterModel()
+				{
+					Limit = state.PageSize,
+					Page = state.Page,
+					Name = _searchString,
+					FromTime = _fromTime,
+					ToTime = _toTime,
+				};
+			var list = await ReportServices.GetReportProduct(filter, Id);
+			var total = await ReportServices.CountReportProduct(filter, Id);
+			return new TableData<ReportProductModel>()
+				{
+					TotalItems = total,
+					Items = list
+				};
+		}
+		catch (Exception e)
+		{
+			return new TableData<ReportProductModel>()
+				{
+					TotalItems = 0,
+					Items = []
+				};
+		}
+
+	}
+
+	private void OnDateRangeChanged(DateRange range)
+	{
+		_dateRange = range;
+		_fromTime = range.Start?.Date;
+		_toTime = range.End?.Date.AddDays(1).AddTicks(-1);
+	}
+
+	private async Task OnSearch()
+	{
+		await _table.ReloadServerData();
+	}
+
+	public void Dispose()
+	{
+		AppState.OnLoginStateChanged -= StateHasChanged;
+	}
+}

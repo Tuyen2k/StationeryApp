@@ -14,6 +14,12 @@ namespace StationeryManagerLib.Dtos
         public string? ImageUrl { get; set; } = string.Empty;
 
         /// <summary>
+        /// số lượng
+        /// </summary>
+        public double QuantityImport { get; set; } = 0;
+        public double QuantityExport { get; set; } = 0;
+
+        /// <summary>
         /// Tổng tiền đã nhập
         /// </summary>
         public double TotalImport { get; set; } = 0;

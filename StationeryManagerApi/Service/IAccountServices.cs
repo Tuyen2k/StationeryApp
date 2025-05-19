@@ -12,5 +12,6 @@ namespace StationeryManagerApi.Services
         Task<AccountModel> CreateAccount(CreateAccountRequest account, ClaimModel claim);
         Task<int> UpdateAccount(AccountModel account, UpdateAccountRequest update, ClaimModel claim);
         Task<int> DeleteAccount(AccountModel account, ClaimModel claim);
+        Task<int> ResetPassword(AccountModel account, UpdatePasswordRequest update);
     }
 }

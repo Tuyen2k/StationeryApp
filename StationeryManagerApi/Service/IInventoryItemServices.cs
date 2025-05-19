@@ -18,5 +18,10 @@ namespace StationeryManagerApi.Services
         Task<int> CountAll(InventoryItemFilterModel filter);
 
         Task<List<ReportProductModel>> CalculateRepostProduct(List<ProductModel> products, FromToFilterModel time);
+        Task<List<ReportProductModel>> CalculateRepostProduct(ReportFilterModel filter, string staffId = "");
+        Task<int> CountRepostProduct(ReportFilterModel filter, string staffId = "");
+
+        Task<List<ReportStaffModel>> CalculateRepostStaff(ReportFilterModel filter);
+        Task<int> CountRepostStaff(ReportFilterModel filter);
     }
 }

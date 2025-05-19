@@ -44,6 +44,18 @@ namespace StationeryManagerApi.Service.Impl
             return result.ToList();
         }
 
+        public async Task<List<ReportProductModel>> CalculateRepostProduct(ReportFilterModel filter, string staffId = "")
+        {
+            var result = await _inventoryItemRepositories.CalculateRepostProduct(filter, staffId);
+            return result.ToList();
+        }
+
+        public async Task<List<ReportStaffModel>> CalculateRepostStaff(ReportFilterModel filter)
+        {
+            var result = await _inventoryItemRepositories.CalculateRepostStaff(filter);
+            return result.ToList();
+        }
+
         public async Task<List<ProductItemStock>> CalculateStockByProductIds(List<string> productIds)
         {
             return await _inventoryItemRepositories.CalculateStockByProductIds(productIds);
@@ -52,6 +64,16 @@ namespace StationeryManagerApi.Service.Impl
         public async Task<int> CountAll(InventoryItemFilterModel filter)
         {
             return await _inventoryItemRepositories.CountAll(filter);
+        }
+
+        public async Task<int> CountRepostProduct(ReportFilterModel filter, string staffId = "")
+        {
+            return await _inventoryItemRepositories.CountRepostProduct(filter, staffId);
+        }
+
+        public async Task<int> CountRepostStaff(ReportFilterModel filter)
+        {
+            return await _inventoryItemRepositories.CountRepostStaff(filter);
         }
 
         public async Task<int> CreateListItemAsync(List<InventoryItemModel> inventoryItems)

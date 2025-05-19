@@ -1,0 +1,30 @@
+﻿@using StationeryManagerLib.RequestModel
+
+@{
+	@model CategoryRequest
+	ViewData["Title"] = "Cập nhật danh mục phân loại";
+}
+
+<h1>@ViewData["Title"]</h1>
+<a asp-action="Index" class="btn btn-secondary">Danh sách danh mục phân loại</a>
+<div class="container">
+	<form method="post" asp-action="Edit">
+		<div class="form-group">
+			<label asp-for="Name"></label>
+			<input asp-for="Name" class="form-control" />
+			<span asp-validation-for="Name" class="text-danger"></span>
+		</div>
+
+		<div class="form-group">
+			<label asp-for="Description"></label>
+			<input asp-for="Description" class="form-control" />
+			<span asp-validation-for="Description" class="text-danger"></span>
+		</div>
+
+		@* nút submit *@
+		<div class="form-group">
+			<input type="submit" value="Cập nhật" class="btn btn-primary" />
+		</div>
+	</form>
+</div>
+

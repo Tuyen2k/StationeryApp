@@ -7,8 +7,8 @@
 <input type="checkbox" title="Navigation menu" class="navbar-toggler" />
 
 <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
+    @* <nav class="flex-column"> *@
+@*         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Trang chủ
             </NavLink>
@@ -39,6 +39,38 @@
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Tồn hàng
             </NavLink>
         </div>
-    </nav>
+
+        <!-- Báo cáo -->
+        <div class="nav-item px-3">
+            <div class="dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="bi bi-bar-chart-line" aria-hidden="true"></span> Báo cáo
+                </a>
+                <ul class="dropdown-menu show-on-hover">
+                    <li>
+                        <NavLink class="dropdown-item" href="/report/product">Doanh thu sản phẩm</NavLink>
+                    </li>
+                    <li>
+                        <NavLink class="dropdown-item" href="/report/staff">Doanh thu nhân viên</NavLink>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </nav> *@
+
+    <MudNavMenu Class="white-nav">
+        <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Trang chủ</MudNavLink>
+        <MudNavLink Href="/accounts/" Icon="@Icons.Material.Filled.People">Tài khoản</MudNavLink>
+        <MudNavLink Href="/categories/" Icon="@Icons.Material.Filled.Category">Danh mục phân loại</MudNavLink>
+        <MudNavLink Href="/subcategories/" Icon="@Icons.Material.Filled.List">Danh mục sản phẩm</MudNavLink>
+        <MudNavLink Href="/products/" Icon="@Icons.Material.Filled.Inventory">Sản phẩm</MudNavLink>
+        <MudNavLink Href="/inventories/" Icon="@Icons.Material.Filled.Storage">Tồn hàng</MudNavLink>
+
+        <MudNavGroup Title="Báo cáo" Icon="@Icons.Material.Filled.BarChart">
+            <MudNavLink Href="/report/product" Icon="@Icons.Material.Filled.TrendingUp">Doanh thu sản phẩm</MudNavLink>
+            <MudNavLink Href="/report/staff" Icon="@Icons.Material.Filled.Work">Doanh thu nhân viên</MudNavLink>
+        </MudNavGroup>
+    </MudNavMenu>
 </div>
 

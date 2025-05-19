@@ -77,6 +77,14 @@ namespace StationeryManagerApi.Service.Impl
             return list;
         }
 
+        public async Task<int> ResetPassword(AccountModel account, UpdatePasswordRequest update)
+        {
+            account.UpdatedAt = DateTime.UtcNow;
+            account.PaswordHash = _passwordServices.HashPassword(update.Password);
+
+            return await _repositories.UpdateAccount(account);
+        }
+
         public async Task<int> UpdateAccount(AccountModel account, UpdateAccountRequest request, ClaimModel claim)
         {
 

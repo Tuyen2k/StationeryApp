@@ -75,6 +75,13 @@ namespace StationeryManagerApi.Repository.Impl
             return result;
         }
 
+        public async Task<int> ResetPassword(AccountModel account)
+        {
+           _context.Accounts.Update(account);
+            var result = await _context.SaveChangesAsync();
+            return result;
+        }
+
         public async Task<int> UpdateAccount(AccountModel account)
         {
             _context.Accounts.Update(account);

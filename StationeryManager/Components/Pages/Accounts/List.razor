@@ -7,8 +7,8 @@
 
 <MudGrid>
 
-	<MudPaper Class="w-100 d-flex align-content-center justify-content-between mt-2">
-		<MudTextField @bind-Value="_searchString" Placeholder="Tìm kiếm tài khoản" Adornment="Adornment.Start" Icon="@Icons.Material.Filled.Search" />
+	<MudPaper Class="w-100 d-flex align-content-center justify-content-between mt-2 gap-10 p-2">
+		<MudTextField Class="search" @bind-Value="_searchString" Placeholder="Tìm kiếm tài khoản" Adornment="Adornment.Start" Icon="@Icons.Material.Filled.Search" />
 		<MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="OnSearch" />
 		@if (AppState.IsLoggedIn)
 		{

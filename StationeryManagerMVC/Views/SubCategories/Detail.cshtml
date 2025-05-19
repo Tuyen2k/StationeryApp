@@ -1,0 +1,36 @@
+﻿@using StationeryManagerLib.Dtos
+
+@{
+    @model SubCategoryDtoModel
+	ViewData["Title"] = "Chi tiết danh mục sản phẩm";
+}
+
+@*
+	hiển thị chi tiết tài khoản
+*@
+
+<h1>@ViewData["Title"]: @Model.Name</h1>
+<div class="mt-3 d-flex gap-1">
+    <a asp-action="Index" class="btn btn-secondary">Danh sách danh mục phân loại</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Cập nhật danh mục</a>
+</div>
+
+
+<div class="card mt-4">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">ID</dt>
+            <dd class="col-sm-9">@Model.Id</dd>
+
+            <dt class="col-sm-3">Tên tài khoản</dt>
+            <dd class="col-sm-9">@Model.Name</dd>
+
+            <dt class="col-sm-3">Mô tả</dt>
+            <dd class="col-sm-9">@Model.Description</dd>
+            <dt class="col-sm-3">Danh mục phân loại</dt>
+            <dd class="col-sm-9">@Model.CategoryName</dd>
+        </dl>
+    </div>
+</div>
+
+

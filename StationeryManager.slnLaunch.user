@@ -3,12 +3,12 @@
     "Name": "New Profile",
     "Projects": [
       {
-        "Path": "StationeryManager\\StationeryManager.csproj",
+        "Path": "StationeryManagerApi\\StationeryManagerApi.csproj",
         "Action": "Start",
         "DebugTarget": "https"
       },
       {
-        "Path": "StationeryManagerApi\\StationeryManagerApi.csproj",
+        "Path": "StationeryManagerMVC\\StationeryManagerMVC.csproj",
         "Action": "Start",
         "DebugTarget": "https"
       }

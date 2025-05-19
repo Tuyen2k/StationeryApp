@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StationeryManagerApi.Extentions;
 using StationeryManagerApi.Service;
 using StationeryManagerApi.Services;
 using StationeryManagerLib.RequestModel;
@@ -50,5 +51,27 @@ namespace StationeryManagerApi.Controllers
             }
             return Ok(token );
         }
+
+        
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] UpdatePasswordRequest request)
+        {
+
+            var account = await _accountServices.GetAccountByEmail(request.Email);
+            if (account == null)
+            {
+                return NotFound($"Account with email {request.Email} not found");
+            }
+            if (account.IsDeleted)
+            {
+                return BadRequest($"Account with email {request.Email} is deleted");
+            }
+
+            var result = await _accountServices.ResetPassword(account, request);
+            return result > 0
+                ? Ok("Password reset successfully")
+                : BadRequest("Failed to reset password");
+        }
+
     }
 }
