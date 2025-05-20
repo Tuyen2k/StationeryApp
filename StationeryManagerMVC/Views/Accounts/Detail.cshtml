@@ -1,40 +1,66 @@
-﻿@using StationeryManagerLib.Entities
-
-@{
-	@model AccountModel
-	ViewData["Title"] = "Chi tiết tài khoản";
+﻿@{
+    ViewData["Title"] = "Chi tiết tài khoản";
 }
 
-@*
-	hiển thị chi tiết tài khoản
-*@
+<h1>@ViewData["Title"]</h1>
 
-<h1>@ViewData["Title"]: @Model.Name</h1>
 <div class="mt-3 d-flex gap-1">
     <a asp-action="Index" class="btn btn-secondary">Danh sách tài khoản</a>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Cập nhật tài khoản</a>
+    <a id="editBtn" class="btn btn-primary">Cập nhật tài khoản</a>
 </div>
-
 
 <div class="card mt-4">
     <div class="card-body">
         <dl class="row">
             <dt class="col-sm-3">ID</dt>
-            <dd class="col-sm-9">@Model.Id</dd>
+            <dd class="col-sm-9" id="accId"></dd>
 
             <dt class="col-sm-3">Tên tài khoản</dt>
-            <dd class="col-sm-9">@Model.Name</dd>
+            <dd class="col-sm-9" id="accName"></dd>
 
             <dt class="col-sm-3">Email</dt>
-            <dd class="col-sm-9">@Model.Email</dd>
+            <dd class="col-sm-9" id="accEmail"></dd>
 
             <dt class="col-sm-3">Số điện thoại</dt>
-            <dd class="col-sm-9">@Model.Phone</dd>
+            <dd class="col-sm-9" id="accPhone"></dd>
 
             <dt class="col-sm-3">Trạng thái</dt>
-            <dd class="col-sm-9">@((Model.IsActive) ? "Hoạt động" : "Không hoạt động")</dd>
+            <dd class="col-sm-9" id="accStatus"></dd>
         </dl>
     </div>
 </div>
 
+@section Scripts {
+    <script>
+        const baseUrl = "https://localhost:7069";
 
+        function getIdFromUrl() {
+            const parts = window.location.pathname.split('/');
+            return parts[parts.length - 1];
+        }
+
+        function loadData() {
+            const id = getIdFromUrl();
+
+            axios.get(`${baseUrl}/api/accounts/${id}`)
+                .then(response => {
+                    console.log("detail: ", response);
+                    const acc = response.data;
+
+                    document.getElementById("accId").textContent = acc.id;
+                    document.getElementById("accName").textContent = acc.name;
+                    document.getElementById("accEmail").textContent = acc.email;
+                    document.getElementById("accPhone").textContent = acc.phone;
+                    document.getElementById("accStatus").textContent = acc.isActive ? "Hoạt động" : "Không hoạt động";
+
+                    document.getElementById("editBtn").href = `/Accounts/Edit/${acc.id}`;
+                })
+                .catch(error => {
+                    console.error("Lỗi khi lấy dữ liệu:", error);
+                    alert("Không thể tải dữ liệu tài khoản.");
+                });
+        }
+
+        document.addEventListener("DOMContentLoaded", loadData);
+    </script>
+}

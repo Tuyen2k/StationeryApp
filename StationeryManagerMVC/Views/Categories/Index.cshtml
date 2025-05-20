@@ -2,29 +2,24 @@
 
 @{
 	ViewData["Title"] = "Danh sách danh mục phân loại";
-	@model List<CategoryModel>
+	// @model List<CategoryModel>
 }
 
 
-<h1>@ViewData["Title"]</h1>
-<div class="text-right mb-3">
-	<a asp-action="Create" class="btn btn-primary">Thêm danh mục</a>
-</div>
-<form asp-action="Index" method="get" class="mb-3">
-	<div class="input-group">
-		<input type="text" name="search" value="@Context.Request.Query["search"]" class="form-control" placeholder="Tìm theo tên danh mục..." />
-		<button type="submit" class="btn btn-primary">Tìm</button>
+<div class="container">
+	<h1>@ViewData["Title"]</h1>
+	<div class="text-right mb-3">
+		<a asp-action="Create" class="btn btn-primary">Thêm danh mục</a>
 	</div>
-</form>
+	@* <form method="get" class="mb-3"> *@
+	<div class="input-group">
+		<input type="text" id="search" name="search" class="form-control" placeholder="Tìm theo tên danh mục..." />
+		<button type="submit" class="btn btn-primary" onclick="onSearch()">Tìm</button>
+	</div>
+	@* </form> *@
 
-@if (Model.Count == 0)
-{
-	<div class="alert alert-info">Không có danh mục phân loại nào.</div>
-}
-else
-{
 
-	<div class="container">
+	<div class="" id="table">
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -34,62 +29,35 @@ else
 					<th>Ctrl</th>
 				</tr>
 			</thead>
-			<tbody>
-				@foreach (var item in Model)
-				{
-					<tr>
-						<td>@item.Name</td>
-						<td>@item.Description</td>
-						<td>
-							@if (!string.IsNullOrEmpty(item.CreatedByAccountEmail))
-							{
-								<div><strong>Người tạo:</strong> @item.CreatedByAccountEmail - @item.CreatedAt.ToString("HH:mm dd/MM/yyyy")</div>
-							}
-							@if (!string.IsNullOrEmpty(item.UpdatedByAccountEmail))
-							{
-								<div><strong>Người sửa cuối:</strong> @item.UpdatedByAccountEmail - @item.UpdatedAt.ToString("HH:mm dd/MM/yyyy")</div>
-							}
-						</td>
-						<td>
-							<a asp-action="Edit" asp-route-id="@item.Id">Sửa</a> |
-							<a asp-action="Detail" asp-route-id="@item.Id">Chi tiết</a> |
-							<a class="text-danger"
-									data-bs-toggle="modal"
-									data-bs-target="#deleteModal"
-									data-id="@item.Id"
-									data-name="@item.Name">
-								Xoá
-							</a>
-						</td>
-					</tr>
-				}
+			<tbody id="tableBody">
 			</tbody>
 		</table>
 	</div>
-}
 
-@* Thêm modal xác nhận xóa account, xư lý property data-name trong thẻ a mở modal và hiển thị trong phần thông tin xóa *@
-<!-- Modal xác nhận xoá -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form asp-action="Delete" method="post">
-				<div class="modal-header">
-					<h5 class="modal-title" id="deleteModalLabel">Xác nhận xoá</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<input type="hidden" name="id" id="deleteId" />
-					<p>Bạn có chắc muốn xoá danh mục phân loại <strong id="deleteName"></strong> không?</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-					<button type="submit" class="btn btn-danger">Xoá</button>
-				</div>
-			</form>
+	@* Thêm modal xác nhận xóa account, xư lý property data-name trong thẻ a mở modal và hiển thị trong phần thông tin xóa *@
+	<!-- Modal xác nhận xoá -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				@* <form asp-action="Delete" method="post"> *@
+					<div class="modal-header">
+						<h5 class="modal-title" id="deleteModalLabel">Xác nhận xoá</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" name="id" id="deleteId" />
+						<p>Bạn có chắc muốn xoá danh mục phân loại <strong id="deleteName"></strong> không?</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+						<button type="submit" class="btn btn-danger" onclick="onDelete()">Xoá</button>
+					</div>
+				@* </form> *@
+			</div>
 		</div>
 	</div>
 </div>
+
 
 @section Scripts {
 	<script>
@@ -105,5 +73,123 @@ else
 			modalIdInput.value = id;
 			modalName.textContent = name;
 		});
+
+		const baseUrl = "https://localhost:7069"
+		// lấy token trong localStore
+		const token = localStorage.getItem("authToken");
+
+		function loadData(){
+			axios.get(`${baseUrl}/api/categories/`,{
+					params: {
+						page: 0,
+						limit: 20
+					},
+				})
+				.then(response => {
+					console.log(response.data);
+					renderTable(response.data);
+				})
+				.catch(error => {
+					console.error(error);
+					renderTable([]);
+				});
+		}
+
+		document.addEventListener('DOMContentLoaded', function() {
+			loadData();
+		});
+
+		function onSearch(){
+			const search = document.getElementById("search").value.trim();
+			console.log("search: ", search)
+			// call api search với search nằm trong query string
+			axios.get(`${baseUrl}/api/categories/`,{
+					params: {
+						name: search,
+						page: 0,
+						limit: 20
+					},
+				})
+				.then(response => {
+					console.log(response.data);
+					renderTable(response.data);
+				})
+				.catch(error => {
+					console.error(error);
+					renderTable([]);
+				});
+		}
+
+		function onDelete() {
+			const id = document.getElementById("deleteId").value;
+			console.log("id: ", id)
+				axios.delete(`${baseUrl}/api/categories/${id}`, {
+					headers: {
+						'Authorization': `Bearer ${token}`
+					}
+				})
+				.then(response => {
+					// Ẩn modal sau khi xoá
+					const modal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
+					modal.hide();
+					alert("Xóa thành công.");
+					// Reload lại danh sách
+					loadData();
+				})
+				.catch(error => {
+					console.error("Lỗi khi xoá:", error);
+					alert("Lỗi khi xoá danh mục phân loại.");
+				});
+		}
+
+
+		function formatDate(dateString) {
+			const d = new Date(dateString);
+			return d.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) + ' ' +
+				   d.toLocaleDateString('vi-VN');
+		}
+
+		function renderTable(list) {
+			const tbody = document.getElementById('tableBody');
+			tbody.innerHTML = ''; // Xoá dữ liệu cũ
+
+			if(list.length > 0){
+				let tr;
+				list.forEach(item => {
+					tr = document.createElement('tr');
+
+					tr.innerHTML = `
+						<td>${item.name}</td>
+						<td>${item.description}</td>
+						<td>
+							${item.createdByAccountEmail ? `<div><strong>Người tạo:</strong> ${item.createdByAccountEmail} - ${formatDate(item.createdAt)}</div>` : ''}
+							${item.updatedByAccountEmail ? `<div><strong>Người sửa cuối:</strong> ${item.updatedByAccountEmail} - ${formatDate(item.updatedAt)}</div>` : ''}
+						</td>
+						<td>
+							<a href="/Categories/Edit/${item.id}">Sửa</a> |
+							<a href="/Categories/Detail/${item.id}">Chi tiết</a> |
+							<a href="#"
+							   class="text-danger"
+							   data-bs-toggle="modal"
+							   data-bs-target="#deleteModal"
+							   data-id="${item.id}"
+							   data-name="${item.name}">
+								Xoá
+							</a>
+						</td>
+						`;
+
+						tbody.appendChild(tr);
+				});
+			}else{
+				let div = document.createElement('div');
+				div.innerHTML = `
+					<span>Không có dữ liệu</span>
+				`
+				tbody.innerHTML = ''
+				tbody.appendChild(div);
+			}
+
+		}
 	</script>
 }

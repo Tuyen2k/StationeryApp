@@ -1,51 +1,55 @@
 ﻿@using StationeryManagerLib.RequestModel
 
 @{
-	@model CreateAccountRequest
+	// @model CreateAccountRequest
 	ViewData["Title"] = "Thêm mới tài khoản";
 }
 
 <h1>@ViewData["Title"]</h1>
 <a asp-action="Index" class="btn btn-secondary">Danh sách tài khoản</a>
+
 <div class="container">
-	<form method="post" asp-action="Create">
+	<form id="createForm" method="post">
 		<div class="form-group">
-			<label asp-for="Name"></label>
-			<input asp-for="Name" class="form-control" />
-			<span asp-validation-for="Name" class="text-danger"></span>
+			<label for="Name">Tên tài khoản</label>
+			<input id="Name" name="Name" class="form-control" />
+			<span id="errorName" class="text-danger"></span>
 		</div>
 		<div class="form-group">
-			<label asp-for="Email"></label>
-			<input asp-for="Email" class="form-control" />
-			<span asp-validation-for="Email" class="text-danger"></span>
+			<label for="Email">Email</label>
+			<input id="Email" name="Email" class="form-control" />
+			<span id="errorEmail" class="text-danger"></span>
 		</div>
 		<div class="form-group">
-			<label asp-for="Phone"></label>
-			<input asp-for="Phone" class="form-control" />
-			<span asp-validation-for="Phone" class="text-danger"></span>
+			<label for="Phone">Số điện thoại</label>
+			<input id="Phone" name="Phone" class="form-control" />
+			<span id="errorPhone" class="text-danger"></span>
 		</div>
 		<div class="form-group position-relative">
-			<label asp-for="Password"></label>
+			<label for="Password">Mật khẩu</label>
 			<div class="input-group">
-				<input type="password" asp-for="Password" class="form-control" id="passwordInput" />
+				<input type="password" id="Password" name="Password" class="form-control" />
 				<button type="button" class="btn btn-outline-secondary" onclick="togglePassword()" tabindex="-1">
 					<i id="eyeIcon" class="fa fa-eye"></i>
 				</button>
 			</div>
-			<span asp-validation-for="Password" class="text-danger"></span>
+			<span id="errorPassword" class="text-danger"></span>
 		</div>
 
-		@* nút submit *@
 		<div class="form-group">
-			<input type="submit" value="Thêm mới" class="btn btn-primary" />
+			<button type="submit" class="btn btn-primary">Thêm mới</button>
 		</div>
 	</form>
 </div>
 
 @section Scripts {
 	<script>
+		const baseUrl = "https://localhost:7069"
+		// lấy token trong localStore
+		const token = localStorage.getItem("authToken");
+
 		function togglePassword() {
-			const input = document.getElementById("passwordInput");
+			const input = document.getElementById("Password");
 			const icon = document.getElementById("eyeIcon");
 			if (input.type === "password") {
 				input.type = "text";
@@ -57,6 +61,47 @@
 				icon.classList.add("fa-eye");
 			}
 		}
+
+		document.getElementById("createForm").addEventListener("submit", function (e) {
+			e.preventDefault(); // Ngăn form submit truyền thống
+
+			const formData = {
+				name: document.getElementById("Name").value,
+				email: document.getElementById("Email").value,
+				phone: document.getElementById("Phone").value,
+				password: document.getElementById("Password").value
+			};
+
+			// Xóa lỗi cũ
+			["Name", "Email", "Phone", "Password"].forEach(field => {
+				document.getElementById("error" + field).innerText = "";
+			});
+
+			axios.post(`${baseUrl}/api/accounts`, formData, {
+				headers: {
+						'Authorization': `Bearer ${token}`
+					}
+			})
+				.then(response => {
+					alert("Tạo tài khoản thành công!");
+					window.location.href = "/Accounts/Index";
+				})
+				.catch(error => {
+					if (error.response && error.response.status === 400) {
+						// Hiển thị lỗi từ server nếu có
+						const errors = error.response.data.errors;
+						for (let key in errors) {
+							const errorSpan = document.getElementById("error" + key);
+							if (errorSpan) {
+								errorSpan.innerText = errors[key];
+							}
+						}
+					} else {
+						alert("Đã xảy ra lỗi khi tạo tài khoản.");
+						console.error(error);
+					}
+				});
+		});
 	</script>
 }
 

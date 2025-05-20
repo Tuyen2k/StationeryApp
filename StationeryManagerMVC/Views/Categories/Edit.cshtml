@@ -1,30 +1,101 @@
 ﻿@using StationeryManagerLib.RequestModel
 
 @{
-	@model CategoryRequest
-	ViewData["Title"] = "Cập nhật danh mục phân loại";
+	// @model CategoryRequest
+	ViewData["Title"] = "Cập nhật danh mục";
 }
 
 <h1>@ViewData["Title"]</h1>
-<a asp-action="Index" class="btn btn-secondary">Danh sách danh mục phân loại</a>
+<a asp-action="Index" class="btn btn-secondary">Danh sách danh mục</a>
 <div class="container">
-	<form method="post" asp-action="Edit">
+	<form id="editForm" method="post">
 		<div class="form-group">
-			<label asp-for="Name"></label>
-			<input asp-for="Name" class="form-control" />
-			<span asp-validation-for="Name" class="text-danger"></span>
+			<label for="Name">Tên danh mục</label>
+			<input id="Name" name="Name" class="form-control" />
+			<span id="errorName" class="text-danger"></span>
+		</div>
+		<div class="form-group">
+			<label for="Description">Mô tả</label>
+			<input id="Description" name="Description" class="form-control" />
+			<span id="errorDescription" class="text-danger"></span>
 		</div>
 
 		<div class="form-group">
-			<label asp-for="Description"></label>
-			<input asp-for="Description" class="form-control" />
-			<span asp-validation-for="Description" class="text-danger"></span>
-		</div>
-
-		@* nút submit *@
-		<div class="form-group">
-			<input type="submit" value="Cập nhật" class="btn btn-primary" />
+			<button type="submit" class="btn btn-primary">Cập nhật</button>
 		</div>
 	</form>
 </div>
+
+@section Scripts {
+	<script>
+		const baseUrl = "https://localhost:7069"
+		// lấy token trong localStore
+		const token = localStorage.getItem("authToken");
+
+		function getIdFromUrl() {
+			const parts = window.location.pathname.split('/');
+			return parts[parts.length - 1];
+		}
+
+		let id;
+
+		function loadData() {
+			id = getIdFromUrl();
+
+			axios.get(`${baseUrl}/api/categories/${id}`)
+				.then(response => {
+					console.log("detail: ", response);
+					const model = response.data;
+
+					document.getElementById("Name").value = model.name
+					document.getElementById("Description").value = model.description
+				})
+				.catch(error => {
+					console.error("Lỗi khi lấy dữ liệu:", error);
+					alert("Không thể tải dữ liệu tài khoản.");
+				});
+		}
+
+		document.addEventListener("DOMContentLoaded", loadData);
+
+		document.getElementById("editForm").addEventListener("submit", function (e) {
+			e.preventDefault(); // Ngăn form submit truyền thống
+
+			const formData = {
+				name: document.getElementById("Name").value,
+				description: document.getElementById("Description").value,
+			};
+
+			// Xóa lỗi cũ
+			["Name", "Description"].forEach(field => {
+				document.getElementById("error" + field).innerText = "";
+			});
+
+			axios.patch(`${baseUrl}/api/categories/${id}`, formData, {
+				headers: {
+						'Authorization': `Bearer ${token}`
+					}
+			})
+				.then(response => {
+					alert("Cập nhật danh mục phân loại thành công!");
+					window.location.href = "/Categories";
+				})
+				.catch(error => {
+					if (error.response && error.response.status === 400) {
+						// Hiển thị lỗi từ server nếu có
+						const errors = error.response.data.errors;
+						for (let key in errors) {
+							const errorSpan = document.getElementById("error" + key);
+							if (errorSpan) {
+								errorSpan.innerText = errors[key];
+							}
+						}
+					} else {
+						alert("Đã xảy ra lỗi khi tạo danh mục phân loại.");
+						console.error(error);
+					}
+				});
+		});
+	</script>
+}
 

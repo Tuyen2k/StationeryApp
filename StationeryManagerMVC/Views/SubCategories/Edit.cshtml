@@ -1,38 +1,130 @@
 ﻿@using StationeryManagerLib.RequestModel
 
 @{
-	@model SubCategoryRequest
+	// @model SubCategoryRequest
 	ViewData["Title"] = "Cập nhật danh mục sản phẩm";
 }
 
 <h1>@ViewData["Title"]</h1>
-<a asp-action="Index" class="btn btn-secondary">Danh sách danh mục phân loại</a>
+<a asp-action="Index" class="btn btn-secondary">Danh sách danh mục</a>
 <div class="container">
-	<form method="post" asp-action="Edit">
+	<form id="editForm" method="post">
 		<div class="form-group">
-			<label asp-for="Name"></label>
-			<input asp-for="Name" class="form-control" />
-			<span asp-validation-for="Name" class="text-danger"></span>
+			<label for="Name">Tên danh mục</label>
+			<input id="Name" name="Name" class="form-control" />
+			<span id="errorName" class="text-danger"></span>
+		</div>
+		<div class="form-group">
+			<label for="Description">Mô tả</label>
+			<input id="Description" name="Description" class="form-control" />
+			<span id="errorDescription" class="text-danger"></span>
 		</div>
 
 		<div class="form-group">
-			<label asp-for="Description"></label>
-			<input asp-for="Description" class="form-control" />
-			<span asp-validation-for="Description" class="text-danger"></span>
-		</div>
-
-		<div class="form-group">
-			<label asp-for="CategoryId" class="control-label"></label>
-			<select asp-for="CategoryId" asp-items="ViewBag.CategoryList" class="form-control">
-				<option value="">-- Chọn danh mục cha --</option>
+			<label for="Description">Danh mục phân loại</label>
+			<select id="CategoryId" name="CategoryId" class="form-control">
 			</select>
-			<span asp-validation-for="CategoryId" class="text-danger"></span>
+			<span id="errorCategoryId" class="text-danger"></span>
 		</div>
 
-		@* nút submit *@
 		<div class="form-group">
-			<input type="submit" value="Cập nhật" class="btn btn-primary" />
+			<button type="submit" class="btn btn-primary">Cập nhật</button>
 		</div>
 	</form>
 </div>
 
+@section Scripts {
+	<script>
+		const baseUrl = "https://localhost:7069"
+		// lấy token trong localStore
+		const token = localStorage.getItem("authToken");
+
+		document.addEventListener("DOMContentLoaded", loadData);
+
+		function getIdFromUrl() {
+			const parts = window.location.pathname.split('/');
+			return parts[parts.length - 1];
+		}
+
+		let id;
+
+		function getById(){
+			id = getIdFromUrl();
+
+			axios.get(`${baseUrl}/api/subcategories/${id}`)
+				.then(response => {
+					console.log("detail: ", response);
+					const model = response.data;
+
+					document.getElementById("Name").value = model.name
+					document.getElementById("Description").value = model.description
+					document.getElementById("CategoryId").value = model.categoryId
+				})
+				.catch(error => {
+					console.error("Lỗi khi lấy dữ liệu:", error);
+					alert("Không thể tải dữ liệu danh mục sản phẩm.");
+				});
+		}
+
+		function loadData(){
+			axios.get(`${baseUrl}/api/categories`)
+				.then(response => {
+					const categories = response.data;
+					const categorySelect = document.getElementById("CategoryId");
+					let option;
+					categories.forEach(category => {
+						option = document.createElement("option");
+						option.value = category.id;
+						option.textContent = category.name;
+						categorySelect.appendChild(option);
+					});
+
+					getById();
+				})
+				.catch(error => {
+					console.error("Lỗi khi lấy danh sách danh mục:", error);
+					alert("Không thể tải danh sách danh mục phân loại.");
+				});
+		}
+
+		document.getElementById("editForm").addEventListener("submit", function (e) {
+			e.preventDefault(); // Ngăn form submit truyền thống
+
+			const formData = {
+				name: document.getElementById("Name").value,
+				description: document.getElementById("Description").value,
+				categoryId: document.getElementById("CategoryId").value,
+			};
+
+			// Xóa lỗi cũ
+			["Name", "Description", "CategoryId"].forEach(field => {
+				document.getElementById("error" + field).innerText = "";
+			});
+
+			axios.patch(`${baseUrl}/api/subcategories/${id}`, formData, {
+				headers: {
+						'Authorization': `Bearer ${token}`
+					}
+			})
+				.then(response => {
+					alert("Cập nhật danh mục sản phẩm thành công!");
+					window.location.href = "/SubCategories";
+				})
+				.catch(error => {
+					if (error.response && error.response.status === 400) {
+						// Hiển thị lỗi từ server nếu có
+						const errors = error.response.data.errors;
+						for (let key in errors) {
+							const errorSpan = document.getElementById("error" + key);
+							if (errorSpan) {
+								errorSpan.innerText = errors[key];
+							}
+						}
+					} else {
+						alert("Đã xảy ra lỗi khi cập nhật danh mục sản phẩm.");
+						console.error(error);
+					}
+				});
+		});
+	</script>
+}

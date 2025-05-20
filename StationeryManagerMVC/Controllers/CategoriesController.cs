@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.Extensions;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,29 +12,30 @@ namespace StationeryManagerMVC.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly StationeryDBContext _context;
+        //private readonly StationeryDBContext _context;
 
         public CategoriesController(StationeryDBContext context)
         {
-            _context = context;
+            //_context = context;
         }
 
         public IActionResult Index()
         {
-            var search = Request.Query["search"].ToString();
-            var query = _context.Categories.AsQueryable();
-            query = query.Where(x => x.IsDeleted != true);
-            
-            if (!string.IsNullOrEmpty(search))
-            {
-                query = query.Where(e => e.Name.Contains(search));
-            }
+            //var search = Request.Query["search"].ToString();
+            //var query = _context.Categories.AsQueryable();
+            //query = query.Where(x => x.IsDeleted != true);
 
-            query = query.OrderByDescending(e => e.CreatedAt);
+            //if (!string.IsNullOrEmpty(search))
+            //{
+            //    query = query.Where(e => e.Name.Contains(search));
+            //}
 
-            var categories = query.ToList();
+            //query = query.OrderByDescending(e => e.CreatedAt);
 
-            return View(categories);
+            //var categories = await query.ToListAsync();
+
+            //return View(categories);
+            return View();
         }
 
         public IActionResult Create()
@@ -43,83 +45,89 @@ namespace StationeryManagerMVC.Controllers
 
         public IActionResult Detail(string id)
         {
-            var category = _context.Categories.FirstOrDefault(e => e.Id.ToString() == id && e.IsDeleted != true);
-            if (category == null)
-            {
-                return NotFound();
-            }
-            return View(category);
+            //var category = await _context.Categories.Where(e => e.Id.ToString() == id && e.IsDeleted != true).FirstOrDefaultAsync();
+            //if (category == null)
+            //{
+            //    return NotFound();
+            //}
+            //return View(category);
+            return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(CategoryRequest request)
-        {
-            if (ModelState.IsValid)
-            {
-                var category = new CategoryModel
-                {
-                    Name = request.Name,
-                    Description = request.Description,
-                    IsDeleted = false,
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                };
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create(CategoryRequest request)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var category = new CategoryModel
+        //        {
+        //            Name = request.Name,
+        //            Description = request.Description,
+        //            IsDeleted = false,
+        //            CreatedAt = DateTime.Now,
+        //            UpdatedAt = DateTime.Now,
+        //        };
 
-                _context.Categories.Add(category);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(request);
-        }
+        //        await _context.Categories.AddAsync(category);
+        //        _context.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(request);
+        //}
 
         public IActionResult Edit(string id)
         {
-            var category = _context.Categories.FirstOrDefault(e => e.Id.ToString() == id && e.IsDeleted != true);
-            if (category == null)
-            {
-                return NotFound();
-            }
-            var request = new CategoryRequest
-            {
-                Name = category.Name,
-                Description = category.Description,
-            };
-            return View(request);
+            //var category = await _context.Categories.Where(e => e.Id.ToString() == id && e.IsDeleted != true).FirstOrDefaultAsync();
+            //if (category == null)
+            //{
+            //    return NotFound();
+            //}
+            //var request = new CategoryRequest
+            //{
+            //    Name = category.Name,
+            //    Description = category.Description,
+            //};
+            //return View(request);
+            return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(string id, CategoryRequest request)
-        {
-            if (ModelState.IsValid)
-            {
-                var category = _context.Categories.FirstOrDefault(e => e.Id.ToString() == id && e.IsDeleted != true);
-                if (category == null)
-                {
-                    return NotFound();
-                }
-                category.Name = request.Name;
-                category.Description = request.Description;
-                category.UpdatedAt = DateTime.Now;
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(request);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(string id, CategoryRequest request)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var category = await _context.Categories.Where(e => e.Id.ToString() == id && e.IsDeleted != true).FirstOrDefaultAsync();
+        //        if (category == null)
+        //        {
+        //            return NotFound();
+        //        }
+        //        category.Name = request.Name;
+        //        category.Description = request.Description;
+        //        category.UpdatedAt = DateTime.Now;
 
-        [HttpPost]
-        public IActionResult Delete(string id)
-        {
-            var category = _context.Categories.FirstOrDefault(e => e.Id.ToString() == id && e.IsDeleted != true);
-            if (category == null)
-            {
-                return NotFound();
-            }
-            category.IsDeleted = true;
-            category.DeletedAt = DateTime.Now;
-            _context.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //        _context.Categories.Update(category);
+        //        _context.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(request);
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> Delete(string id)
+        //{
+        //    var category = await _context.Categories.Where(e => e.Id.ToString() == id && e.IsDeleted != true).FirstOrDefaultAsync();
+        //    if (category == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    category.IsDeleted = true;
+        //    category.DeletedAt = DateTime.Now;
+
+        //    _context.Categories.Update(category);
+        //    _context.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
     }
 }

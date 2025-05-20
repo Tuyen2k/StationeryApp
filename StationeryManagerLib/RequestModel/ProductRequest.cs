@@ -24,9 +24,11 @@ namespace StationeryManagerLib.RequestModel
         [Display(Name = "Danh mục sản phẩm")]
         public string SubCategoryId { get; set; }
 
+        [Required(ErrorMessage = "{0} là bắt buộc")]
         [Display(Name = "Giá nhập sản phẩm")]
         public double Price { get; set; } = 0;
 
+        [Required(ErrorMessage = "{0} là bắt buộc")]
         [Display(Name = "Giá bán sản phẩm")]
         public double PriceSale { get; set; } = 0;
 

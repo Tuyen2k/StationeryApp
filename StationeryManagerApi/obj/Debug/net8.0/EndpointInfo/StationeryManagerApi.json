@@ -2033,6 +2033,8 @@
       "ProductRequest": {
         "required": [
           "name",
+          "price",
+          "priceSale",
           "subCategoryId"
         ],
         "type": "object",

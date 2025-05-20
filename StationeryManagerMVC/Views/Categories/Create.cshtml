@@ -1,29 +1,75 @@
 ﻿@using StationeryManagerLib.RequestModel
 
 @{
-	@model CategoryRequest
+	// @model CategoryRequest
 	ViewData["Title"] = "Thêm mới danh mục";
 }
 
 <h1>@ViewData["Title"]</h1>
-<a asp-action="Index" class="btn btn-secondary">Danh sách danh mục tài khoản</a>
+<a asp-action="Index" class="btn btn-secondary">Danh sách danh mục</a>
 <div class="container">
-	<form method="post" asp-action="Create">
+	<form id="createForm" method="post">
 		<div class="form-group">
-			<label asp-for="Name"></label>
-			<input asp-for="Name" class="form-control" />
-			<span asp-validation-for="Name" class="text-danger"></span>
+			<label for="Name">Tên danh mục</label>
+			<input id="Name" name="Name" class="form-control" />
+			<span id="errorName" class="text-danger"></span>
 		</div>
 		<div class="form-group">
-			<label asp-for="Description"></label>
-			<input asp-for="Description" class="form-control" />
-			<span asp-validation-for="Description" class="text-danger"></span>
+			<label for="Description">Mô tả</label>
+			<input id="Description" name="Description" class="form-control" />
+			<span id="errorDescription" class="text-danger"></span>
 		</div>
 
-		@* nút submit *@
 		<div class="form-group">
-			<input type="submit" value="Thêm mới" class="btn btn-primary" />
+			<button type="submit" class="btn btn-primary">Thêm mới</button>
 		</div>
 	</form>
 </div>
+
+@section Scripts {
+	<script>
+		const baseUrl = "https://localhost:7069"
+		// lấy token trong localStore
+		const token = localStorage.getItem("authToken");
+
+		document.getElementById("createForm").addEventListener("submit", function (e) {
+			e.preventDefault(); // Ngăn form submit truyền thống
+
+			const formData = {
+				name: document.getElementById("Name").value,
+				description: document.getElementById("Description").value,
+			};
+
+			// Xóa lỗi cũ
+			["Name", "Description"].forEach(field => {
+				document.getElementById("error" + field).innerText = "";
+			});
+
+			axios.post(`${baseUrl}/api/categories`, formData, {
+				headers: {
+						'Authorization': `Bearer ${token}`
+					}
+			})
+				.then(response => {
+					alert("Tạo danh mục phân loại thành công!");
+					window.location.href = "/Categories";
+				})
+				.catch(error => {
+					if (error.response && error.response.status === 400) {
+						// Hiển thị lỗi từ server nếu có
+						const errors = error.response.data.errors;
+						for (let key in errors) {
+							const errorSpan = document.getElementById("error" + key);
+							if (errorSpan) {
+								errorSpan.innerText = errors[key];
+							}
+						}
+					} else {
+						alert("Đã xảy ra lỗi khi tạo danh mục phân loại.");
+						console.error(error);
+					}
+				});
+		});
+	</script>
+}
 

@@ -1,0 +1,85 @@
+﻿
+@{
+	ViewData["Title"] = "Đăng nhập";
+}
+
+<h2>Đăng nhập</h2>
+<form id="loginForm" method="post">
+	<div class="form-group">
+		<label for="Email">Email</label>
+		<input id="Email" name="Email" class="form-control" />
+		<span id="errorEmail" class="text-danger"></span>
+	</div>
+	<div class="form-group position-relative">
+		<label for="Password">Mật khẩu</label>
+		<div class="input-group">
+			<input type="password" id="Password" name="Password" class="form-control" />
+			<button type="button" class="btn btn-outline-secondary" onclick="togglePassword()" tabindex="-1">
+				<i id="eyeIcon" class="fa fa-eye"></i>
+			</button>
+		</div>
+		<span id="errorPassword" class="text-danger"></span>
+	</div>
+
+	<button type="submit" class="btn btn-primary mt-2">Đăng nhập</button>
+</form>
+
+@section Scripts {
+	<script>
+		const baseUrl = "https://localhost:7069";
+
+		function togglePassword() {
+			const input = document.getElementById("Password");
+			const icon = document.getElementById("eyeIcon");
+			if (input.type === "password") {
+				input.type = "text";
+				icon.classList.remove("fa-eye");
+				icon.classList.add("fa-eye-slash");
+			} else {
+				input.type = "password";
+				icon.classList.remove("fa-eye-slash");
+				icon.classList.add("fa-eye");
+			}
+		}
+
+		document.getElementById("loginForm").addEventListener("submit", function (e) {
+			e.preventDefault();
+
+			const emailInput =  document.getElementById("Email").value
+			const data = {
+				email: emailInput,
+				password: document.getElementById("Password").value
+			};
+
+			axios.post(`${baseUrl}/api/auth/login`, data)
+				.then(res => {
+					console.log("res: ", res);
+					// Xóa lỗi cũ
+					["Email","Password"].forEach(field => {
+						document.getElementById("error" + field).innerText = "";
+					});
+
+					const token = res.data;
+					localStorage.setItem("authToken", token);
+					localStorage.setItem("userEmail", emailInput);
+					alert("Đăng nhập thành công!");
+					window.location.href = "@ViewBag.ReturnUrl";
+				})
+				.catch(error => {
+					if (error.response && error.response.status === 400) {
+						// Hiển thị lỗi từ server nếu có
+						const errors = error.response.data.errors;
+						for (let key in errors) {
+							const errorSpan = document.getElementById("error" + key);
+							if (errorSpan) {
+								errorSpan.innerText = errors[key];
+							}
+						}
+					} else {
+						alert("Đã xảy ra lỗi khi đăng nhập.");
+						console.error(error);
+					}
+				});
+		});
+	</script>
+}

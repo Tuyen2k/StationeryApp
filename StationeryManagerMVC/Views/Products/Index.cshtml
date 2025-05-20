@@ -1,0 +1,180 @@
+﻿@using StationeryManagerLib.Entities
+
+@{
+	ViewData["Title"] = "Danh sách sản phẩm";
+	// @model List<ProductModel>
+}
+
+<div class="container">
+	<h1>@ViewData["Title"]</h1>
+	<div class="text-right mb-3">
+		<a asp-action="Create" class="btn btn-primary">Thêm sản phẩm</a>
+	</div>
+	@* <form asp-action="Index" method="get" class="mb-3"> *@
+	<div class="input-group">
+		<input type="text" name="search" id="search" class="form-control" placeholder="Tìm theo tên sản phẩm..." />
+		<button type="submit" class="btn btn-primary" onclick="onSearch()">Tìm</button>
+	</div>
+	@* </form> *@
+
+
+	<div class="">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Ảnh</th>
+					<th>Tên sản phẩm</th>
+					<th>Mã SKU</th>
+					<th>Giá nhập</th>
+					<th>Giá bán</th>
+					<th>Lịch sử thao tác</th>
+					<th>Ctrl</th>
+				</tr>
+			</thead>
+			<tbody id="tableBody">
+			</tbody>
+		</table>
+	</div>
+
+
+	@* Thêm modal xác nhận xóa account, xư lý property data-name trong thẻ a mở modal và hiển thị trong phần thông tin xóa *@
+	<!-- Modal xác nhận xoá -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				@* <form asp-action="Delete" method="post"> *@
+					<div class="modal-header">
+						<h5 class="modal-title" id="deleteModalLabel">Xác nhận xoá</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" name="id" id="deleteId" />
+						<p>Bạn có chắc muốn xoá danh mục sản phẩm <strong id="deleteName"></strong> không?</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+						<button type="submit" class="btn btn-danger" onclick="onDelete()">Xoá</button>
+					</div>
+				@* </form> *@
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+@section Scripts {
+	<script>
+		const baseUrl = "https://localhost:7069";
+		const token = localStorage.getItem("authToken");
+
+		var deleteModal = document.getElementById('deleteModal');
+		deleteModal.addEventListener('show.bs.modal', function (event) {
+			var button = event.relatedTarget;
+			var id = button.getAttribute('data-id');
+			var name = button.getAttribute('data-name');
+
+			var modalIdInput = deleteModal.querySelector('#deleteId');
+			var modalName = deleteModal.querySelector('#deleteName');
+
+			modalIdInput.value = id;
+			modalName.textContent = name;
+		});
+
+		document.addEventListener('DOMContentLoaded', function() {
+			loadData();
+		});
+
+		function onDelete() {
+			const id = document.getElementById("deleteId").value;
+			axios.delete(`${baseUrl}/api/products/${id}`, {
+				headers: {
+					'Authorization': `Bearer ${token}`
+				}
+			})
+			.then(response => {
+				alert("Xoá sản phẩm thành công!");
+				loadData();
+			})
+			.catch(error => {
+				alert("Đã xảy ra lỗi khi xoá sản phẩm.");
+			});
+		}
+
+		function onSearch() {
+			const search = document.getElementById("search").value;
+			loadData(search);
+		}
+
+		function loadData(search) {
+			
+			axios.get(`${baseUrl}/api/products`, {
+				params: {
+					page: 0,
+					limit: 20,
+					name: search !== null && search !== undefined ? search : ""
+				}
+			})
+			.then(response => {
+				console.log("res: ", response.data);
+				renderTable(response.data);
+			})
+			.catch(error => {
+				console.error("error: ", error.message);
+				alert("Đã xảy ra lỗi khi tải dữ liệu.");
+				renderTable([]);
+			});
+		}
+
+		function getImageUrl(imageUrl) {
+			if (imageUrl) {
+				return `https://localhost:7069${imageUrl}`;
+			}
+			return "../images/image_default.png";
+		}
+
+		function renderTable(list){
+			const tableBody = document.getElementById("tableBody");
+			tableBody.innerHTML = ""; // Xóa nội dung cũ
+
+			if (list.length === 0) {
+				tableBody.innerHTML = "<tr><td colspan='7' class='text-center'>Không có dữ liệu</td></tr>";
+				return;
+			}
+
+			let tr;
+			list.forEach(item => {
+				tr = document.createElement("tr");
+				tr.innerHTML = `
+					<td>
+						<img src="${getImageUrl(item.imageUrl)}" alt="product image" style="width: 100px; height: auto" />
+					</td>
+					<td>${item.name}</td>
+					<td>${item.sku}</td>
+					<td>${item.price.toLocaleString('vi-VN')}</td>
+					<td>${item.priceSale.toLocaleString('vi-VN')}</td>
+					<td>
+						${item.createdByAccountEmail ? `<div><strong>Người tạo:</strong> ${item.createdByAccountEmail} - ${new Date(item.createdAt).toLocaleString('vi-VN')}</div>` : ''}
+						${item.updatedByAccountEmail ? `<div><strong>Người sửa cuối:</strong> ${item.updatedByAccountEmail} - ${new Date(item.updatedAt).toLocaleString('vi-VN')}</div>` : ''}
+					</td>
+					<td>
+						<a href="/Products/Edit/${item.id}">Sửa</a> |
+						<a href="/Products/Detail/${item.id}">Chi tiết</a> |
+						<a class="text-danger"
+						   data-bs-toggle="modal"
+						   data-bs-target="#deleteModal"
+						   data-id="${item.id}"
+						   data-name="${item.name}">
+							Xoá
+						</a>
+					</td>
+				`;
+				tableBody.appendChild(tr);
+			});
+
+		}
+
+
+	</script>
+}
+

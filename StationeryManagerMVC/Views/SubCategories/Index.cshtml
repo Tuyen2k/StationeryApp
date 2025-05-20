@@ -2,29 +2,24 @@
 
 @{
 	ViewData["Title"] = "Danh sách danh mục sản phẩm";
-	@model List<SubCategoryDtoModel>
+	// @model List<SubCategoryDtoModel>
 }
 
-
-<h1>@ViewData["Title"]</h1>
-<div class="text-right mb-3">
-	<a asp-action="Create" class="btn btn-primary">Thêm danh mục</a>
-</div>
-<form asp-action="Index" method="get" class="mb-3">
-	<div class="input-group">
-		<input type="text" name="search" value="@Context.Request.Query["search"]" class="form-control" placeholder="Tìm theo tên danh mục..." />
-		<button type="submit" class="btn btn-primary">Tìm</button>
+<div class="container">
+	<h1>@ViewData["Title"]</h1>
+	<div class="text-right mb-3">
+		<a asp-action="Create" class="btn btn-primary">Thêm danh mục</a>
 	</div>
-</form>
+	@* <form asp-action="Index" method="get" class="mb-3"> *@
+	<div class="input-group">
+		<input type="text" name="search" id="search" class="form-control" placeholder="Tìm theo tên danh mục..." />
+		<button type="submit" class="btn btn-primary" onclick="onSearch()">Tìm</button>
+	</div>
+	@* </form> *@
 
-@if (Model.Count == 0)
-{
-	<div class="alert alert-info">Không có danh mục sản phẩm nào.</div>
-}
-else
-{
 
-	<div class="container">
+
+	<div class="" id="table">
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -35,66 +30,42 @@ else
 					<th>Ctrl</th>
 				</tr>
 			</thead>
-			<tbody>
-				@foreach (var item in Model)
-				{
-					<tr>
-						<td>@item.Name</td>
-						<td>@item.Description</td>
-						<td>@item.CategoryName</td>
-						<td>
-							@if (!string.IsNullOrEmpty(item.CreatedByAccountEmail))
-							{
-								<div><strong>Người tạo:</strong> @item.CreatedByAccountEmail - @item.CreatedAt.ToString("HH:mm dd/MM/yyyy")</div>
-							}
-							@if (!string.IsNullOrEmpty(item.UpdatedByAccountEmail))
-							{
-								<div><strong>Người sửa cuối:</strong> @item.UpdatedByAccountEmail - @item.UpdatedAt.ToString("HH:mm dd/MM/yyyy")</div>
-							}
-						</td>
-						<td>
-							<a asp-action="Edit" asp-route-id="@item.Id">Sửa</a> |
-							<a asp-action="Detail" asp-route-id="@item.Id">Chi tiết</a> |
-							<a class="text-danger"
-									data-bs-toggle="modal"
-									data-bs-target="#deleteModal"
-									data-id="@item.Id"
-									data-name="@item.Name">
-								Xoá
-							</a>
-						</td>
-					</tr>
-				}
+			<tbody id="tableBody">
+				
 			</tbody>
 		</table>
 	</div>
-}
 
-@* Thêm modal xác nhận xóa account, xư lý property data-name trong thẻ a mở modal và hiển thị trong phần thông tin xóa *@
-<!-- Modal xác nhận xoá -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form asp-action="Delete" method="post">
-				<div class="modal-header">
-					<h5 class="modal-title" id="deleteModalLabel">Xác nhận xoá</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<input type="hidden" name="id" id="deleteId" />
-					<p>Bạn có chắc muốn xoá danh mục sản phẩm <strong id="deleteName"></strong> không?</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-					<button type="submit" class="btn btn-danger">Xoá</button>
-				</div>
-			</form>
+	@* Thêm modal xác nhận xóa account, xư lý property data-name trong thẻ a mở modal và hiển thị trong phần thông tin xóa *@
+	<!-- Modal xác nhận xoá -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				@* <form asp-action="Delete" method="post"> *@
+					<div class="modal-header">
+						<h5 class="modal-title" id="deleteModalLabel">Xác nhận xoá</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" name="id" id="deleteId" />
+						<p>Bạn có chắc muốn xoá danh mục sản phẩm <strong id="deleteName"></strong> không?</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+						<button type="submit" class="btn btn-danger" onclick="onDelete()">Xoá</button>
+					</div>
+				@* </form> *@
+			</div>
 		</div>
 	</div>
 </div>
 
+
 @section Scripts {
 	<script>
+
+		const baseUrl = "https://localhost:7069"
+
 		var deleteModal = document.getElementById('deleteModal');
 		deleteModal.addEventListener('show.bs.modal', function (event) {
 			var button = event.relatedTarget;
@@ -107,5 +78,137 @@ else
 			modalIdInput.value = id;
 			modalName.textContent = name;
 		});
+
+		document.addEventListener('DOMContentLoaded', function() {
+			loadCategories();
+			
+		});
+
+		function onSearch(){
+			const search = document.getElementById("search").value;
+			loadData(search);
+		}
+
+		let categories = [];
+
+		function loadCategories(){
+			axios.get(`${baseUrl}/api/categories`,{
+				params:{
+					page: 0,
+					limit: 100
+				}
+			})
+			.then(respone => {
+				console.log("categories: ", respone);
+				categories = respone.data;
+				loadData();
+			})
+			.catch(error => {
+				console.error("Lỗi lấy categories: ", error.message);
+			})
+		}
+		
+		// lấy token trong localStore
+		const token = localStorage.getItem("authToken");
+
+		function loadData(search){
+			axios.get(`${baseUrl}/api/subcategories`, {
+				params: {
+					page: 0,
+					limit: 20,
+					name: search !== null && search !== undefined ? search : ""
+				}
+			})
+			.then(response => {
+				console.log("data: ", response);
+				renderTable(response.data);
+			})
+			.catch(error => {
+				console.error(error);
+				renderTable([]);
+			})
+		}
+
+		function getCategoryName(id){
+			if(categories.length < 1) return "";
+			const category = categories.find(i => i.id === id);
+			if(category === null || category === undefined ){
+				return "";
+			}
+			return category.name;
+		}
+
+		function renderTable(list) {
+			const tbody = document.getElementById('tableBody');
+			tbody.innerHTML = ''; // Xoá dữ liệu cũ
+
+			if(list.length > 0){
+				let tr;
+				list.forEach(item => {
+					tr = document.createElement('tr');
+
+					tr.innerHTML = `
+						<td>${item.name}</td>
+						<td>${item.description}</td>
+						<td>${getCategoryName(item.categoryId)}</td>
+						<td>
+							${item.createdByAccountEmail ? `<div><strong>Người tạo:</strong> ${item.createdByAccountEmail} - ${formatDate(item.createdAt)}</div>` : ''}
+							${item.updatedByAccountEmail ? `<div><strong>Người sửa cuối:</strong> ${item.updatedByAccountEmail} - ${formatDate(item.updatedAt)}</div>` : ''}
+						</td>
+						<td>
+							<a href="/SubCategories/Edit/${item.id}">Sửa</a> |
+							<a href="/SubCategories/Detail/${item.id}">Chi tiết</a> |
+							<a href="#"
+							   class="text-danger"
+							   data-bs-toggle="modal"
+							   data-bs-target="#deleteModal"
+							   data-id="${item.id}"
+							   data-name="${item.name}">
+								Xoá
+							</a>
+						</td>
+						`;
+
+						tbody.appendChild(tr);
+				});
+			}else{
+				let div = document.createElement('div');
+				div.innerHTML = `
+					<span>Không có dữ liệu</span>
+				`
+				tbody.innerHTML = ''
+				tbody.appendChild(div);
+			}
+		}
+
+		function onDelete() {
+			const id = document.getElementById("deleteId").value;
+			console.log("id: ", id)
+				axios.delete(`${baseUrl}/api/subcategories/${id}`, {
+					headers: {
+						'Authorization': `Bearer ${token}`
+					}
+				})
+				.then(response => {
+					// Ẩn modal sau khi xoá
+					const modal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
+					modal.hide();
+					alert("Xóa thành công.");
+					// Reload lại danh sách
+					loadData();
+				})
+				.catch(error => {
+					console.error("Lỗi khi xoá:", error);
+					alert("Lỗi khi xoá danh mục phân loại.");
+				});
+		}
+
+
+		function formatDate(dateString) {
+			const d = new Date(dateString);
+			return d.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) + ' ' +
+				   d.toLocaleDateString('vi-VN');
+		}
+
 	</script>
 }
